@@ -1,0 +1,24 @@
+[submodule "backend/classes"]
+	path = backend/classes
+	url = https://github.com/pucrs-constrsw-2024-2/grupo1.git
+[submodule "backend/rooms"]
+	path = backend/rooms
+	url = https://github.com/pucrs-constrsw-2024-2/grupo2.git
+[submodule "backend/lessons"]
+	path = backend/lessons
+	url = https://github.com/pucrs-constrsw-2024-2/grupo3.git
+[submodule "backend/resources"]
+	path = backend/resources
+	url = https://github.com/pucrs-constrsw-2024-2/grupo4.git
+[submodule "backend/courses"]
+	path = backend/courses
+	url = https://github.com/pucrs-constrsw-2024-2/grupo5.git
+[submodule "backend/reservations"]
+	path = backend/reservations
+	url = https://github.com/pucrs-constrsw-2024-2/grupo6.git
+[submodule "backend/students"]
+	path = backend/students
+	url = https://github.com/pucrs-constrsw-2024-2/grupo7.git
+[submodule "backend/professors"]
+	path = backend/professors
+	url = https://github.com/pucrs-constrsw-2024-2/grupo8.git
