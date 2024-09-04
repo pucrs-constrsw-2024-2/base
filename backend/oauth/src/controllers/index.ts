@@ -1,5 +1,6 @@
 import { cors } from "@elysiajs/cors";
 import Elysia from "elysia";
+import { health } from "./health";
 
 export const controllers = new Elysia({ prefix: "/api" })
 	.onAfterHandle(({ request, set }) => {
@@ -16,4 +17,5 @@ export const controllers = new Elysia({ prefix: "/api" })
 		cors({
 			methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
 		}),
-	);
+	)
+	.use(health);
