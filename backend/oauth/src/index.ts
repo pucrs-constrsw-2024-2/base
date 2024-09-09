@@ -4,6 +4,9 @@ import swaggerUi from 'swagger-ui-express'
 import morgan from 'morgan'
 import routes from './routes/index.js'
 import swaggerFile from '../swagger_output.json' with { type: 'json' }
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 3000

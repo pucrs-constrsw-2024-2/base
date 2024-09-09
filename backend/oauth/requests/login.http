@@ -1,0 +1,10 @@
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin@pucrs.br",
+  "password": "a12345678",
+  "grant_type": "password",
+  "client_id": "oauth",
+  "client_secret": "04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z"
+}
