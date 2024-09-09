@@ -4,8 +4,14 @@
 
 - Marcus Quirino
 
+## pre requisitos
+
+- node 20.11.0
+- rest client (vscode)
+
 ## run
 
+- nvm use
 - mv .env.example .env
 - (coloque as variaveis de ambiente no .env)
 - npm i
