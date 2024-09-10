@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: OAuth
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_INTERNAL_HOST}:${KEYCLOAK_INTERNAL_PORT}/auth/realms/${KEYCLOAK_REALM}
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+
+keycloak:
+  realm: ${KEYCLOAK_REALM:demo}
+  url: ${KEYCLOAK_INTERNAL_HOST:demo}:${KEYCLOAK_INTERNAL_PORT:8080}
+  client-id: ${KEYCLOAK_CLIENT_ID:demo}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET:demo}
