@@ -1,8 +1,4 @@
-import {
-  LoginRequestI,
-  LoginRequestKeycloakI,
-  LoginResponseI,
-} from "../models/keycloak/LoginI";
+import { LoginRequestI, LoginResponseI } from "../models/keycloak/LoginI";
 import { RegisterRequestI } from "../models/keycloak/RegisterI";
 import { UserI, UserUpdateI } from "../models/keycloak/UserI";
 import { KeycloakRest } from "../rest/KeycloakRest";
@@ -16,7 +12,7 @@ export class KeycloakService {
 
   login = async (data: LoginRequestI): Promise<LoginResponseI> => {
     this.keycloakUtils.validateLoginRequest(data);
-    
+
     const loginData = this.keycloakUtils.buildLoginData(data);
     return await this.keycloakRest.login(loginData);
   };

@@ -3,7 +3,10 @@ import {
   LoginRequestI,
   LoginRequestKeycloakI,
 } from "../models/keycloak/LoginI";
-import { RegisterRequestI, RegisterRequestKeycloakI } from "../models/keycloak/RegisterI";
+import {
+  RegisterRequestI,
+  RegisterRequestKeycloakI,
+} from "../models/keycloak/RegisterI";
 import { UserUpdateI, UserUpdateKeycloakI } from "../models/keycloak/UserI";
 
 export class KeycloakUtils {
@@ -19,7 +22,6 @@ export class KeycloakUtils {
     }
 
     if (camposFaltantes.length > 0) {
-      
       throw new Error(
         `Bad request: Informe os campos obrigatórios: ${camposFaltantes.join(
           ", "
@@ -94,7 +96,7 @@ export class KeycloakUtils {
     }
   }
 
-    buildRegisterData(data: RegisterRequestI): RegisterRequestKeycloakI {
+  buildRegisterData(data: RegisterRequestI): RegisterRequestKeycloakI {
     return {
       username: data.username,
       firstName: data.first_name,

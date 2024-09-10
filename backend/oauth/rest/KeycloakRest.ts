@@ -15,8 +15,6 @@ export class KeycloakRest {
 
   login = async (data: LoginRequestKeycloakI): Promise<LoginResponseI> => {
     try {
-      console.log(data);
-      
       const response = await this.httpAdapter.post(
         `${envs.KEYCLOAK_URL}/realms/${envs.KEYCLOAK_REALM}/protocol/openid-connect/token`,
         new URLSearchParams(Object.entries(data))

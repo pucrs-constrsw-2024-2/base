@@ -57,7 +57,7 @@ export class KeycloakController {
       const id = req.params.id;
       const user = req.body;
       await this.keycloakService.updateUser(id, user, token);
-      res.status(200).send();
+      res.status(204).send();
     } catch (error: any) {
       this.handleError(res, error);
     }

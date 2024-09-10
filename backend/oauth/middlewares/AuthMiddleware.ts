@@ -39,7 +39,7 @@ export class AuthMiddleware {
 
       const token = authHeader.split(" ")[1];
       const payload = keycloakRest.decodeToken(token);
-      
+
       if (!payload.resource_access["realm-management"]) {
         return res.status(403).json({
           message:
