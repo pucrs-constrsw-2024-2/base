@@ -1,0 +1,24 @@
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "createdTimestamp": 1588880747548,
+  "username": "JoeDoe",
+  "enabled": true,
+  "totp": false,
+  "emailVerified": true,
+  "firstName": "Joe",
+  "lastName": "Doe",
+  "email": "joedoe@test.com",
+  "disableableCredentialTypes": [],
+  "requiredActions": [],
+  "notBefore": 0,
+  "access": {
+    "manageGroupMembership": true,
+    "view": true,
+    "mapRoles": true,
+    "impersonate": true,
+    "manage": true
+  },
+  "realmRoles": ["mb-user"]
+}

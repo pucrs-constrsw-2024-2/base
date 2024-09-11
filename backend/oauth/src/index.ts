@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-app.use('/api', routes)
+app.use('/', routes)
 
 app.listen(port, () => {
   console.log(`OAuth server listening on port ${port}`)
