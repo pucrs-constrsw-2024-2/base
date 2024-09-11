@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "always",
+			"source.organizeImports": "always"
+		},
+		"eslint.enable": true,
+		"eslint.format.enable": true,
+		"eslint.codeActionsOnSave.mode": "all",
+	}
 }
