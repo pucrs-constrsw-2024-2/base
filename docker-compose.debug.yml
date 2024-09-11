@@ -98,36 +98,36 @@ services:
       timeout: 10s
       retries: 10
     restart: always
-#  # OAuth
-#   oauth:
-#     container_name: oauth
-#     build:
-#       context: ./backend/utils/oauth/
-#       dockerfile: Dockerfile
-#     image: constrsw/oauth
-#     command: npm run dev
-#     environment:
-#       - NODE_ENV=development
-#       - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
-#       - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
-#       - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-#       - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-#       - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-#       - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
-#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-#       - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
-#     networks:
-#       - constrsw
-#     depends_on:
-#       keycloak:
-#         condition: service_healthy
-#     healthcheck:
-#       test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
-#       start_period: 10s
-#       interval: 10s
-#       timeout: 10s
-#       retries: 20
-#     restart: always
+ # OAuth
+  oauth:
+    container_name: oauth
+    build:
+      context: ./backend/oauth/
+      dockerfile: Dockerfile
+    image: constrsw/oauth
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
+      - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
+      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
+      - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
+    networks:
+      - constrsw
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 10s
+      retries: 20
+    restart: always
 # ------------------------- T2 -----------------------------------
 #   # Grupo 1: classes
 #   classes:
