@@ -2,6 +2,7 @@ package Group7.OAuth.adapter.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,11 @@ public class AuthController {
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO> login(String email, String password) {
         return ResponseEntity.ok(loginUC.run(email, password));
+    }
+
+    @GetMapping(path = "/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Test");
     }
 
 
