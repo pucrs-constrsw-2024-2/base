@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
 export const loginSchema = z.object({
-  username: z.string().min(1, { message: 'send a valid username' }),
-  password: z.string().min(8, { message: 'password must be at least 8 character' }),
-  grant_type: z.string().min(1, { message: 'send a valid grant_type' }),
-  client_id: z.string().min(1, { message: 'send a valid client_id' }),
-  client_secret: z.string().min(1, { message: 'send a valid client_secret' }),
+  grant_type: z.string().min(1, 'Grant type is required'),
+  client_id: z.string().min(1, 'Client id is required'),
+  client_secret: z.string().min(1, 'Client secret is required'),
+  username: z.string().min(1, 'Username must be at least 1 character long'),
+  password: z.string().min(8, 'Password must be at least 8 characters long'),
 })
 
 export type LoginInput = z.infer<typeof loginSchema>

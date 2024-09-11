@@ -1,4 +1,6 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
+import { createUserSchema } from '../schemas/userSchema.js'
 
 export const getUser = async (req: Request, res: Response) => {
   const token = req.headers.authorization?.split(' ')[1]
@@ -18,6 +20,40 @@ export const getUser = async (req: Request, res: Response) => {
     )
     const data = await response.json()
     res.json(data)
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+}
+
+export const createUser = async (req: Request, res: Response) => {
+  const token = req.headers.authorization?.split(' ')[1]
+
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+
+  try {
+    const userData = req.body as z.infer<typeof createUserSchema>
+
+    const response = await fetch(
+      `${process.env.KEYCLOAK_URL}/admin/realms/${process.env.KEYCLOAK_REALM}/users`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      },
+    )
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      return res.status(response.status).json(errorData)
+    }
+
+    res.status(201).json({ message: 'User created successfully' })
   } catch (error) {
     console.error('Error:', error)
     res.status(500).json({ error: 'Internal Server Error' })

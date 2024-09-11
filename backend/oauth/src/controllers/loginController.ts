@@ -4,7 +4,7 @@ import { loginSchema } from '../schemas/loginSchema.js'
 
 export const loginHandler = async (req: Request, res: Response) => {
   try {
-    const validatedInput = loginSchema.parse(req.body)
+    const validatedInput = req.body as z.infer<typeof loginSchema>
 
     const response = await fetch(
       `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`,
@@ -25,10 +25,6 @@ export const loginHandler = async (req: Request, res: Response) => {
     res.json(data)
   } catch (error) {
     console.error('Error:', error)
-    if (error instanceof z.ZodError) {
-      res.status(400).json({ error: 'Invalid input', details: error.errors })
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' })
-    }
+    res.status(500).json({ error: 'Internal Server Error' })
   }
 }
