@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const userRoutes = require('./routes/users');  // Certifique-se de que este caminho está correto
+const userRoutes = require('./routes/users');
 
 dotenv.config();
 
