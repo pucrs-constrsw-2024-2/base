@@ -17,3 +17,7 @@ export interface UserUpdateKeycloakI {
   firstName?: string;
   lastName?: string;
 }
+
+export interface UserUpdatePasswordI {
+  password: string;
+}

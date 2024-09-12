@@ -30,13 +30,17 @@ export class KeycloakRoutes {
       keycloakController.updateUser
     );
 
-    router.patch("/users/:id", (req: any, res: any) => {
-      res.send("Atualiza a senha de um usuário");
-    });
+    router.delete("/users/:id", 
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["delete-account"]),
+      keycloakController.deleteUser
+    );
 
-    router.delete("/users/:id", (req: any, res: any) => {
-      res.send("Deleta um usuário");
-    });
+    router.patch("/users/:id", 
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["manage-users"]),
+      keycloakController.updateUserPassword
+    );
 
     router.post(
       "/users",

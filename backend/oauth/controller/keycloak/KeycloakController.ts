@@ -3,6 +3,7 @@ import { LoginRequestI } from "../../models/keycloak/LoginI";
 import { RegisterRequestI } from "../../models/keycloak/RegisterI";
 import { KeycloakService } from "../../services/KeycloakService";
 import { OAuthI } from "../../models/keycloak/OuthI";
+import { UserUpdatePasswordI } from "../../models/keycloak/UserI";
 
 export class KeycloakController {
   constructor(private readonly keycloakService: KeycloakService) {}
@@ -63,6 +64,32 @@ export class KeycloakController {
       this.handleError(res, error);
     }
   };
+
+  deleteUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const token = req.headers.authorization as string;
+      const id = req.params.id;
+      await this.keycloakService.deleteUser(id, token);
+      res.status(204).send();
+    } catch (error: any) {
+      console.log(error)
+      this.handleError(res, error);
+    }
+  }
+
+  // validar body com o campo password
+  updateUserPassword = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const token = req.headers.authorization as string;
+      const id = req.params.id;
+      const password: UserUpdatePasswordI = req.body;
+      await this.keycloakService.updateUserPassword(id, password, token);
+      res.status(200).send();
+    } catch (error: any) {
+      console.log(error)
+      this.handleError(res, error);
+    }
+  }
 
   private handleError(res: Response, error: Error): void {
     const errorObj: OAuthI = {

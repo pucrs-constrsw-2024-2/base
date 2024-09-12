@@ -6,6 +6,7 @@ import {
   LoginResponseI,
 } from "../models/keycloak/LoginI";
 import { RegisterRequestKeycloakI } from "../models/keycloak/RegisterI";
+import { UserUpdatePasswordI } from "../models/keycloak/UserI";
 
 export class KeycloakRest {
   constructor(
@@ -100,6 +101,38 @@ export class KeycloakRest {
       this.handleError(error);
     }
   };
+
+  deleteUser = async (id: string, token: string) => {
+    try {
+      await this.httpAdapter.delete(
+        `${envs.KEYCLOAK_URL}/admin/realms/${envs.KEYCLOAK_REALM}/users/${id}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+    } catch (error: any) {
+      this.handleError(error);
+    }
+  };
+
+  updateUserPassword = async (id: string, password: UserUpdatePasswordI, token: string) => {
+    try {
+      await this.httpAdapter.put(
+        `${envs.KEYCLOAK_URL}/admin/realms/${envs.KEYCLOAK_REALM}/users/${id}`,
+        password,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+    } catch (error: any) {
+      this.handleError(error);
+    }
+  };
+
 
   validateToken = async (token: string): Promise<boolean> => {
     try {

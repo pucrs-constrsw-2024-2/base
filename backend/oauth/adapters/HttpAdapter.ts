@@ -12,4 +12,12 @@ export class HttpAdapter {
   async put(url: string, data: any, config?: any) {
     return axios.put(url, data, config);
   }
+
+  async delete(url: string, config?: any) {
+    return axios.delete(url, config);
+  }
+
+  async patch(url: string, data: any, config?: any) {
+    return axios.patch(url, data, config);
+  }
 }

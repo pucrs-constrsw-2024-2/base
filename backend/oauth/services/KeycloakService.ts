@@ -1,6 +1,6 @@
 import { LoginRequestI, LoginResponseI } from "../models/keycloak/LoginI";
 import { RegisterRequestI } from "../models/keycloak/RegisterI";
-import { UserI, UserUpdateI } from "../models/keycloak/UserI";
+import { UserI, UserUpdateI, UserUpdatePasswordI } from "../models/keycloak/UserI";
 import { KeycloakRest } from "../rest/KeycloakRest";
 import { KeycloakUtils } from "../utils/KeycloakUtils";
 
@@ -50,5 +50,20 @@ export class KeycloakService {
     const formattedId = id.split("/").pop() as string;
 
     return this.keycloakUtils.convertUser(registerData, formattedId);
+  };
+
+  deleteUser = async (
+    id: string,
+    token: string
+  ): Promise<void> => {
+    return await this.keycloakRest.deleteUser(id, token);
+  };
+
+  updateUserPassword = async (
+    id: string,
+    data: UserUpdatePasswordI,
+    token: string
+  ): Promise<void> => {
+    return await this.keycloakRest.updateUserPassword(id, data, token);
   };
 }
