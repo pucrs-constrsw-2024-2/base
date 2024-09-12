@@ -7,7 +7,6 @@ export interface RegisterRequestI {
 }
 
 export interface RegisterRequestKeycloakI {
-  username: string;
   firstName: string;
   lastName: string;
   email: string;

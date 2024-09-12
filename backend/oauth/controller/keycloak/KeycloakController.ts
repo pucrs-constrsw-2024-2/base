@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { LoginRequestI } from "../../models/keycloak/LoginI";
 import { RegisterRequestI } from "../../models/keycloak/RegisterI";
 import { KeycloakService } from "../../services/KeycloakService";
+import { OAuthI } from "../../models/keycloak/OuthI";
 
 export class KeycloakController {
   constructor(private readonly keycloakService: KeycloakService) {}
@@ -63,25 +64,39 @@ export class KeycloakController {
     }
   };
 
-  private handleError(res: Response, error: any): void {
+  private handleError(res: Response, error: Error): void {
+    const errorObj: OAuthI = {
+      error_description: error.message,
+      error_source: "OAuthAPI",
+      error_stack: [error?.stack] || [],
+    };
+
     if (error.message.includes("Unauthorized")) {
-      res
-        .status(401)
-        .json({ message: error.message.replace("Unauthorized: ", "") });
+      Object.assign(errorObj, {
+        error_code: "401",
+      });
+      res.status(401).json(errorObj);
     } else if (error.message.includes("Bad request")) {
-      res
-        .status(400)
-        .json({ message: error.message.replace("Bad request: ", "") });
+      Object.assign(errorObj, {
+        error_code: "400",
+      });
+      res.status(400).json(errorObj);
     } else if (error.message.includes("Conflict")) {
-      res
-        .status(409)
-        .json({ message: error.message.replace("Conflict: ", "") });
+      Object.assign(errorObj, {
+        error_code: "409",
+      });
+
+      res.status(409).json(errorObj);
     } else if (error.message.includes("Not found")) {
-      res
-        .status(404)
-        .json({ message: error.message.replace("Not found: ", "") });
+      Object.assign(errorObj, {
+        error_code: "404",
+      });
+      res.status(404).json(errorObj);
     } else {
-      res.status(500).json({ message: "Internal server error" });
+      Object.assign(errorObj, {
+        error_code: "500",
+      });
+      res.status(500).json(errorObj);
     }
   }
 }

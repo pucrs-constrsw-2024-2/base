@@ -71,10 +71,6 @@ export class KeycloakUtils {
   validateRegisterUserRequest(data: RegisterRequestI): void {
     let camposFaltantes: string[] = [];
 
-    if (!data.username) {
-      camposFaltantes.push("username");
-    }
-
     if (!data.password) {
       camposFaltantes.push("password");
     }
@@ -98,7 +94,6 @@ export class KeycloakUtils {
 
   buildRegisterData(data: RegisterRequestI): RegisterRequestKeycloakI {
     return {
-      username: data.username,
       firstName: data.first_name,
       lastName: data.last_name,
       email: data.email,
