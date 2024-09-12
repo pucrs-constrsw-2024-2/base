@@ -7,6 +7,14 @@ plugins {
 group = 'org.pucrs.br'
 version = '0.0.1-SNAPSHOT'
 
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'org.pucrs.br.oauth.OauthApplication'
+    )
+  }
+}
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
@@ -39,3 +47,5 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
