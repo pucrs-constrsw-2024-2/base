@@ -1,49 +1,125 @@
-// package comoauth.oauth.controller;
+package comoauth.oauth.controller;
 
-// import org.springframework.beans.factory.annotation.Value;
-// import org.springframework.http.*;
-// import org.springframework.web.bind.annotation.*;
-// import org.springframework.web.client.RestTemplate;
+import java.util.Collections;
 
-// import java.util.HashMap;
-// import java.util.Map;
+import org.keycloak.admin.client.CreatedResponseUtil;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
+import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
-// @RestController
-// @RequestMapping("/api")
-// public class OauthController {
+import comoauth.oauth.dto.UserDto;
+import comoauth.oauth.dto.UserLoginDto;
+import jakarta.ws.rs.core.Response;
 
-//   @Value("${keycloak.url}")
-//   private String keycloakUrl;
+@RestController
+@RequestMapping("/api")
+public class OauthController {
 
-//   @Value("${keycloak.realm}")
-//   private String realm;
+    @Value("${keycloak.auth-server-url}")
+    private String keycloakServerUrl;
 
-//   @Value("${keycloak.client-id}")
-//   private String clientId;
+    @Value("${keycloak.realm}")
+    private String realm;
 
-//   @Value("${keycloak.client-secret}")
-//   private String clientSecret;
+    @Value("${keycloak.admin.username}")
+    private String adminUsername;
 
-//   private final RestTemplate restTemplate = new RestTemplate();
+    @Value("${keycloak.admin.password}")
+    private String adminPassword;
 
-//   @PostMapping("/login")
-//   public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
-//     String url = keycloakUrl + "/auth/realms/" + realm + "/protocol/openid-connect/token";
+    @Value("${keycloak.admin.realm}")
+    private String adminRealm;
 
-//     HttpHeaders headers = new HttpHeaders();
-//     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+    @Value("${keycloak.clientid}")
+    private String clientId;
 
-//     Map<String, String> body = new HashMap<>();
-//     body.put("client_id", clientId);
-//     body.put("client_secret", clientSecret);
-//     body.put("username", credentials.get("username"));
-//     body.put("password", credentials.get("password"));
-//     body.put("grant_type", "password");
+    @Value("${keycloak.credentials.secret}")
+    private String clientSecret;
 
-//     HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO) {
+        // Initialize Keycloak Admin Client
+        Keycloak keycloak = KeycloakBuilder.builder()
+                .serverUrl(keycloakServerUrl)
+                .realm(adminRealm)
+                .username(adminUsername)
+                .password(adminPassword)
+                .clientId("admin-cli")
+                .build();
 
-//     ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+        // Create UserRepresentation
+        UserRepresentation user = new UserRepresentation();
+        user.setUsername(userDTO.getEmail());
+        user.setEmail(userDTO.getEmail());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEnabled(true);
 
-//     return new ResponseEntity<>(response.getBody(), response.getStatusCode());
-//   }
-// }
+        // Add credentials
+        CredentialRepresentation credential = new CredentialRepresentation();
+        credential.setType(CredentialRepresentation.PASSWORD);
+        credential.setValue(userDTO.getPassword());
+        credential.setTemporary(false);
+
+        user.setCredentials(Collections.singletonList(credential));
+
+        // Create user
+        try {
+            Response response = keycloak.realm(realm).users().create(user);
+
+            if (response.getStatus() == 201) {
+                String userId = CreatedResponseUtil.getCreatedId(response);
+                return ResponseEntity.status(HttpStatus.CREATED).body("User created with ID: " + userId);
+            } else {
+                return ResponseEntity.status(response.getStatus()).body("Failed to create user");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginDto userDTO) {
+        String tokenUrl = keycloakServerUrl + "/realms/" + realm + "/protocol/openid-connect/token";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "password");
+        map.add("client_id", clientId);
+        map.add("client_secret", clientSecret);
+        map.add("username", userDTO.getEmail());
+        map.add("password", userDTO.getPassword());
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, request, String.class);
+
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return ResponseEntity.ok(response.getBody());
+            } else {
+                return ResponseEntity.status(response.getStatusCode()).body("Invalid credentials");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+        }
+    }
+}
