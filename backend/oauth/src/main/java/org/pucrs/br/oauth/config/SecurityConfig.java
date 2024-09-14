@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,22 +28,28 @@ class SecurityConfig {
     private static final String REALM_ACCESS_CLAIM = "realm_access";
     private static final String ROLES_CLAIM = "roles";
 
-    @Bean
-    public SecurityFilterChain resourceServerFilterChain(HttpSecurity http,
-                                                         ClientRegistrationRepository clientRegistrationRepository) throws Exception {
-        http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/v1/users/login").permitAll();
-            auth.requestMatchers("/v1/users/**").hasAuthority("ADMIN");
-            auth.anyRequest().denyAll();
-        });
+    private static final String[] ENDPOINTS_WITHOUT_AUTH = {
+            "/v1/auth/**",
+            "/v1/health",
+            "/swagger-ui/**",
+            "/api-docs/**"
+    };
 
-        http.oauth2Login(Customizer.withDefaults());
-        http.logout((logout) -> {
-            var logoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-            logoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}/");
-            logout.logoutSuccessHandler(logoutSuccessHandler);
-        });
-        return http.build();
+    private static final String[] ENDPOINTS_ADMIN_ONLY = {
+            "/v1/users/**"
+    };
+
+
+    @Bean
+    public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(ENDPOINTS_WITHOUT_AUTH).permitAll()
+                            .requestMatchers(ENDPOINTS_ADMIN_ONLY).hasAuthority("ADMIN")
+                            .anyRequest().authenticated();
+                })
+                .oauth2Login(Customizer.withDefaults())
+                .oauth2ResourceServer(config -> config.jwt(Customizer.withDefaults()))
+                .build();
     }
 
     @Bean

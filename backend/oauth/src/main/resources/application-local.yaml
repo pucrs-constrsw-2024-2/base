@@ -15,7 +15,7 @@ spring:
         registration:
           keycloak:
             provider: keycloak
-            authorization-grant-type: password
+            authorization-grant-type: authorization_code
             client-id: oauth
-            client-secret: secret
-            scope: openid
+            client-secret: 04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
+            scope: openid, profile, email
