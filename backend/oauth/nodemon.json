@@ -1,0 +1,17 @@
+{
+  "exec": "ts-node app.ts",
+  "watch": [
+    "adapters",
+    "config",
+    "controller",
+    "handler",
+    "middlewares",
+    "models",
+    "rest",
+    "services",
+    "utils",
+    "app.ts",
+    "server.ts"
+  ],
+  "ext": "ts"
+}

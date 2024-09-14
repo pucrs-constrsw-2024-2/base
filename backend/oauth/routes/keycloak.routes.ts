@@ -1,52 +1,54 @@
 import { Router } from "express";
-import { KeycloakControllerFactory } from "../controller/keycloak/KeycloakControllerFactory";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
+import { KeycloakControllerHandlerFactory } from "../handler/keycloak/KeycloakControllerHandlerFactory";
 
 export class KeycloakRoutes {
   static get routes(): Router {
     const router = Router();
-    const keycloakController = new KeycloakControllerFactory().create();
+    const keycloakHandler = KeycloakControllerHandlerFactory.create();
 
-    router.post("/login", keycloakController.login);
+    router.post("/login", keycloakHandler.login);
 
     router.get(
       "/users",
       AuthMiddleware.validateBearerToken,
       AuthMiddleware.authorizeRoles(["view-users"]),
-      keycloakController.getUsers
-    );
-
-    router.get(
-      "/users/:id",
-      AuthMiddleware.validateBearerToken,
-      AuthMiddleware.authorizeRoles(["view-users"]),
-      keycloakController.getUserById
-    );
-
-    router.put(
-      "/users/:id",
-      AuthMiddleware.validateBearerToken,
-      AuthMiddleware.authorizeRoles(["manage-users"]),
-      keycloakController.updateUser
-    );
-
-    router.delete("/users/:id", 
-      AuthMiddleware.validateBearerToken,
-      AuthMiddleware.authorizeRoles(["delete-account"]),
-      keycloakController.deleteUser
-    );
-
-    router.patch("/users/:id", 
-      AuthMiddleware.validateBearerToken,
-      AuthMiddleware.authorizeRoles(["manage-users"]),
-      keycloakController.updateUserPassword
+      keycloakHandler.getUsers
     );
 
     router.post(
       "/users",
       AuthMiddleware.validateBearerToken,
       AuthMiddleware.authorizeRoles(["manage-users"]),
-      keycloakController.register
+      keycloakHandler.register
+    );
+
+    router.get(
+      "/users/:id",
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["view-users"]),
+      keycloakHandler.getUserById
+    );
+
+    router.put(
+      "/users/:id",
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["manage-users"]),
+      keycloakHandler.updateUser
+    );
+
+    router.delete(
+      "/users/:id",
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["delete-account"]),
+      keycloakHandler.deleteUser
+    );
+
+    router.patch(
+      "/users/:id",
+      AuthMiddleware.validateBearerToken,
+      AuthMiddleware.authorizeRoles(["manage-users"]),
+      keycloakHandler.updateUserPassword
     );
 
     return router;

@@ -6,21 +6,1051 @@
 		"parameters": {},
 		"requestBodies": {},
 		"responses": {},
-		"schemas": {},
+		"schemas": {
+			"LoginResponseI": {
+				"properties": {
+					"token_type": {
+						"type": "string"
+					},
+					"access_token": {
+						"type": "string"
+					},
+					"expires_in": {
+						"type": "number",
+						"format": "double"
+					},
+					"refresh_token": {
+						"type": "string"
+					},
+					"refresh_expires_in": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"token_type",
+					"access_token",
+					"expires_in",
+					"refresh_token",
+					"refresh_expires_in"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OAuthI": {
+				"properties": {
+					"error_code": {
+						"type": "string"
+					},
+					"error_description": {
+						"type": "string"
+					},
+					"error_source": {
+						"type": "string"
+					},
+					"error_stack": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LoginRequestI": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserI": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					},
+					"enabled": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"username",
+					"first_name",
+					"last_name",
+					"enabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterRequestI": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password",
+					"email",
+					"first_name",
+					"last_name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserUpdateI": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"last_name": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserUpdatePasswordI": {
+				"properties": {
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"HealthResponseI": {
+				"properties": {
+					"status": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"message",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "oauth",
+		"title": "OAuth API",
 		"version": "1.0.0",
+		"description": "OAuth API",
 		"license": {
 			"name": "ISC"
 		},
 		"contact": {}
 	},
-	"paths": {},
+	"paths": {
+		"/keycloak/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "LoginResponseI",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LoginResponseI"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "400",
+											"error_description": "Bad request",
+											"error_source": "Bad request: Informe os campos obrigatórios: username, password",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "404",
+											"error_description": "Not found",
+											"error_source": "Not found: Usuário não encontrado",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Conflict",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "409",
+											"error_description": "Conflict",
+											"error_source": "Conflict: Username já existente",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Realiza o login de um usuário usando as credenciais informadas.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequestI"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/keycloak/users": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserI"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "400",
+											"error_description": "Bad request",
+											"error_source": "Bad request: Informe os campos obrigatórios: first_name, last_name, password",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Conflict",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "409",
+											"error_description": "Conflict",
+											"error_source": "Conflict: Username já existente",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Realiza o cadastro de um novo usuário.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Dados do usuário",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterRequestI",
+								"description": "Dados do usuário"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetUsers",
+				"responses": {
+					"200": {
+						"description": "UserI[]",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/UserI"
+									},
+									"type": "array"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Retorna uma lista de todos os usuários cadastrados.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/keycloak/users/{id}": {
+			"get": {
+				"operationId": "GetUserById",
+				"responses": {
+					"200": {
+						"description": "UserI",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserI"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "404",
+											"error_description": "Not found",
+											"error_source": "Not found: Usuário não encontrado",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Retorna um usuário pelo ID.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"204": {
+						"description": "No content"
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "404",
+											"error_description": "Not found",
+											"error_source": "Not found: Usuário não encontrado",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Atualiza um usuário pelo ID.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "ID do usuário",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Dados do usuário",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdateI",
+								"description": "Dados do usuário"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"204": {
+						"description": "No content"
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "404",
+											"error_description": "Not found",
+											"error_source": "Not found: Usuário não encontrado",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Deleta um usuário pelo ID.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "ID do usuário",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"patch": {
+				"operationId": "UpdateUserPassword",
+				"responses": {
+					"204": {
+						"description": "No content"
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Unauthorized",
+											"error_source": "Unauthorized: Access token inválido",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "401",
+											"error_description": "Forbidden",
+											"error_source": "Forbidden: Access token não concede permissão para acessar esse endpoint",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "404",
+											"error_description": "Not found",
+											"error_source": "Not found: Usuário não encontrado",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OAuthI"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"error_code": "500",
+											"error_description": "Internal server error",
+											"error_source": "Internal server error: Erro ao comunicar com o endpoint externo",
+											"error_stack": []
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Altera a senha de um usuário pelo ID.",
+				"tags": [
+					"Keycloak"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "ID do usuário",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Token de autenticação",
+						"in": "header",
+						"name": "X-Access-Token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Nova senha",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdatePasswordI",
+								"description": "Nova senha"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"operationId": "GetHealth",
+				"responses": {
+					"200": {
+						"description": "Health",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthResponseI"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retorna o status atual da aplicação.",
+				"tags": [
+					"Health"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
 	"servers": [
 		{
-			"url": "/"
+			"url": "/api/oauth"
 		}
 	]
 }

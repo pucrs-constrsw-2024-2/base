@@ -164,7 +164,9 @@ export class KeycloakRest {
     } else if (error.response?.status === 404) {
       throw new Error("Not found: Usuário não encontrado");
     } else {
-      throw new Error("Bad request: Erro ao comunicar com o endpoint externo");
+      throw new Error(
+        "Internal Server Error: Erro ao comunicar com o endpoint externo"
+      );
     }
   }
 

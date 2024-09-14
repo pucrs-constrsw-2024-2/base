@@ -3,10 +3,14 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["controller/**/*Controller.ts"],
   "spec": {
+    "name": "OAuth API",
+    "description": "OAuth API",
+    "version": "1.0.0",
     "outputDirectory": "public",
+    "basePath": "/api/oauth/",
     "specVersion": 3
   },
   "routes": {
-    "routesDir": "build"
+    "routesDir": "public"
   }
 }

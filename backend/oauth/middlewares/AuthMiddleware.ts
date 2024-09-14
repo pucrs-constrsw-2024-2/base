@@ -9,10 +9,13 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) => {
-    const authHeader = req.headers.authorization;
+    const authHeader =
+      req.headers.authorization || (req.headers["x-access-token"] as string);
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Access token inválido" });
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: Access token inválido" });
     }
 
     try {
@@ -20,18 +23,23 @@ export class AuthMiddleware {
       const isValid = await keycloakRest.validateToken(token);
 
       if (!isValid) {
-        return res.status(401).json({ message: "Access token inválido" });
+        return res
+          .status(401)
+          .json({ message: "Unauthorized: Access token inválido" });
       }
 
       next();
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({
+        message: "Internal server error: Algo deu errado ao validar o token",
+      });
     }
   };
 
   static authorizeRoles = (allowedRoles: string[]) => {
     return (req: any, res: Response, next: NextFunction) => {
-      const authHeader = req.headers.authorization;
+      const authHeader =
+        req.headers.authorization || (req.headers["x-access-token"] as string);
 
       if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).json({ message: "Access token inválido" });
@@ -43,7 +51,7 @@ export class AuthMiddleware {
       if (!payload.resource_access["realm-management"]) {
         return res.status(403).json({
           message:
-            "Access token não concede permissão para acessar esse endpoint",
+            "Forbidden: Access token não concede permissão para acessar esse endpoint",
         });
       }
 
@@ -56,7 +64,7 @@ export class AuthMiddleware {
       if (!hasPermission) {
         return res.status(403).json({
           message:
-            "Access token não concede permissão para acessar esse endpoint",
+            "Forbidden: Access token não concede permissão para acessar esse endpoint",
         });
       }
 
