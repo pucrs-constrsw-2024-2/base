@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8090/realms/constrsw
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://127.0.0.1:8090/realms/constrsw
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            provider: keycloak
+            authorization-grant-type: password
+            client-id: oauth
+            client-secret: secret
+            scope: openid
