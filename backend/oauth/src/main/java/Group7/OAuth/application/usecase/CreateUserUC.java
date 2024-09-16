@@ -15,8 +15,8 @@ public class CreateUserUC {
 
     private final KeycloakMapper keycloakMapper;
 
-    public UserDTO run(UserRequestDTO user) {
-        return keycloakMapper.toUserDTO(keycloakAdapter.createUser(keycloakMapper.toKeycloakUserRegistration(user)));
+    public UserDTO run(String authorizationHeader, UserRequestDTO user) {
+        return keycloakMapper.toUserDTO(keycloakAdapter.createUser(authorizationHeader, keycloakMapper.toKeycloakUserRegistration(user)));
     }
 }
 

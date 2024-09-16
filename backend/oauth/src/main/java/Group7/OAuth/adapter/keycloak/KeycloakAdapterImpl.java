@@ -52,14 +52,13 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     }
 
     @Override
-    public KeycloakUser createUser(KeycloakUserRegistration userRegistration) {
-        KeycloakToken token = authenticateClient();
-
+    public KeycloakUser createUser(String authorizationHeader, KeycloakUserRegistration userRegistration) {
+        authorizationHeader = authorizationHeader.substring(7);
         ResponseEntity<Void> response = webClient.post()
                     .uri(uriBuilder -> uriBuilder
                             .path("/admin/realms/{realm}/users")
                             .build(realm))
-                    .header("Authorization", "Bearer " + token.access_token())
+                    .header("Authorization", "Bearer " + authorizationHeader)
                     .header("Content-Type", "application/json")
                     .body(BodyInserters.fromValue(userRegistration))
                     .retrieve()
@@ -68,19 +67,6 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
         assert response != null;
         return new KeycloakUser(getUserId(getHeaderValue(response.getHeaders())), userRegistration.username(), userRegistration.firstName(), userRegistration.lastName(), userRegistration.enabled());
-    }
-    private KeycloakToken authenticateClient() {
-        return webClient
-                .post()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/realms/{realm}/protocol/openid-connect/token")
-                        .build(realm))
-                .body(BodyInserters.fromFormData("client_id", clientId)
-                        .with("client_secret", clientSecret)
-                        .with("grant_type", "client_credentials"))
-                .retrieve()
-                .bodyToMono(KeycloakToken.class)
-                .block();
     }
 
     private String getHeaderValue(HttpHeaders headers) {

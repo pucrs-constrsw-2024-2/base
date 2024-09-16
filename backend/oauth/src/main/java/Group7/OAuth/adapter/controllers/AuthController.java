@@ -3,6 +3,8 @@ package Group7.OAuth.adapter.controllers;
 import Group7.OAuth.application.dtos.UserDTO;
 import Group7.OAuth.application.dtos.UserRequestDTO;
 import Group7.OAuth.application.usecase.CreateUserUC;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +43,17 @@ public class AuthController {
     }
 
     @PostMapping(path = "/users")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+    public ResponseEntity<UserDTO> createUser(
+        @RequestBody UserRequestDTO userRequestDTO, 
+        @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader
+    ) {
         try {
-            UserDTO userDTO = createUserUC.run(userRequestDTO);
+            UserDTO userDTO = createUserUC.run(authorizationHeader, userRequestDTO);
             return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
         }
         catch (WebClientResponseException e) {
+            System.out.println(e.getStatusCode().value());
+            System.out.println(e.getResponseBodyAsString());
             return switch (e.getStatusCode().value()) {
                 case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -56,6 +63,7 @@ public class AuthController {
             };
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

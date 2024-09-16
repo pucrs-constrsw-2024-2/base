@@ -12,9 +12,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF protection if not needed
+                .csrf(AbstractHttpConfigurer::disable)  
                 .authorizeRequests()
-                .anyRequest().permitAll();  // Allow access to all endpoints without authentication
+                .anyRequest().permitAll(); 
 
         return http.build();
     }
