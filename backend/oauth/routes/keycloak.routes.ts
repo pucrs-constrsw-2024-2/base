@@ -40,7 +40,7 @@ export class KeycloakRoutes {
     router.delete(
       "/users/:id",
       AuthMiddleware.validateBearerToken,
-      AuthMiddleware.authorizeRoles(["delete-account"]),
+      AuthMiddleware.authorizeRoles(["manage-users"]),
       keycloakHandler.deleteUser
     );
 

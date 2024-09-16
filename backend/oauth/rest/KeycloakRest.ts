@@ -117,10 +117,10 @@ export class KeycloakRest {
     }
   };
 
-  updateUserPassword = async (id: string, password: UserUpdatePasswordI, token: string) => {
+  updateUserPassword = async (id: string, password: any, token: string) => {
     try {
       await this.httpAdapter.put(
-        `${envs.KEYCLOAK_URL}/admin/realms/${envs.KEYCLOAK_REALM}/users/${id}`,
+        `${envs.KEYCLOAK_URL}/admin/realms/${envs.KEYCLOAK_REALM}/users/${id}/reset-password`,
         password,
         {
           headers: {

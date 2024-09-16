@@ -68,6 +68,14 @@ export class KeycloakUtils {
     };
   }
 
+  convertPassword(password: string): any {
+    return {
+      type: "password",
+      value: password,
+      temporary: false,
+    };
+  }
+
   validateRegisterUserRequest(data: RegisterRequestI): void {
     let camposFaltantes: string[] = [];
 

@@ -181,7 +181,7 @@
 	"info": {
 		"title": "OAuth API",
 		"version": "1.0.0",
-		"description": "OAuth API",
+		"description": "Serviço de autenticação por Keycloak da disciplina de Construção de Software.",
 		"license": {
 			"name": "ISC"
 		},

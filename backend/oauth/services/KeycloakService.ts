@@ -64,6 +64,7 @@ export class KeycloakService {
     data: UserUpdatePasswordI,
     token: string
   ): Promise<void> => {
-    return await this.keycloakRest.updateUserPassword(id, data, token);
+    const formattedData = this.keycloakUtils.convertPassword(data.password);
+    return await this.keycloakRest.updateUserPassword(id, formattedData, token);
   };
 }

@@ -4,7 +4,7 @@
   "controllerPathGlobs": ["controller/**/*Controller.ts"],
   "spec": {
     "name": "OAuth API",
-    "description": "OAuth API",
+    "description": "Serviço de autenticação por Keycloak da disciplina de Construção de Software.",
     "version": "1.0.0",
     "outputDirectory": "public",
     "basePath": "/api/oauth/",
