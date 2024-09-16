@@ -1,26 +1,31 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:21-jdk-slim
+FROM maven:3.9.4-amazoncorretto-21 AS build
 
-# Set the working directory in the container
+# Define o diretório de trabalho dentro do contêiner
 WORKDIR /oauth
 
-# Copy the Maven project files
+# Copia o arquivo pom.xml para o diretório de trabalho
 COPY pom.xml .
+
+# Baixa as dependências do Maven (isto é separado para aproveitar o cache de dependências)
+RUN mvn dependency:go-offline
+
+# Copia todo o código-fonte para o diretório de trabalho
 COPY src ./src
 
-# Package the application using Maven
-RUN apt-get update && \
-    apt-get install -y maven && \
-    mvn clean package -DskipTests
+# Compila o projeto usando Maven
+RUN mvn package -DskipTests
 
-# Expose port 8080
+# Segunda etapa para criar a imagem final do Docker
+FROM amazoncorretto:21-alpine-jdk
+
+# Define o diretório de trabalho como /app
+WORKDIR /oauth
+
+# Copia o arquivo JAR construído na primeira etapa
+COPY --from=build /oauth/target/*.jar app.jar
+
+# Expose the port that the application will run on
 EXPOSE 8080
 
-# Set the JAR file location (make sure the path matches your final artifact)
-ARG JAR_FILE=target/OAuth-0.0.1-SNAPSHOT.jar
-
-# Add the JAR to the container
-ADD ${JAR_FILE} app.jar
-
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Specify the command to run your service
+CMD ["java", "-jar", "app.jar"]

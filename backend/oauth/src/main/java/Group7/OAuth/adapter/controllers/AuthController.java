@@ -1,31 +1,62 @@
 package Group7.OAuth.adapter.controllers;
 
+import Group7.OAuth.application.dtos.UserDTO;
+import Group7.OAuth.application.dtos.UserRequestDTO;
+import Group7.OAuth.application.usecase.CreateUserUC;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Group7.OAuth.application.dtos.JwtTokenDTO;
+import Group7.OAuth.application.dtos.LoginDTO;
 import Group7.OAuth.application.usecase.LoginUC;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/auth")
+@RequestMapping
 public class AuthController {
 
     private final LoginUC loginUC;
 
+    private final CreateUserUC createUserUC;
+
     @PostMapping(path = "/login")
-    public ResponseEntity<JwtTokenDTO> login(String email, String password) {
-        return ResponseEntity.ok(loginUC.run(email, password));
+    public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            JwtTokenDTO jwtTokenDTO = loginUC.run(loginDTO.email(), loginDTO.password());
+            return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
+        }
+        catch (WebClientResponseException e) {
+            return switch (e.getStatusCode().value()) {
+                case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                default -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            };
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping(path = "/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Test");
+    @PostMapping(path = "/users")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        try {
+            UserDTO userDTO = createUserUC.run(userRequestDTO);
+            return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
+        }
+        catch (WebClientResponseException e) {
+            return switch (e.getStatusCode().value()) {
+                case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                case 403 -> new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                case 409 -> new ResponseEntity<>(HttpStatus.CONFLICT);
+                default -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            };
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
-
 }
