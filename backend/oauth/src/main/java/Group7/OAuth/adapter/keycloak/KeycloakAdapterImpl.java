@@ -11,6 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 public class KeycloakAdapterImpl implements KeycloakAdapter {
     private final String url;
@@ -91,6 +97,19 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
         .retrieve()
         .bodyToMono(KeycloakUser.class)
         .block();
+        }
+
+    public Collection<KeycloakUser> getUsers(String token) {
+        token = token.substring(7);
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/realms/{realm}/users")
+                        .build(realm))
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .bodyToFlux(KeycloakUser.class)
+                .collectList()
+                .block();
     }
 
 

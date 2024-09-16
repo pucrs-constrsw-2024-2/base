@@ -1,6 +1,12 @@
 package Group7.OAuth.adapter.controllers;
 
 import java.util.UUID;
+import Group7.OAuth.application.dtos.UserDTO;
+import Group7.OAuth.application.dtos.UserRequestDTO;
+import Group7.OAuth.application.usecase.CreateUserUC;
+import Group7.OAuth.application.usecase.GetUsersUC;
+
+import java.util.Collection;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,14 +39,14 @@ public class AuthController {
     private final CreateUserUC createUserUC;
 
     private final GetUserUC getUserUC;
+    private final GetUsersUC getUsersUC;
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
             JwtTokenDTO jwtTokenDTO = loginUC.run(loginDTO.email(), loginDTO.password());
             return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
-        }
-        catch (WebClientResponseException e) {
+        } catch (WebClientResponseException e) {
             return switch (e.getStatusCode().value()) {
                 case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -87,4 +93,9 @@ public class AuthController {
     }
 
     
+}
+    @GetMapping(path = "/users")
+    public ResponseEntity<Collection<UserDTO>> getUsers( @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        return ResponseEntity.ok(getUsersUC.run(authorizationHeader));
+    }
 }
