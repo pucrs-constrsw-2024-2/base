@@ -1,20 +1,16 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const userRoutes = require('./routes/users');
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const authRoutes = require('./src/routes/users')
 
-dotenv.config();
+const app = express()
+const PORT = process.env.OAUTH_INTERNAL_PORT || 3000
 
-const app = express();
-const port = process.env.OAUTH_INTERNAL_PORT || 3000;
+app.use(express.json())
 
-app.use(express.json());
+app.use('/auth', authRoutes)
+app.use(cors())
 
-app.use('/users', userRoutes);
-
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK' });
-});
-
-app.listen(port, () => {
-  console.log(`OAuth service listening at http://localhost:${port}`);
-});
+app.listen(PORT, () =>
+    console.log('rodando')
+)
