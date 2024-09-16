@@ -1,16 +1,15 @@
 package Group7.OAuth.adapter.keycloak;
 
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class KeycloakAdapterImpl implements KeycloakAdapter {
@@ -79,6 +78,19 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
             return UUID.fromString(matcher.group(1));
         }
         return null;
+    }
+
+    @Override
+    public KeycloakUser getUserById(String token, UUID id) {
+        token = token.substring(7);
+        return webClient.get()
+        .uri(uriBuilder -> uriBuilder
+                .path("/admin/realms/{realm}}/users/" + id)
+                .build(realm))
+        .header("Authorization", "Bearer " + token)
+        .retrieve()
+        .bodyToMono(KeycloakUser.class)
+        .block();
     }
 
 
