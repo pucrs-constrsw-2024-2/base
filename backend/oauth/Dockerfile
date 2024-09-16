@@ -4,17 +4,10 @@ FROM gradle:jdk21-alpine
 WORKDIR /app
 
 # Copy the Gradle wrapper and pom.xml
-COPY .gradle/ .gradle/
-COPY gradle/ gradle/
-COPY gradlew ./
 COPY settings.gradle ./
 COPY build.gradle ./
-
-# Make the Gradle wrapper executable
-RUN chmod +x gradlew
-
 COPY src ./src
 
 EXPOSE 8080
 
-CMD ["./gradlew", "bootRun"]
+CMD ["gradle", "bootRun"]

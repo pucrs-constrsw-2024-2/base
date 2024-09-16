@@ -109,7 +109,7 @@ services:
             context: ./backend/oauth/
             dockerfile: Dockerfile
         image: constrsw/oauth
-        command: ./gradlew bootRun
+        command: gradle bootRun
         environment:
             - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
             - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
