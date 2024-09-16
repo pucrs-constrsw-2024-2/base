@@ -22,6 +22,7 @@
   "dependencies": {
     "@anatine/zod-nestjs": "^2.0.9",
     "@anatine/zod-openapi": "^2.2.6",
+    "@nestjs/axios": "^3.0.3",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/mapped-types": "*",
@@ -29,6 +30,8 @@
     "@nestjs/swagger": "^7.4.0",
     "@scalar/nestjs-api-reference": "^0.3.149",
     "axios": "^1.7.7",
+    "keycloak-connect": "^25.0.5",
+    "nest-keycloak-connect": "^1.10.1",
     "openapi3-ts": "^4.4.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
