@@ -110,6 +110,8 @@ services:
             dockerfile: Dockerfile
         image: constrsw/oauth
         command: gradle bootRun
+        ports:
+            - "8080:8080"
         environment:
             - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
             - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
@@ -119,6 +121,7 @@ services:
             - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
             - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
             - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
+            - SPRING_PROFILES_ACTIVE=default
         networks:
             - constrsw
         depends_on:

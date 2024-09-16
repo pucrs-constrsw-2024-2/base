@@ -57,6 +57,7 @@ class SecurityConfig {
         return claims -> {
             var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get(REALM_ACCESS_CLAIM));
             var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get(ROLES_CLAIM)));
+
             return roles.stream().flatMap(Collection::stream)
                     .map(SimpleGrantedAuthority::new)
                     .map(GrantedAuthority.class::cast)
