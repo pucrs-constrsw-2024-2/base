@@ -10,7 +10,7 @@ const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID;
 exports.login = (username, password, grant_type) => {
   const url = `${KEYCLOAK_BASE_URL}/auth/realms/${REALM}/protocol/openid-connect/token`;
   const data = new URLSearchParams({
-    CLIENT_ID,
+    client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
     username,
     password,

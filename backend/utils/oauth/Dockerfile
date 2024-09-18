@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 COPY . .
-
+RUN npm install
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nodejs -u 1001
 RUN chown -R nodejs:nodejs /usr/src/app
