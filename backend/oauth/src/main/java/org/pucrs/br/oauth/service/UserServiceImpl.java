@@ -1,4 +1,3 @@
-package org.pucrs.br.oauth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.pucrs.br.oauth.model.User;
