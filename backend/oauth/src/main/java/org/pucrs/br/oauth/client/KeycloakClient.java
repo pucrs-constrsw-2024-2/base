@@ -1,40 +1,25 @@
 package org.pucrs.br.oauth.client;
 
-import java.util.Map;
-
 import org.pucrs.br.oauth.model.Auth;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-@Service
+import java.util.Map;
+
+@Component
 public class KeycloakClient {
-    @Value("${KEYCLOAK_INTERNAL_HOST}")
-    private String keycloakHost;
 
-    @Value("${KEYCLOAK_INTERNAL_PORT}")
-    private String keycloakPort;
-
-    @Value("${KEYCLOAK_REALM}")
-    private String keycloakRealm;
-
-    @Value("${KEYCLOAK_CLIENT_ID}")
-    private String keycloakClientId;
-
+    private final String keycloakClientId;
     private final RestClient client;
 
-    KeycloakClient(RestClient client) {
-        var baseUrl = String.format(
-                "http://%s:%s/realms/%s",
-                keycloakHost,
-                keycloakPort,
-                keycloakRealm);
-
-        this.client = RestClient.builder()
-                .baseUrl(baseUrl)
-                .build();
+    public KeycloakClient(@Value("${KEYCLOAK_CLIENT_ID}") String keycloakClientId,
+                          @Qualifier("keycloakRestClient") RestClient client) {
+        this.keycloakClientId = keycloakClientId;
+        this.client = client;
     }
 
     public ResponseEntity<Auth> auth(String username, String password) {

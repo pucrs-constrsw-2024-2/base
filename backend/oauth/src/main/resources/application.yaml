@@ -10,7 +10,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://${KEYCLOAK_INTERNAL_HOST}:${KEYCLOAK_INTERNAL_PORT}/auth/realms/${KEYCLOAK_REALM}
+          issuer-uri: http://${KEYCLOAK_INTERNAL_HOST}:${KEYCLOAK_INTERNAL_PORT}/realms/${KEYCLOAK_REALM}
       client:
         provider:
           keycloak:

@@ -3,7 +3,7 @@ package org.pucrs.br.oauth.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class KeycloakAuth {
+public class Auth {
     @JsonProperty("access_token")
     public String accessToken;
 
