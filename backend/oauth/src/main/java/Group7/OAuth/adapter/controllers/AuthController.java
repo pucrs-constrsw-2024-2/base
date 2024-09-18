@@ -1,33 +1,18 @@
 package Group7.OAuth.adapter.controllers;
 
-import java.util.UUID;
-import Group7.OAuth.application.dtos.UserDTO;
-import Group7.OAuth.application.dtos.UserRequestDTO;
-import Group7.OAuth.application.usecase.CreateUserUC;
-import Group7.OAuth.application.usecase.GetUsersUC;
-
-import java.util.Collection;
-
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-
 import Group7.OAuth.application.dtos.JwtTokenDTO;
 import Group7.OAuth.application.dtos.LoginDTO;
 import Group7.OAuth.application.dtos.UserDTO;
 import Group7.OAuth.application.dtos.UserRequestDTO;
-import Group7.OAuth.application.usecase.CreateUserUC;
-import Group7.OAuth.application.usecase.GetUserUC;
-import Group7.OAuth.application.usecase.LoginUC;
+import Group7.OAuth.application.usecase.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,67 +20,51 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final LoginUC loginUC;
-
     private final CreateUserUC createUserUC;
-
     private final GetUserUC getUserUC;
     private final GetUsersUC getUsersUC;
+    private final UpdateUserUC updateUserUC;
+    private final ChangePasswordUC changePasswordUC;
+    private final DeleteUserUC deleteUserUC;
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO loginDTO) {
-        try {
-            JwtTokenDTO jwtTokenDTO = loginUC.run(loginDTO.email(), loginDTO.password());
-            return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
-        } catch (WebClientResponseException e) {
-            return switch (e.getStatusCode().value()) {
-                case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                default -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            };
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        JwtTokenDTO jwtTokenDTO = loginUC.run(loginDTO.email(), loginDTO.password());
+        return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/users")
-    public ResponseEntity<UserDTO> createUser(
-        @RequestBody UserRequestDTO userRequestDTO, 
-        @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader
-    ) {
-        try {
-            UserDTO userDTO = createUserUC.run(authorizationHeader, userRequestDTO);
-            return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
-        }
-        catch (WebClientResponseException e) {
-            System.out.println(e.getStatusCode().value());
-            System.out.println(e.getResponseBodyAsString());
-            return switch (e.getStatusCode().value()) {
-                case 400 -> new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                case 401 -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                case 403 -> new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                case 409 -> new ResponseEntity<>(HttpStatus.CONFLICT);
-                default -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            };
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserRequestDTO userRequestDTO, @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+        UserDTO userDTO = createUserUC.run(authorizationHeader, userRequestDTO);
+        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/users/{id}")
-    public ResponseEntity<UserDTO> getUser (@RequestParam UUID id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
-       
-            UserDTO userDTO = getUserUC.run(token, id);
-            return ResponseEntity.ok(userDTO);
-            
+    public ResponseEntity<UserDTO> getUser(@PathVariable UUID id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        UserDTO userDTO = getUserUC.run(token, id);
+        return ResponseEntity.ok(userDTO);
     }
 
-    
-}
     @GetMapping(path = "/users")
-    public ResponseEntity<Collection<UserDTO>> getUsers( @RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
+    public ResponseEntity<Collection<UserDTO>> getUsers(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader) {
         return ResponseEntity.ok(getUsersUC.run(authorizationHeader));
+    }
+
+    @PutMapping(path = "/users/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable UUID id, @RequestBody UserRequestDTO userRequestDTO, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        UserDTO userDTO = updateUserUC.run(token, id, userRequestDTO);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PatchMapping(path = "/users/{id}")
+    public ResponseEntity<Void> changeUserPassword(@PathVariable UUID id, @RequestBody String newPassword, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        changePasswordUC.run(token, id, newPassword);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(path = "/users/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        deleteUserUC.run(token, id);
+        return ResponseEntity.noContent().build();
     }
 }

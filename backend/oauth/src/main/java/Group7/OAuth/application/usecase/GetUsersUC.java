@@ -20,6 +20,6 @@ public class GetUsersUC {
 
     public Collection<UserDTO> run(String token){
         Collection<KeycloakUser> users = keycloakAdapter.getUsers(token);
-        return users.stream().map(user -> keycloakMapper.toUserDTO(user)).toList();
+        return users.stream().map(keycloakMapper::toUserDTO).toList();
     }
 }

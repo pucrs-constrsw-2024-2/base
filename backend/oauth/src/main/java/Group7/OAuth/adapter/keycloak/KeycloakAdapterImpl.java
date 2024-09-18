@@ -1,9 +1,5 @@
 package Group7.OAuth.adapter.keycloak;
 
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -19,7 +14,6 @@ import java.util.regex.Pattern;
 
 @Service
 public class KeycloakAdapterImpl implements KeycloakAdapter {
-    private final String url;
 
     private final String realm;
 
@@ -37,7 +31,6 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
         this.realm = realm;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.url = url;
         this.webClient = WebClient.builder()
                 .baseUrl(url)
                 .build();
@@ -58,12 +51,11 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
     @Override
     public KeycloakUser createUser(String authorizationHeader, KeycloakUserRegistration userRegistration) {
-        authorizationHeader = authorizationHeader.substring(7);
         ResponseEntity<Void> response = webClient.post()
                     .uri(uriBuilder -> uriBuilder
                             .path("/admin/realms/{realm}/users")
                             .build(realm))
-                    .header("Authorization", "Bearer " + authorizationHeader)
+                    .header("Authorization", authorizationHeader)
                     .header("Content-Type", "application/json")
                     .body(BodyInserters.fromValue(userRegistration))
                     .retrieve()
@@ -88,29 +80,69 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
     @Override
     public KeycloakUser getUserById(String token, UUID id) {
-        token = token.substring(7);
         return webClient.get()
         .uri(uriBuilder -> uriBuilder
-                .path("/admin/realms/{realm}}/users/" + id)
+                .path("/admin/realms/{realm}/users/" + id)
                 .build(realm))
-        .header("Authorization", "Bearer " + token)
+        .header("Authorization", token)
         .retrieve()
         .bodyToMono(KeycloakUser.class)
         .block();
         }
 
     public Collection<KeycloakUser> getUsers(String token) {
-        token = token.substring(7);
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/realms/{realm}/users")
+                        .path("/admin/realms/{realm}/users")
                         .build(realm))
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", token)
                 .retrieve()
                 .bodyToFlux(KeycloakUser.class)
                 .collectList()
                 .block();
     }
 
+    @Override
+    public KeycloakUser updateUser(String token, UUID id, KeycloakUserRegistration keycloakUserRegistration) {
+        ResponseEntity<Void> response = webClient.put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + id)
+                        .build(realm))
+                .header("Authorization", token)
+                .header("Content-Type", "application/json")
+                .body(BodyInserters.fromValue(keycloakUserRegistration))
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+
+        assert response != null;
+        return new KeycloakUser(id, keycloakUserRegistration.username(), keycloakUserRegistration.firstName(), keycloakUserRegistration.lastName(), keycloakUserRegistration.enabled());
+    }
+
+    @Override
+    public void changePassword(String token, UUID userId, KeycloackCredential keycloackCredential) {
+        webClient.put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + userId + "/reset-password")
+                        .build(realm))
+                .header("Authorization", token)
+                .header("Content-Type", "application/json")
+                .body(BodyInserters.fromValue(keycloackCredential))
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
+
+    @Override
+    public void deleteUser(String token, UUID id) {
+        webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + id)
+                        .build(realm))
+                .header("Authorization", token)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
 
 }
