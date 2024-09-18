@@ -50,6 +50,19 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     }
 
     @Override
+    public KeycloakToken refreshToken(String refreshToken) {
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/realms/{realm}/protocol/openid-connect/token")
+                        .build(realm))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .bodyValue("grant_type=refresh_token&client_id=" + clientId + "&client_secret=" + clientSecret + "&refresh_token=" + refreshToken)
+                .retrieve()
+                .bodyToMono(KeycloakToken.class)
+                .block();
+    }
+
+    @Override
     public KeycloakUser createUser(String authorizationHeader, KeycloakUserRegistration userRegistration) {
         ResponseEntity<Void> response = webClient.post()
                     .uri(uriBuilder -> uriBuilder

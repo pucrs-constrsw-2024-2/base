@@ -7,6 +7,8 @@ public interface KeycloakAdapter {
 
     KeycloakToken authenticateUser(String username, String password);
 
+    KeycloakToken refreshToken(String refreshToken);
+
     KeycloakUser createUser(String authorizationHeader, KeycloakUserRegistration user);
 
     KeycloakUser getUserById(String token, UUID id);

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
 
     private final LoginUC loginUC;
@@ -26,6 +26,7 @@ public class AuthController {
     private final UpdateUserUC updateUserUC;
     private final ChangePasswordUC changePasswordUC;
     private final DeleteUserUC deleteUserUC;
+    private final RefreshTokenUC refreshTokenUC;
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO loginDTO) {
@@ -67,4 +68,12 @@ public class AuthController {
         deleteUserUC.run(token, id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(path = "/refresh-token")
+    public ResponseEntity<JwtTokenDTO> refreshToken(@RequestBody String refreshToken){
+        JwtTokenDTO jwtTokenDTO = refreshTokenUC.run(refreshToken);
+        return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
+    }
+
+
 }
