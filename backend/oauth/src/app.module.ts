@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, KeycloakConnectModule } from 'nest-keycloak-connect';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [AuthModule, KeycloakConnectModule.register({
@@ -9,7 +10,7 @@ import { AuthModule } from './auth/auth.module';
     realm: 'constrsw',
     clientId: 'oauth',
     secret: '04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z',
-  })],
+  }), UserModule],
   providers: [
     {
       provide: APP_GUARD,
