@@ -1,5 +1,6 @@
 package Group7.OAuth.adapter.keycloak;
 
+import Group7.OAuth.application.dtos.GroupDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -155,6 +156,56 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .header("Authorization", token)
                 .retrieve()
                 .toBodilessEntity()
+                .block();
+    }
+
+    @Override
+    public Collection<GroupDTO> getGroups(String token) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/groups")
+                        .build(realm))
+                .header("Authorization", token)
+                .retrieve()
+                .bodyToFlux(GroupDTO.class)
+                .collectList()
+                .block();
+    }
+
+    @Override
+    public void addUserGroup(String token, UUID userId, String group) {
+        webClient.put()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + userId + "/groups/" + group)
+                        .build(realm))
+                .header("Authorization", token)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
+
+    @Override
+    public void deleteUserGroup(String token, UUID userId, String group) {
+        webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + userId + "/groups/" + group)
+                        .build(realm))
+                .header("Authorization", token)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
+
+    @Override
+    public Collection<GroupDTO> getUserGroups(String token, UUID userId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + userId + "/groups")
+                        .build(realm))
+                .header("Authorization", token)
+                .retrieve()
+                .bodyToFlux(GroupDTO.class)
+                .collectList()
                 .block();
     }
 

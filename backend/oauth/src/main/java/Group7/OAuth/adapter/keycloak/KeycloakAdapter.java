@@ -1,7 +1,9 @@
 package Group7.OAuth.adapter.keycloak;
 
-import java.util.UUID;
+import Group7.OAuth.application.dtos.GroupDTO;
+
 import java.util.Collection;
+import java.util.UUID;
 
 public interface KeycloakAdapter {
 
@@ -20,4 +22,12 @@ public interface KeycloakAdapter {
     void changePassword(String token, UUID userId, KeycloackCredential keycloackCredential);
 
     void deleteUser(String token, UUID id);
+
+    void addUserGroup(String token, UUID userId, String group);
+
+    void deleteUserGroup(String token, UUID userId, String group);
+
+    Collection<GroupDTO> getGroups(String token);
+
+    Collection<GroupDTO> getUserGroups(String token, UUID userId);
 }
