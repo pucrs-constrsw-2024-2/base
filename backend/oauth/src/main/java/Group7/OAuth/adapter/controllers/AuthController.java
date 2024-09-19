@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -28,9 +29,29 @@ public class AuthController {
     private final DeleteUserUC deleteUserUC;
     private final RefreshTokenUC refreshTokenUC;
 
+    private final JwtDecoder jwtDecoder;
+
+    @GetMapping("/validateToken")
+    public ResponseEntity<Boolean> isValidToken(@RequestHeader("Authorization") String tokenHeader) {
+        try {
+            String token = tokenHeader.replace("Bearer ", "");
+            jwtDecoder.decode(token);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.ok(false);
+        }
+    }
+
+
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO> login(@RequestBody LoginDTO loginDTO) {
         JwtTokenDTO jwtTokenDTO = loginUC.run(loginDTO.email(), loginDTO.password());
+        return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/refresh-token")
+    public ResponseEntity<JwtTokenDTO> refreshToken(@RequestBody String refreshToken){
+        JwtTokenDTO jwtTokenDTO = refreshTokenUC.run(refreshToken);
         return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
     }
 
@@ -68,12 +89,4 @@ public class AuthController {
         deleteUserUC.run(token, id);
         return ResponseEntity.noContent().build();
     }
-
-    @PostMapping(path = "/refresh-token")
-    public ResponseEntity<JwtTokenDTO> refreshToken(@RequestBody String refreshToken){
-        JwtTokenDTO jwtTokenDTO = refreshTokenUC.run(refreshToken);
-        return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
-    }
-
-
 }

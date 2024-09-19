@@ -1,6 +1,11 @@
 spring:
   application:
     name: OAuth
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:8090}/realms/${KEYCLOAK_REALM:constrsw}
 
 server:
     port: 8080
