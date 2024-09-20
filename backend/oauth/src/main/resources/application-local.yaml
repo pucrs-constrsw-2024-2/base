@@ -7,15 +7,3 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://127.0.0.1:8090/realms/constrsw
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://127.0.0.1:8090/realms/constrsw
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            provider: keycloak
-            authorization-grant-type: authorization_code
-            client-id: oauth
-            client-secret: 04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
-            scope: openid, profile, email

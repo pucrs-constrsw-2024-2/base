@@ -11,15 +11,3 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://${KEYCLOAK_INTERNAL_HOST}:${KEYCLOAK_INTERNAL_PORT}/realms/${KEYCLOAK_REALM}
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://${KEYCLOAK_INTERNAL_HOST}:${KEYCLOAK_INTERNAL_PORT}/realms/${KEYCLOAK_REALM}
-            user-name-attribute: preferred_username
-        registration:
-          keycloak:
-            provider: keycloak
-            authorization-grant-type: ${KEYCLOAK_GRANT_TYPE}
-            client-id: ${KEYCLOAK_CLIENT_ID}
-            client-secret: ${KEYCLOAK_CLIENT_SECRET}
-            scope: openid

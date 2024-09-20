@@ -2,27 +2,24 @@ package org.pucrs.br.oauth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.config.Customizer;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
+import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 class SecurityConfig {
 
     private static final String REALM_ACCESS_CLAIM = "realm_access";
@@ -30,7 +27,7 @@ class SecurityConfig {
 
     private static final String[] ENDPOINTS_WITHOUT_AUTH = {
             "/v1/auth/**",
-            "/v1/health",
+            "/health",
             "/swagger-ui/**",
             "/api-docs/**"
     };
@@ -41,41 +38,34 @@ class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(ENDPOINTS_WITHOUT_AUTH).permitAll()
-                            .requestMatchers(ENDPOINTS_ADMIN_ONLY).hasAuthority("ADMIN")
-                            .anyRequest().authenticated();
-                })
-                .oauth2Login(Customizer.withDefaults())
-                .oauth2ResourceServer(config -> config.jwt(Customizer.withDefaults()))
+    @Primary
+    public SecurityFilterChain resourceServerFilterChain(AuthenticationConverter authenticationConverter,
+                                                         HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(ENDPOINTS_WITHOUT_AUTH).permitAll()
+                        .requestMatchers(ENDPOINTS_ADMIN_ONLY).hasAuthority("ADMIN")
+                        .anyRequest().authenticated())
+                .sessionManagement(sessionConfigurer -> sessionConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwtResourceServer -> jwtResourceServer.jwtAuthenticationConverter(authenticationConverter)))
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 
     @Bean
-    public AuthoritiesConverter realmRolesAuthoritiesConverter() {
-        return claims -> {
-            var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get(REALM_ACCESS_CLAIM));
-            var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get(ROLES_CLAIM)));
+    public AuthoritiesConverter authoritiesConverter() {
+        return jwt -> {
+            var realmAccess = (Map<String, Object>) jwt.getClaims().getOrDefault(REALM_ACCESS_CLAIM, Map.of());
+            var roles = (List<String>) realmAccess.getOrDefault(ROLES_CLAIM, List.of());
 
-            return roles.stream().flatMap(Collection::stream)
+            return roles.stream()
                     .map(SimpleGrantedAuthority::new)
-                    .map(GrantedAuthority.class::cast)
                     .toList();
         };
     }
 
     @Bean
-    public GrantedAuthoritiesMapper authenticationConverter(
-            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter) {
-        return (authorities) -> authorities.stream()
-                .filter(authority -> authority instanceof OidcUserAuthority)
-                .map(OidcUserAuthority.class::cast)
-                .map(OidcUserAuthority::getIdToken)
-                .map(OidcIdToken::getClaims)
-                .map(authoritiesConverter::convert)
-                .filter(Objects::nonNull)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+    public AuthenticationConverter authenticationConverter(AuthoritiesConverter authoritiesConverter) {
+        return jwt -> new JwtAuthenticationToken(jwt, authoritiesConverter.convert(jwt),
+                jwt.getClaimAsString(StandardClaimNames.PREFERRED_USERNAME));
     }
 }
