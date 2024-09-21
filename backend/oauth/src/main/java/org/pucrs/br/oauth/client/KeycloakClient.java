@@ -5,19 +5,27 @@ import org.pucrs.br.oauth.config.KeycloakConfig;
 import org.pucrs.br.oauth.dto.request.UserRequest;
 import org.pucrs.br.oauth.dto.request.keycloak.CreateCredentialRequest;
 import org.pucrs.br.oauth.dto.request.keycloak.CreateUserRequest;
+import org.pucrs.br.oauth.dto.response.UserResponse;
 import org.pucrs.br.oauth.dto.response.keycloak.TokenResponse;
 import org.pucrs.br.oauth.exception.HttpException;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestClient;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -72,6 +80,19 @@ public class KeycloakClient {
         return UUID.fromString(lastSegment.toString());
     }
 
+    public List<UserResponse> getAllUsers(String accessToken) {
+        ResponseEntity<List<UserResponse>> response = keycloakRestClient.get()
+            .uri("/admin/realms/{realm}/users", keycloakConfig.getKeycloakRealm())
+            .headers(headers -> {
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.setBearerAuth(accessToken);
+            })
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuários com Keycloak"))
+            .toEntity(new ParameterizedTypeReference<List<UserResponse>>() {});
+        return response.getBody();
+    }
+
     private RestClient.ResponseSpec.ErrorHandler handleHttpError(final String errorMessage) {
         return (request, response) -> {
             try (InputStream bodyInputStream = response.getBody()) {
@@ -79,5 +100,58 @@ public class KeycloakClient {
                 throw new HttpException(errorMessage, response.getStatusCode().value(), responseBody);
             }
         };
+    }
+
+    public UserResponse getUserById(UUID id, String accessToken) {
+        ResponseEntity<UserResponse> response = keycloakRestClient.get()
+            .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
+            .headers(headers -> {
+                headers.setBearerAuth(accessToken);
+            })
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuário com Keycloak"))
+            .toEntity(UserResponse.class);
+        return response.getBody();
+    }
+
+    public UserResponse updateUser(UUID id, UserRequest userRequest, String accessToken) {
+        ResponseEntity<UserResponse> response = keycloakRestClient.put()
+            .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
+            .headers(headers -> {
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.setBearerAuth(accessToken);
+            })
+            .body(userRequest)
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao atualizar usuário com Keycloak"))
+            .toEntity(UserResponse.class);
+    
+        return response.getStatusCode() == HttpStatus.NOT_FOUND ? null : response.getBody();
+    }
+
+    public UserResponse updateUserPassword(UUID id, String updatePassword, String accessToken) {
+        ResponseEntity<UserResponse> response = keycloakRestClient.patch()
+            .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
+            .headers(headers -> {
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.setBearerAuth(accessToken);
+            })
+            .body(updatePassword)
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao atualizar senha de usuário com Keycloak"))
+            .toEntity(UserResponse.class);    
+        return response.getStatusCode() == HttpStatus.NOT_FOUND ? null : response.getBody();
+    }
+
+    public boolean deleteUser(UUID id, String accessToken) {
+        ResponseEntity<Void> response = keycloakRestClient.delete()
+            .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
+            .headers(headers -> {
+                headers.setBearerAuth(accessToken);
+            })
+            .retrieve()
+            .toEntity(Void.class);
+    
+        return response.getStatusCode() == HttpStatus.NO_CONTENT;
     }
 }
