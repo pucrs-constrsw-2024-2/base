@@ -5,6 +5,8 @@ import org.pucrs.br.oauth.config.KeycloakConfig;
 import org.pucrs.br.oauth.dto.request.UserRequest;
 import org.pucrs.br.oauth.dto.request.keycloak.CreateCredentialRequest;
 import org.pucrs.br.oauth.dto.request.keycloak.CreateUserRequest;
+import org.pucrs.br.oauth.dto.request.keycloak.UpdatePasswordRequest;
+import org.pucrs.br.oauth.dto.request.keycloak.UpdateUserRequest;
 import org.pucrs.br.oauth.dto.response.UserResponse;
 import org.pucrs.br.oauth.dto.response.keycloak.TokenResponse;
 import org.pucrs.br.oauth.exception.HttpException;
@@ -113,7 +115,7 @@ public class KeycloakClient {
     }
 
     public UserResponse updateUser(UUID id, UserRequest userRequest, String accessToken) {
-        var requestBody = CreateUserRequest.builder()
+        var requestBody = UpdateUserRequest.builder()
                 .email(userRequest.getUsername())
                 .username(userRequest.getUsername())
                 .firstName(userRequest.getFirstName())
@@ -136,13 +138,16 @@ public class KeycloakClient {
     }
 
     public UserResponse updateUserPassword(UUID id, String updatePassword, String accessToken) {
+        UpdatePasswordRequest updatePasswordRequestBody = new UpdatePasswordRequest();
+        updatePasswordRequestBody.setCredentials(new CreateCredentialRequest[]{new CreateCredentialRequest(updatePassword)});
+
         ResponseEntity<UserResponse> response = keycloakRestClient.put()
                 .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
                 .headers(headers -> {
                     headers.setContentType(MediaType.APPLICATION_JSON);
                     headers.setBearerAuth(accessToken);
                 })
-                .body(updatePassword)
+                .body(updatePasswordRequestBody)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao atualizar senha de usuário com Keycloak"))
                 .toEntity(UserResponse.class);
@@ -150,14 +155,14 @@ public class KeycloakClient {
     }
 
     public boolean deleteUser(UUID id, String accessToken) {
-        Map<String, Object> disableUserRequest = Map.of("enabled", false);
+        Map<String, Object> disableUserRequestBody = Map.of("enabled", false);
 
         ResponseEntity<Void> response = keycloakRestClient.put()
                 .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
                 .headers(headers -> {
                     headers.setBearerAuth(accessToken);
                 })
-                .body(disableUserRequest)
+                .body(disableUserRequestBody)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao deletar usuário com Keycloak"))
                 .toEntity(Void.class);

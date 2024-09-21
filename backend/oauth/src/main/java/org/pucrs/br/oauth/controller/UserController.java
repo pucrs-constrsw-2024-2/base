@@ -3,10 +3,7 @@ package org.pucrs.br.oauth.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
-import java.util.UUID;
-
+import org.pucrs.br.oauth.dto.request.PasswordRequest;
 import org.pucrs.br.oauth.dto.request.UserRequest;
 import org.pucrs.br.oauth.dto.response.UserResponse;
 import org.pucrs.br.oauth.service.UserService;
@@ -25,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -77,9 +77,10 @@ public class UserController {
     @PatchMapping("/{id}")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse updateUserPassword(@PathVariable UUID id, @Valid @RequestBody String updatePassword, @AuthenticationPrincipal Jwt jwt) {
+    public UserResponse updateUserPassword(@PathVariable UUID id, @Valid @RequestBody PasswordRequest passwordRequest,
+                                           @AuthenticationPrincipal Jwt jwt) {
         log.info("PATCH /users/{}/password - Iniciando atualização da senha do usuário", id);
-        UserResponse updatedUser = userService.updateUserPassword(id, updatePassword, jwt.getTokenValue());
+        UserResponse updatedUser = userService.updateUserPassword(id, passwordRequest.getPassword(), jwt.getTokenValue());
         log.info("PATCH /users/{}/password - Senha do usuário atualizada com sucesso", id);
         return updatedUser;
     }
