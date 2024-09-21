@@ -47,9 +47,9 @@ public class UserController {
     @GetMapping
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserResponse> getAllUsers(@AuthenticationPrincipal Jwt jwt, @RequestParam boolean isEnabled) {
+    public List<UserResponse> getAllUsers(@AuthenticationPrincipal Jwt jwt, @RequestParam(required = false) Boolean enabled) {
         log.info("GET /users - Iniciando recuperação de todos os usuários");
-        List<UserResponse> response = userService.getAllUsers(jwt, isEnabled);
+        List<UserResponse> response = userService.getAllUsers(jwt, enabled);
         log.info("GET /users - Usuarios {} recuperados com sucesso", response);
         return response;
     }

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponse> getAllUsers(Jwt accessToken, boolean isEnabled) {
+    public List<UserResponse> getAllUsers(Jwt accessToken, Boolean isEnabled) {
         List<UserResponse> users = keycloakClient.getAllUsers(accessToken.getTokenValue(), isEnabled);
         return users.stream()
         .map(user -> UserResponse.builder()

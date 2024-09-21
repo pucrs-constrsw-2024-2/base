@@ -9,9 +9,14 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface UserService {
     UserResponse register(UserRequest userRequest, Jwt accessToken);
-    List<UserResponse> getAllUsers(Jwt accessToken, boolean isEnabled);
+
+    List<UserResponse> getAllUsers(Jwt accessToken, Boolean isEnabled);
+
     UserResponse getUserById(UUID id, String accessToken);
+
     UserResponse updateUser(UUID id, UserRequest userRequest, String accessToken);
+
     UserResponse updateUserPassword(UUID id, String updatePassword, String accessToken);
+
     void deleteUser(UUID id, String accessToken);
 }

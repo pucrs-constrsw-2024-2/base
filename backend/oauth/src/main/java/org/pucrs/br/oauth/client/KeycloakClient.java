@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -77,25 +79,25 @@ public class KeycloakClient {
         return UUID.fromString(lastSegment.toString());
     }
 
-    public List<UserResponse> getAllUsers(String accessToken, boolean isEnabled) {
+    public List<UserResponse> getAllUsers(String accessToken, Boolean isEnabled) {
         ResponseEntity<List<UserResponse>> response = keycloakRestClient.get()
-            .uri(uriBuilder -> uriBuilder
-                .path("/admin/realms/{realm}/users")
-                .build(keycloakConfig.getKeycloakRealm()))
-            .headers(headers -> {
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.setBearerAuth(accessToken);
-            })
-            .retrieve()
-            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuários com Keycloak"))
-            .toEntity(new ParameterizedTypeReference<List<UserResponse>>() {
-            });
-        if (!isEnabled) {
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users")
+                        .build(keycloakConfig.getKeycloakRealm()))
+                .headers(headers -> {
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.setBearerAuth(accessToken);
+                })
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuários com Keycloak"))
+                .toEntity(new ParameterizedTypeReference<>() {
+                });
+        if (Objects.isNull(isEnabled)) {
             return response.getBody();
         }
         return response.getBody().stream()
-            .filter(UserResponse::isEnabled)
-            .collect(Collectors.toList());
+                .filter(user -> user.isEnabled() == isEnabled)
+                .collect(Collectors.toList());
     }
 
     public UserResponse getUserById(UUID id, String accessToken) {
@@ -111,13 +113,21 @@ public class KeycloakClient {
     }
 
     public UserResponse updateUser(UUID id, UserRequest userRequest, String accessToken) {
+        var requestBody = CreateUserRequest.builder()
+                .email(userRequest.getUsername())
+                .username(userRequest.getUsername())
+                .firstName(userRequest.getFirstName())
+                .lastName(userRequest.getLastName())
+                .credentials(new CreateCredentialRequest[]{new CreateCredentialRequest(userRequest.getPassword())})
+                .build();
+
         ResponseEntity<UserResponse> response = keycloakRestClient.put()
                 .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
                 .headers(headers -> {
                     headers.setContentType(MediaType.APPLICATION_JSON);
                     headers.setBearerAuth(accessToken);
                 })
-                .body(userRequest)
+                .body(requestBody)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao atualizar usuário com Keycloak"))
                 .toEntity(UserResponse.class);
@@ -126,7 +136,7 @@ public class KeycloakClient {
     }
 
     public UserResponse updateUserPassword(UUID id, String updatePassword, String accessToken) {
-        ResponseEntity<UserResponse> response = keycloakRestClient.patch()
+        ResponseEntity<UserResponse> response = keycloakRestClient.put()
                 .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
                 .headers(headers -> {
                     headers.setContentType(MediaType.APPLICATION_JSON);
@@ -140,11 +150,14 @@ public class KeycloakClient {
     }
 
     public boolean deleteUser(UUID id, String accessToken) {
-        ResponseEntity<Void> response = keycloakRestClient.delete()
+        Map<String, Object> disableUserRequest = Map.of("enabled", false);
+
+        ResponseEntity<Void> response = keycloakRestClient.put()
                 .uri("/admin/realms/{realm}/users/{id}", keycloakConfig.getKeycloakRealm(), id)
                 .headers(headers -> {
                     headers.setBearerAuth(accessToken);
                 })
+                .body(disableUserRequest)
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao deletar usuário com Keycloak"))
                 .toEntity(Void.class);
