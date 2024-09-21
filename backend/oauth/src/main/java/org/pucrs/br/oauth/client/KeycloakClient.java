@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -76,18 +77,25 @@ public class KeycloakClient {
         return UUID.fromString(lastSegment.toString());
     }
 
-    public List<UserResponse> getAllUsers(String accessToken) {
+    public List<UserResponse> getAllUsers(String accessToken, boolean isEnabled) {
         ResponseEntity<List<UserResponse>> response = keycloakRestClient.get()
-                .uri("/admin/realms/{realm}/users", keycloakConfig.getKeycloakRealm())
-                .headers(headers -> {
-                    headers.setContentType(MediaType.APPLICATION_JSON);
-                    headers.setBearerAuth(accessToken);
-                })
-                .retrieve()
-                .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuários com Keycloak"))
-                .toEntity(new ParameterizedTypeReference<List<UserResponse>>() {
-                });
-        return response.getBody();
+            .uri(uriBuilder -> uriBuilder
+                .path("/admin/realms/{realm}/users")
+                .build(keycloakConfig.getKeycloakRealm()))
+            .headers(headers -> {
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.setBearerAuth(accessToken);
+            })
+            .retrieve()
+            .onStatus(HttpStatusCode::isError, handleHttpError("Erro ao buscar usuários com Keycloak"))
+            .toEntity(new ParameterizedTypeReference<List<UserResponse>>() {
+            });
+        if (!isEnabled) {
+            return response.getBody();
+        }
+        return response.getBody().stream()
+            .filter(UserResponse::isEnabled)
+            .collect(Collectors.toList());
     }
 
     public UserResponse getUserById(UUID id, String accessToken) {
