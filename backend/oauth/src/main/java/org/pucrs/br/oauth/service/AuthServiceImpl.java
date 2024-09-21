@@ -3,20 +3,25 @@ package org.pucrs.br.oauth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.pucrs.br.oauth.client.KeycloakClient;
-import org.pucrs.br.oauth.model.Auth;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.pucrs.br.oauth.dto.response.keycloak.TokenResponse;
+import org.pucrs.br.oauth.dto.response.AuthResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
     private final KeycloakClient keycloakClient;
 
     @Override
-    public ResponseEntity<Auth> authenticate(String username, String password) {
-        return keycloakClient.auth(username, password);
+    public AuthResponse authenticate(String username, String password) {
+        TokenResponse keycloakAuthData = keycloakClient.generateAccessToken(username, password);
+        return AuthResponse.builder()
+                .accessToken(keycloakAuthData.getAccessToken())
+                .refreshToken(keycloakAuthData.getRefreshToken())
+                .expiresIn(keycloakAuthData.getExpiresIn())
+                .refreshExpiresIn(keycloakAuthData.getRefreshExpiresIn())
+                .tokenType(keycloakAuthData.getTokenType())
+                .build();
     }
 }

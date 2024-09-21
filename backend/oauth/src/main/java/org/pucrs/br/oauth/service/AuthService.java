@@ -1,8 +1,7 @@
 package org.pucrs.br.oauth.service;
 
-import org.pucrs.br.oauth.model.Auth;
-import org.springframework.http.ResponseEntity;
+import org.pucrs.br.oauth.dto.response.AuthResponse;
 
 public interface AuthService {
-    ResponseEntity<Auth> authenticate(String username, String password);
+    AuthResponse authenticate(String username, String password);
 }

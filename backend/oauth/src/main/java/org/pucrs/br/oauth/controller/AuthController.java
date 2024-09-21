@@ -1,25 +1,34 @@
 package org.pucrs.br.oauth.controller;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.pucrs.br.oauth.dto.request.LoginRequest;
+import org.pucrs.br.oauth.dto.response.AuthResponse;
 import org.pucrs.br.oauth.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping("/login")
+@RequiredArgsConstructor
 public class AuthController {
-    @Autowired
-    private AuthService authService;
+
+    private final AuthService authService;
 
     @PostMapping
     @CrossOrigin(origins = "*")
-    @ResponseStatus(HttpStatus.OK)
-    public void authenticate(@RequestParam String username, @RequestParam String password) {
-        //var token = authService.authenticate(username, password).getBody().accessToken;
+    @ResponseStatus(HttpStatus.CREATED)
+    public AuthResponse authenticate(@Valid @ModelAttribute LoginRequest loginRequest) {
+        log.info("POST /login - Iniciando login de usuario {}", loginRequest.getUsername());
+        var token = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        log.info("POST /login - Login de usuario {} realizado com sucesso", loginRequest.getUsername());
+        return token;
     }
 }

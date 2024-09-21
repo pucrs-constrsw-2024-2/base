@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.util.List;
 import java.util.Map;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -26,14 +25,14 @@ class SecurityConfig {
     private static final String ROLES_CLAIM = "roles";
 
     private static final String[] ENDPOINTS_WITHOUT_AUTH = {
-            "/v1/auth/**",
+            "/login/**",
             "/health",
             "/swagger-ui/**",
-            "/api-docs/**"
+            "/v3/api-docs/**"
     };
 
     private static final String[] ENDPOINTS_ADMIN_ONLY = {
-            "/v1/users/**"
+            "/users/**"
     };
 
 
@@ -46,12 +45,14 @@ class SecurityConfig {
                         .requestMatchers(ENDPOINTS_ADMIN_ONLY).hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(sessionConfigurer -> sessionConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwtResourceServer -> jwtResourceServer.jwtAuthenticationConverter(authenticationConverter)))
+                .oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwtResourceServer ->
+                        jwtResourceServer.jwtAuthenticationConverter(authenticationConverter)))
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 
     @Bean
+    @SuppressWarnings("unchecked")
     public AuthoritiesConverter authoritiesConverter() {
         return jwt -> {
             var realmAccess = (Map<String, Object>) jwt.getClaims().getOrDefault(REALM_ACCESS_CLAIM, Map.of());

@@ -1,8 +1,9 @@
 package org.pucrs.br.oauth.service;
 
-import org.pucrs.br.oauth.model.User;
+import org.pucrs.br.oauth.dto.request.UserRequest;
+import org.pucrs.br.oauth.dto.response.UserResponse;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface UserService {
-    User authenticate(String username, String password);
-    void register(User user);
+    UserResponse register(UserRequest userRequest, Jwt accessToken);
 }
