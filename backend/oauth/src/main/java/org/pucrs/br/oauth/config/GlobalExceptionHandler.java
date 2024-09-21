@@ -2,6 +2,7 @@ package org.pucrs.br.oauth.config;
 
 import org.pucrs.br.oauth.dto.response.ErrorResponse;
 import org.pucrs.br.oauth.exception.HttpException;
+import org.pucrs.br.oauth.exception.InvalidEmailException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,21 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    @ExceptionHandler(InvalidEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(InvalidEmailException exception) {
+        var errorResponse = ErrorResponse.builder()
+                .errorCode(HttpStatus.BAD_REQUEST.toString())
+                .errorDescription(exception.getMessage())
+                .errorSource(ERROR_SOURCE)
+                .errorStack(convertStackTraceToList(exception))
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errorResponse);
+    }
+
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception) {
@@ -77,7 +93,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ErrorResponse> handleAuthenticationException(AccessDeniedException exception) {
+    public ResponseEntity<ErrorResponse> handleAuthorizationException(AccessDeniedException exception) {
         var errorResponse = ErrorResponse.builder()
                 .errorCode(HttpStatus.FORBIDDEN.toString())
                 .errorDescription("Usuário não permitido")

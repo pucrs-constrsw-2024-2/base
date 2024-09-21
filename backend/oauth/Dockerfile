@@ -10,4 +10,4 @@ COPY src ./src
 
 EXPOSE 8080
 
-CMD ["gradle", "bootRun"]
+CMD ["gradle", "clean", "bootRun"]
