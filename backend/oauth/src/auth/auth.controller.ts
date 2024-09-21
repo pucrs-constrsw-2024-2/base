@@ -3,6 +3,7 @@ import { Body, Controller, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Unprotected } from 'nest-keycloak-connect';
 import { AuthService } from './auth.service';
+import { change_password_dto } from './dtos/change-password.dto';
 import { LoginDto } from './dtos/login.dto';
 
 @Controller('auth')
@@ -24,15 +25,19 @@ export class AuthController {
   @ApiResponse({
     status: 400,
     description: 'Erro na estrutura da chamada (headers, request body, etc).',
-    
   })
   @ApiResponse({
     status: 401,
     description: 'username e/ou password inválidos.',
   })
-  async login(@Body() body: LoginDto): Promise<{accessToken: string}> {
+  async login(@Body() body: LoginDto): Promise<{ accessToken: string }> {
     const token = await this.authService.login(body.username, body.password);
 
     return token;
+  }
+
+  @Post('change-password')
+  async change_password(@Body() body: change_password_dto): Promise<void> {
+    await this.authService.changePassword(body.password);
   }
 }
