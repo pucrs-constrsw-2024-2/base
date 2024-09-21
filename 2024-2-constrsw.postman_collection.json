@@ -91,6 +91,169 @@
 					"response": []
 				},
 				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{oauth-url}}/users?enabled=false",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "enabled",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{oauth-url}}/users/b97c7485-6365-47f3-978f-652ec8946301",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users",
+								"b97c7485-6365-47f3-978f-652ec8946301"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159111",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users",
+								"9e534bc9-a16f-4b1b-b224-cc161c159111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Maria\",\r\n    \"lastName\": \"Souza\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{oauth-url}}/users/0d058a9f-e262-41ea-951f-f608908e14e1",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users",
+								"0d058a9f-e262-41ea-951f-f608908e14e1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user password by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"testesteste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{oauth-url}}/users/ab36e7b8-86e0-472b-8ebd-8fb585ea7c72",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users",
+								"ab36e7b8-86e0-472b-8ebd-8fb585ea7c72"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Health check",
 					"request": {
 						"auth": {
