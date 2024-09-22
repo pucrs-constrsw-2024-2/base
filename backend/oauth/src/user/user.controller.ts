@@ -12,10 +12,28 @@ import { AuthenticatedUser } from 'nest-keycloak-connect';
 import { change_password_dto } from 'src/auth/dtos/change-password.dto';
 import { LoggedUser } from 'src/entities/logged-user';
 import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Post()
+  @ApiOperation({
+    summary: 'Cria um novo usuário.',
+    description: 'Cria um novo usuário.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Usuário criado com sucesso.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao criar usuário.',
+  })
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
 
   @Get()
   findAll() {
