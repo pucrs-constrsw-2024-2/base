@@ -22,6 +22,7 @@ import comoauth.oauth.dto.ErrorResponse;
 import comoauth.oauth.dto.UserDto;
 import comoauth.oauth.dto.UserLoginDto;
 import comoauth.oauth.dto.UserRegisterDto;
+import comoauth.oauth.dto.UserRegisterResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,7 +42,7 @@ public class OauthController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true) @RequestBody UserRegisterDto userRegisterDto) {
 
         try {
-            Usee result = userService.registerUser(authorizationHeader, userRegisterDto);
+            UserRegisterResponseDto result = userService.registerUser(authorizationHeader, userRegisterDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
