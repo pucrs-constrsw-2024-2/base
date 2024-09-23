@@ -5,7 +5,7 @@ import { z } from 'zod';
 extendZodWithOpenApi(z);
 
 const ChangePasswordZ = z.object({
-  password: z.string().min(8).max(255).openapi({
+  password: z.string({ message: 'aaa' }).min(8).max(255).openapi({
     example: 'a12345678',
   }),
 });

@@ -31,7 +31,7 @@ export class AuthService {
         )
         .pipe(
           catchError((error: AxiosError) => {
-            throw error.response.data;
+            throw new Error(error.message);
           }),
         ),
     );

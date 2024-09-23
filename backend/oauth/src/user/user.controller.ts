@@ -3,23 +3,19 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
-  Patch,
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthenticatedUser } from 'nest-keycloak-connect';
 import { change_password_dto } from 'src/auth/dtos/change-password.dto';
-import { CreateUserDto } from './dto/create-user.dto';
+import { LoggedUser } from 'src/entities/logged-user';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
 
   @Get()
   findAll() {
@@ -31,7 +27,7 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Post(':id')
   @ApiOperation({
     summary: 'Altera a senha do usuário logado.',
     description: 'Altera a senha do usuário logado.',
@@ -47,9 +43,10 @@ export class UserController {
   async change_password(
     @Body() body: change_password_dto,
     @Param('id') id: string,
+    @AuthenticatedUser() user: LoggedUser,
+    @Headers('authorization') headers: string,
   ): Promise<void> {
-    console.log(body);
-    await this.userService.changePassword(id, body.password);
+    await this.userService.changePassword(id, body.password, headers);
   }
 
   @Delete(':id')
