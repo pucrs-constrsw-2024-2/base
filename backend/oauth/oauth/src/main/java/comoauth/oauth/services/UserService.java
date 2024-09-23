@@ -18,9 +18,13 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import comoauth.oauth.dto.UserDto;
 import comoauth.oauth.dto.UserLoginDto;
 import comoauth.oauth.dto.UserRegisterDto;
+import comoauth.oauth.dto.UserRegisterResponseDto;
 
 @Service
 public class UserService {
@@ -39,7 +43,7 @@ public class UserService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String registerUser(String authorizationHeader, UserRegisterDto userDto) throws Exception {
+    public UserRegisterResponseDto registerUser(String authorizationHeader, UserRegisterDto userDto) throws Exception {
         String createUserUrl = keycloakServerUrl + "/admin/realms/" + realm + "/users";
 
         HttpHeaders headers = new HttpHeaders();
@@ -64,16 +68,22 @@ public class UserService {
 
         ResponseEntity<Void> response = restTemplate.postForEntity(createUserUrl, request, Void.class);
 
+        System.out.println(response.getBody());
+
         if (response.getStatusCode() == HttpStatus.CREATED) {
-            return response.getHeaders().getLocation().toString() + "Email: " + userDto.getEmail() + "Password: "
-                    + userDto.getPassword() + "FirstName: " + userDto.getFirstName() + "LastName: "
-                    + userDto.getLastName();
+
+            UserRegisterResponseDto userRegisterDto = new UserRegisterResponseDto();
+            userRegisterDto.setFirstName(userDto.getFirstName());
+            userRegisterDto.setLastName(userDto.getLastName());
+            userRegisterDto.setEmail(userDto.getEmail());
+            userRegisterDto.setId(response.getHeaders().getLocation().getPath().split("/")[5]);
+            return userRegisterDto;
         } else {
             throw new Exception("Failed to create user: " + response.getStatusCode());
         }
     }
 
-    public String login(UserLoginDto userLoginDto) throws Exception {
+    public Map<String, Object> login(UserLoginDto userLoginDto) throws Exception {
         String tokenUrl = keycloakServerUrl + "/realms/" + realm + "/protocol/openid-connect/token";
 
         HttpHeaders headers = new HttpHeaders();
@@ -91,16 +101,19 @@ public class UserService {
         ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, request, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return response.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> tokens = objectMapper.readValue(response.getBody(),
+                    new TypeReference<Map<String, Object>>() {
+                    });
+            return tokens;
         } else {
-            throw new Exception("Invalid credentials");
+            throw new Exception(response.getStatusCode().toString());
         }
     }
 
     public List<UserDto> getAllUsers(String authorizationHeader, Boolean enabled) throws Exception {
         String url = keycloakServerUrl + "/admin/realms/" + realm + "/users";
 
-        // Add query parameter if 'enabled' is specified
         if (enabled != null) {
             url += "?enabled=" + enabled;
         }
@@ -153,7 +166,6 @@ public class UserService {
         headers.set("Authorization", authorizationHeader);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Map userDto to a Map or directly use userDto if compatible
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("firstName", userDto.getFirstName());
         userMap.put("lastName", userDto.getLastName());

@@ -41,7 +41,7 @@ public class OauthController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true) @RequestBody UserRegisterDto userRegisterDto) {
 
         try {
-            String result = userService.registerUser(authorizationHeader, userRegisterDto);
+            Usee result = userService.registerUser(authorizationHeader, userRegisterDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -50,9 +50,12 @@ public class OauthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginDto userLoginDto) {
+    @Operation(summary = "User login", description = "Authenticates a user and returns access tokens")
+    public ResponseEntity<?> login(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User login details", required = true) @RequestBody UserLoginDto userLoginDto) {
+
         try {
-            String tokens = userService.login(userLoginDto);
+            Map<String, Object> tokens = userService.login(userLoginDto);
             return ResponseEntity.ok(tokens);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -61,9 +64,10 @@ public class OauthController {
     }
 
     @GetMapping("/users")
+    @Operation(summary = "Get all users", description = "Retrieves all registered users, optionally filtering by enabled status")
     public ResponseEntity<?> getAllUsers(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @RequestParam(value = "enabled", required = false) Boolean enabled) {
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @Parameter(description = "Filter by enabled status") @RequestParam(value = "enabled", required = false) Boolean enabled) {
 
         try {
             List<UserDto> users = userService.getAllUsers(authorizationHeader, enabled);
@@ -79,9 +83,10 @@ public class OauthController {
     }
 
     @GetMapping("/users/{id}")
+    @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique ID")
     public ResponseEntity<?> getUserById(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @PathVariable String id) {
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @Parameter(description = "User ID", required = true) @PathVariable String id) {
 
         try {
             UserDto user = userService.getUserById(authorizationHeader, id);
@@ -97,10 +102,11 @@ public class OauthController {
     }
 
     @PutMapping("/users/{id}")
+    @Operation(summary = "Update a user", description = "Updates user information")
     public ResponseEntity<?> updateUser(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @PathVariable String id,
-            @RequestBody UserDto userDto) {
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @Parameter(description = "User ID", required = true) @PathVariable String id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated user details", required = true) @RequestBody UserDto userDto) {
 
         try {
             userService.updateUser(authorizationHeader, id, userDto);
@@ -116,10 +122,11 @@ public class OauthController {
     }
 
     @PatchMapping("/users/{id}")
+    @Operation(summary = "Update user password", description = "Updates the password of a user")
     public ResponseEntity<?> updateUserPassword(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @PathVariable String id,
-            @RequestBody Map<String, String> passwordMap) {
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @Parameter(description = "User ID", required = true) @PathVariable String id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "New password", required = true) @RequestBody Map<String, String> passwordMap) {
 
         try {
             String newPassword = passwordMap.get("password");
@@ -136,9 +143,10 @@ public class OauthController {
     }
 
     @DeleteMapping("/users/{id}")
+    @Operation(summary = "Delete a user", description = "Performs a logical deletion of a user by disabling their account")
     public ResponseEntity<?> deleteUser(
-            @RequestHeader("Authorization") String authorizationHeader,
-            @PathVariable String id) {
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @Parameter(description = "User ID", required = true) @PathVariable String id) {
 
         try {
             userService.deleteUser(authorizationHeader, id);
