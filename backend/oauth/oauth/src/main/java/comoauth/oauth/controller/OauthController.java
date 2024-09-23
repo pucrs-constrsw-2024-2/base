@@ -1,125 +1,155 @@
 package comoauth.oauth.controller;
 
-import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import org.keycloak.admin.client.CreatedResponseUtil;
-import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
+import comoauth.oauth.dto.ErrorResponse;
 import comoauth.oauth.dto.UserDto;
 import comoauth.oauth.dto.UserLoginDto;
-import jakarta.ws.rs.core.Response;
+import comoauth.oauth.dto.UserRegisterDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "User Management", description = "Operations related to user management")
 public class OauthController {
 
-    @Value("${keycloak.auth-server-url}")
-    private String keycloakServerUrl;
+    @Autowired
+    private comoauth.oauth.services.UserService userService;
 
-    @Value("${keycloak.realm}")
-    private String realm;
+    @PostMapping("/users")
+    @Operation(summary = "Register a new user", description = "Creates a new user in Keycloak")
+    public ResponseEntity<?> registerUser(
+            @Parameter(description = "Authorization token", required = true) @RequestHeader("Authorization") String authorizationHeader,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true) @RequestBody UserRegisterDto userRegisterDto) {
 
-    @Value("${keycloak.admin.username}")
-    private String adminUsername;
-
-    @Value("${keycloak.admin.password}")
-    private String adminPassword;
-
-    @Value("${keycloak.admin.realm}")
-    private String adminRealm;
-
-    @Value("${keycloak.clientid}")
-    private String clientId;
-
-    @Value("${keycloak.credentials.secret}")
-    private String clientSecret;
-
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDto userDTO) {
-        // Initialize Keycloak Admin Client
-        Keycloak keycloak = KeycloakBuilder.builder()
-                .serverUrl(keycloakServerUrl)
-                .realm(adminRealm)
-                .username(adminUsername)
-                .password(adminPassword)
-                .clientId("admin-cli")
-                .build();
-
-        // Create UserRepresentation
-        UserRepresentation user = new UserRepresentation();
-        user.setUsername(userDTO.getEmail());
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setEnabled(true);
-
-        // Add credentials
-        CredentialRepresentation credential = new CredentialRepresentation();
-        credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(userDTO.getPassword());
-        credential.setTemporary(false);
-
-        user.setCredentials(Collections.singletonList(credential));
-
-        // Create user
         try {
-            Response response = keycloak.realm(realm).users().create(user);
-
-            if (response.getStatus() == 201) {
-                String userId = CreatedResponseUtil.getCreatedId(response);
-                return ResponseEntity.status(HttpStatus.CREATED).body("User created with ID: " + userId);
-            } else {
-                return ResponseEntity.status(response.getStatus()).body("Failed to create user");
-            }
+            String result = userService.registerUser(authorizationHeader, userRegisterDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + e.getMessage());
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginDto userDTO) {
-        String tokenUrl = keycloakServerUrl + "/realms/" + realm + "/protocol/openid-connect/token";
+    public ResponseEntity<?> login(@RequestBody UserLoginDto userLoginDto) {
+        try {
+            String tokens = userService.login(userLoginDto);
+            return ResponseEntity.ok(tokens);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Login failed: " + e.getMessage());
+        }
+    }
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("grant_type", "password");
-        map.add("client_id", clientId);
-        map.add("client_secret", clientSecret);
-        map.add("username", userDTO.getEmail());
-        map.add("password", userDTO.getPassword());
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+    @GetMapping("/users")
+    public ResponseEntity<?> getAllUsers(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestParam(value = "enabled", required = false) Boolean enabled) {
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, request, String.class);
-
-            if (response.getStatusCode() == HttpStatus.OK) {
-                return ResponseEntity.ok(response.getBody());
-            } else {
-                return ResponseEntity.status(response.getStatusCode()).body("Invalid credentials");
-            }
+            List<UserDto> users = userService.getAllUsers(authorizationHeader, enabled);
+            return ResponseEntity.ok(users);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "500",
+                    e.getMessage(),
+                    "OAuthAPI",
+                    List.of(e.getStackTrace().toString()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getUserById(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathVariable String id) {
+
+        try {
+            UserDto user = userService.getUserById(authorizationHeader, id);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "500",
+                    e.getMessage(),
+                    "OAuthAPI",
+                    List.of(e.getStackTrace().toString()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathVariable String id,
+            @RequestBody UserDto userDto) {
+
+        try {
+            userService.updateUser(authorizationHeader, id, userDto);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "500",
+                    e.getMessage(),
+                    "OAuthAPI",
+                    List.of(e.getStackTrace().toString()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<?> updateUserPassword(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathVariable String id,
+            @RequestBody Map<String, String> passwordMap) {
+
+        try {
+            String newPassword = passwordMap.get("password");
+            userService.updateUserPassword(authorizationHeader, id, newPassword);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "500",
+                    e.getMessage(),
+                    "OAuthAPI",
+                    List.of(e.getStackTrace().toString()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathVariable String id) {
+
+        try {
+            userService.deleteUser(authorizationHeader, id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            ErrorResponse errorResponse = new ErrorResponse(
+                    "500",
+                    e.getMessage(),
+                    "OAuthAPI",
+                    List.of(e.getStackTrace().toString()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 }
