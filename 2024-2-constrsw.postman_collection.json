@@ -52,7 +52,281 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin@pucrs.br",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "a12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{oauth-url}}/login",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:14:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1b2xYWXpjSktIaDhGT3dDSUJMZFExc3R1QnpoTlBJTVcyYVJicXR2V05rIn0.eyJleHAiOjE3MjcxMjMwOTAsImlhdCI6MTcyNzEyMjQ5MCwianRpIjoiMDNjMzE5ZGYtOTdhNi00ZWVjLWIxOWMtMTc0MWQ4MDkyZDRhIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2NvbnN0cnN3IiwiYXVkIjpbInJlYWxtLW1hbmFnZW1lbnQiLCJicm9rZXIiLCJhY2NvdW50Il0sInN1YiI6IjJkYjk0MDdjLWJhYTItNGM1MC1iYjAxLWI5MGFjODllMWQ3MSIsInR5cCI6IkJlYXJlciIsImF6cCI6Im9hdXRoIiwic2Vzc2lvbl9zdGF0ZSI6IjAyZTRmMTg5LTUwNGYtNDYyYy05ZjNmLTljMTNlMDQ4MWEwOSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtY29uc3RydWNhby1zdyIsIm9mZmxpbmVfYWNjZXNzIiwiQURNSU4iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIlVTRVIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJyZWFsbS1tYW5hZ2VtZW50Ijp7InJvbGVzIjpbInZpZXctaWRlbnRpdHktcHJvdmlkZXJzIiwidmlldy1yZWFsbSIsIm1hbmFnZS1pZGVudGl0eS1wcm92aWRlcnMiLCJpbXBlcnNvbmF0aW9uIiwicmVhbG0tYWRtaW4iLCJjcmVhdGUtY2xpZW50IiwibWFuYWdlLXVzZXJzIiwicXVlcnktcmVhbG1zIiwidmlldy1hdXRob3JpemF0aW9uIiwicXVlcnktY2xpZW50cyIsInF1ZXJ5LXVzZXJzIiwibWFuYWdlLWV2ZW50cyIsIm1hbmFnZS1yZWFsbSIsInZpZXctZXZlbnRzIiwidmlldy11c2VycyIsInZpZXctY2xpZW50cyIsIm1hbmFnZS1hdXRob3JpemF0aW9uIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiXX0sImJyb2tlciI6eyJyb2xlcyI6WyJyZWFkLXRva2VuIl19LCJvYXV0aCI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsInZpZXctYXBwbGljYXRpb25zIiwidmlldy1jb25zZW50Iiwidmlldy1ncm91cHMiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsIm1hbmFnZS1jb25zZW50IiwiZGVsZXRlLWFjY291bnQiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiIwMmU0ZjE4OS01MDRmLTQ2MmMtOWYzZi05YzEzZTA0ODFhMDkiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImFkbWluQHB1Y3JzLmJyIiwiZ2l2ZW5fbmFtZSI6IiIsImZhbWlseV9uYW1lIjoiIiwiZW1haWwiOiJhZG1pbkBwdWNycy5iciJ9.D92sGrEJo9dKxoQx9j2gEGbK27jJkHEX9MLj_IfceIyeO6qvx5UoqF-UebuEPaV_r2MdIiPo2zMZdw1wQHAB40EPjxx4PGR2BgWEaFDo6csqwqgmXz9275LeFk2Vqda7HKRkFXzvREEDsQZfSNWD5uc-Ia_XNyYcFMIG3W2txs4NBSV-sudMCh1VgRMgTULuC6Jp0DYmQF6eyUwr4vglZKdg-Ow76zGwzfgC1lYZz3iahP93HAzWN1ISbqv-TwpGsyiKchBDQqM46VXBl50nPe7SL09Pl3n9MZ0TZibvlIP6VPT4bauhm1aBnm2CpPXgLjUI9TPa7FKQTjh6dQSCqg\",\n    \"expiresIn\": 600,\n    \"refreshExpiresIn\": 1800,\n    \"refreshToken\": \"eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3MDNhODljMS1hYjNiLTRhYTEtOTJkZC01MWQ4ZjVjYzYzNGQifQ.eyJleHAiOjE3MjcxMjQyOTAsImlhdCI6MTcyNzEyMjQ5MCwianRpIjoiZjE1OWI1MDctZjM0NS00MTE5LWIwNmUtMDk1ZGE4ZWMxZDU4IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2NvbnN0cnN3IiwiYXVkIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2NvbnN0cnN3Iiwic3ViIjoiMmRiOTQwN2MtYmFhMi00YzUwLWJiMDEtYjkwYWM4OWUxZDcxIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6Im9hdXRoIiwic2Vzc2lvbl9zdGF0ZSI6IjAyZTRmMTg5LTUwNGYtNDYyYy05ZjNmLTljMTNlMDQ4MWEwOSIsInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjAyZTRmMTg5LTUwNGYtNDYyYy05ZjNmLTljMTNlMDQ4MWEwOSJ9._I8ba-x6LaslaC7QR_X7dsQBGNwRCQXjiQcmTO-pvoCKQLt7-zZ7xkjiVp7PLG7vooPuQ4f8W8D8JjxTnUusVg\",\n    \"tokenType\": \"Bearer\"\n}"
+						},
+						{
+							"name": "Erro na estrutura da chamada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin@pucrs.br",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{oauth-url}}/login",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:15:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"400 BAD_REQUEST\",\n    \"error_description\": \"Senha precisa ser informada\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.springframework.web.method.annotation.ModelAttributeMethodProcessor.resolveArgument(ModelAttributeMethodProcessor.java:158)\",\n        \"org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:224)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:178)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:128)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Usuário ou senha inválidos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin@pucrs.b",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "a12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{oauth-url}}/login",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:16:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"401\",\n    \"error_description\": \"Erro ao realizar autenticação com Keycloak - {\\\"error\\\":\\\"invalid_grant\\\",\\\"error_description\\\":\\\"Invalid user credentials\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.generateAccessToken(KeycloakClient.java:53)\",\n        \"org.pucrs.br.oauth.service.AuthServiceImpl.authenticate(AuthServiceImpl.java:18)\",\n        \"org.pucrs.br.oauth.controller.AuthController.authenticate(AuthController.java:32)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:128)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Create user",
@@ -88,7 +362,330 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Fernanda\",\r\n    \"lastName\": \"Mello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:19:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"ba687e4a-f9f9-4cee-9d96-e832a212542e\",\n    \"username\": \"fernanda.mello@gmail.com\",\n    \"firstName\": \"Fernanda\",\n    \"lastName\": \"Mello\",\n    \"enabled\": true\n}"
+						},
+						{
+							"name": "Conflito - usuário já existente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Fernanda\",\r\n    \"lastName\": \"Mello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:19:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"409\",\n    \"error_description\": \"Erro ao criar usuário com Keycloak - {\\\"errorMessage\\\":\\\"User exists with same email\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.createUser(KeycloakClient.java:76)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.register(UserServiceImpl.java:33)\",\n        \"org.pucrs.br.oauth.controller.UserController.createUser(UserController.java:45)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Email inválido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Fernanda\",\r\n    \"lastName\": \"Mello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:21:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"400 BAD_REQUEST\",\n    \"error_description\": \"Username fernanda.mello.com não é um e-mail válido\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.service.UserServiceImpl.register(UserServiceImpl.java:30)\",\n        \"org.pucrs.br.oauth.controller.UserController.createUser(UserController.java:45)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Fernanda\",\r\n    \"lastName\": \"Mello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Fernanda\",\r\n    \"lastName\": \"Mello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "Get all users",
@@ -121,7 +718,313 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sucesso - busca todos os usuários",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:23:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"2db9407c-baa2-4c50-bb01-b90ac89e1d71\",\n        \"username\": \"admin@pucrs.br\",\n        \"firstName\": \"\",\n        \"lastName\": \"\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"b97c7485-6365-47f3-978f-652ec8946301\",\n        \"username\": \"arruda@pucrs.br\",\n        \"firstName\": \"Eduardo\",\n        \"lastName\": \"Arruda\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"f73c57cb-6260-418b-8d12-ea0b20dd6e6d\",\n        \"username\": \"copstein@pucrs.br\",\n        \"firstName\": \"Bernardo\",\n        \"lastName\": \"Copstein\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"ba687e4a-f9f9-4cee-9d96-e832a212542e\",\n        \"username\": \"fernanda.mello@gmail.com\",\n        \"firstName\": \"Fernanda\",\n        \"lastName\": \"Mello\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"48b7b350-eae2-4b41-8d6b-791feae63daa\",\n        \"username\": \"gfrozza@edu.pucrs.br\",\n        \"firstName\": \"Giovanni\",\n        \"lastName\": \"Frozza\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"a74ce056-3654-4654-9bab-5120ad28f7bb\",\n        \"username\": \"holiveira@edu.pucrs.br\",\n        \"firstName\": \"Henrique\",\n        \"lastName\": \"Oliveira\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"1ee9d160-16ee-4fc5-9d5f-6f4976ad1975\",\n        \"username\": \"leoberlatto@edu.pucrs.br\",\n        \"firstName\": \"Leonardo\",\n        \"lastName\": \"Berlatto\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"7ef5609f-0f14-4d31-8716-321eb3d09464\",\n        \"username\": \"lucasmartins@edu.pucrs.br\",\n        \"firstName\": \"Lucas\",\n        \"lastName\": \"Martins\",\n        \"enabled\": true\n    }\n]"
+						},
+						{
+							"name": "Sucesso - busca todos os usuários habilitados",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users?enabled=true",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "enabled",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:24:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"2db9407c-baa2-4c50-bb01-b90ac89e1d71\",\n        \"username\": \"admin@pucrs.br\",\n        \"firstName\": \"\",\n        \"lastName\": \"\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"b97c7485-6365-47f3-978f-652ec8946301\",\n        \"username\": \"arruda@pucrs.br\",\n        \"firstName\": \"Eduardo\",\n        \"lastName\": \"Arruda\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"f73c57cb-6260-418b-8d12-ea0b20dd6e6d\",\n        \"username\": \"copstein@pucrs.br\",\n        \"firstName\": \"Bernardo\",\n        \"lastName\": \"Copstein\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"ba687e4a-f9f9-4cee-9d96-e832a212542e\",\n        \"username\": \"fernanda.mello@gmail.com\",\n        \"firstName\": \"Fernanda\",\n        \"lastName\": \"Mello\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"48b7b350-eae2-4b41-8d6b-791feae63daa\",\n        \"username\": \"gfrozza@edu.pucrs.br\",\n        \"firstName\": \"Giovanni\",\n        \"lastName\": \"Frozza\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"a74ce056-3654-4654-9bab-5120ad28f7bb\",\n        \"username\": \"holiveira@edu.pucrs.br\",\n        \"firstName\": \"Henrique\",\n        \"lastName\": \"Oliveira\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"1ee9d160-16ee-4fc5-9d5f-6f4976ad1975\",\n        \"username\": \"leoberlatto@edu.pucrs.br\",\n        \"firstName\": \"Leonardo\",\n        \"lastName\": \"Berlatto\",\n        \"enabled\": true\n    },\n    {\n        \"id\": \"7ef5609f-0f14-4d31-8716-321eb3d09464\",\n        \"username\": \"lucasmartins@edu.pucrs.br\",\n        \"firstName\": \"Lucas\",\n        \"lastName\": \"Martins\",\n        \"enabled\": true\n    }\n]"
+						},
+						{
+							"name": "Sucesso - busca todos os usuários desabilitados",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users?enabled=false",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "enabled",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:24:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users?enabled=false",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "enabled",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users?enabled=false",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "enabled",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "Get user by id",
@@ -149,35 +1052,214 @@
 							]
 						}
 					},
-					"response": []
-				},
-				{
-					"name": "Delete user by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/ba687e4a-f9f9-4cee-9d96-e832a212542e",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ba687e4a-f9f9-4cee-9d96-e832a212542e"
+									]
 								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159111",
-							"host": [
-								"{{oauth-url}}"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:26:27 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
 							],
-							"path": [
-								"users",
-								"9e534bc9-a16f-4b1b-b224-cc161c159111"
-							]
+							"cookie": [],
+							"body": "{\n    \"id\": \"ba687e4a-f9f9-4cee-9d96-e832a212542e\",\n    \"username\": \"fernanda.mello@gmail.com\",\n    \"firstName\": \"Fernanda\",\n    \"lastName\": \"Mello\",\n    \"enabled\": true\n}"
+						},
+						{
+							"name": "Usuário não localizado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/b97c7485-6365-47f3-978f-652ec8946303",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"b97c7485-6365-47f3-978f-652ec8946303"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:27:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"404\",\n    \"error_description\": \"Erro ao buscar usuário com Keycloak - {\\\"error\\\":\\\"User not found\\\",\\\"error_description\\\":\\\"For more on this error consult the server log at the debug level.\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.getUserById(KeycloakClient.java:113)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.getUserById(UserServiceImpl.java:59)\",\n        \"org.pucrs.br.oauth.controller.UserController.getUserById(UserController.java:68)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/b97c7485-6365-47f3-978f-652ec8946301",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"b97c7485-6365-47f3-978f-652ec8946301"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/b97c7485-6365-47f3-978f-652ec8946301",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"b97c7485-6365-47f3-978f-652ec8946301"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Update user by id",
@@ -214,7 +1296,278 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello2@gmail.com\",\r\n    \"password\": \"minhanovasenha\",\r\n    \"firstName\": \"Nomenovo\",\r\n    \"lastName\": \"Sobrenomenovo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/ba687e4a-f9f9-4cee-9d96-e832a212542e",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ba687e4a-f9f9-4cee-9d96-e832a212542e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Usuário não localizado",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Maria\",\r\n    \"lastName\": \"Souza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/0d058a9f-e262-41ea-951f-f608908e14e2",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"0d058a9f-e262-41ea-951f-f608908e14e2"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:30:43 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"404\",\n    \"error_description\": \"Erro ao atualizar usuário com Keycloak - {\\\"error\\\":\\\"User not found\\\",\\\"error_description\\\":\\\"For more on this error consult the server log at the debug level.\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.updateUser(KeycloakClient.java:135)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.updateUser(UserServiceImpl.java:64)\",\n        \"org.pucrs.br.oauth.controller.UserController.updateUser(UserController.java:79)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:925)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:593)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Maria\",\r\n    \"lastName\": \"Souza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/0d058a9f-e262-41ea-951f-f608908e14e1",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"0d058a9f-e262-41ea-951f-f608908e14e1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello@gmail.com\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Maria\",\r\n    \"lastName\": \"Souza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/0d058a9f-e262-41ea-951f-f608908e14e1",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"0d058a9f-e262-41ea-951f-f608908e14e1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Erro na estrutura da chamada",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"fernanda.mello\",\r\n    \"password\": \"minhasenha\",\r\n    \"firstName\": \"Maria\",\r\n    \"lastName\": \"Souza\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/0d058a9f-e262-41ea-951f-f608908e14e1",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"0d058a9f-e262-41ea-951f-f608908e14e1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:44:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"400 BAD_REQUEST\",\n    \"error_description\": \"Username fernanda.mello não é um e-mail válido\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.service.UserServiceImpl.validateEmail(UserServiceImpl.java:79)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.updateUser(UserServiceImpl.java:59)\",\n        \"org.pucrs.br.oauth.controller.UserController.updateUser(UserController.java:79)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:925)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:593)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Update user password by id",
@@ -251,7 +1604,454 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testesteste\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/d41b849a-2844-4926-8658-eab4371ecba1",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"d41b849a-2844-4926-8658-eab4371ecba1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Usuário não localizado",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testesteste\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/ab36e7b8-86e0-472b-8ebd-8fb585ea7c72",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ab36e7b8-86e0-472b-8ebd-8fb585ea7c72"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:45:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"404\",\n    \"error_description\": \"Erro ao atualizar senha de usuário com Keycloak - {\\\"error\\\":\\\"User not found\\\",\\\"error_description\\\":\\\"For more on this error consult the server log at the debug level.\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.updateUserPassword(KeycloakClient.java:153)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.updateUserPassword(UserServiceImpl.java:65)\",\n        \"org.pucrs.br.oauth.controller.UserController.updateUserPassword(UserController.java:91)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:888)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Erro na estrutura da chamada",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/ab36e7b8-86e0-472b-8ebd-8fb585ea7c72",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ab36e7b8-86e0-472b-8ebd-8fb585ea7c72"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:47:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"400 BAD_REQUEST\",\n    \"error_description\": \"Senha atualizada precisa ser informada\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:144)\",\n        \"org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:224)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:178)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:888)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testesteste\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/ab36e7b8-86e0-472b-8ebd-8fb585ea7c72",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ab36e7b8-86e0-472b-8ebd-8fb585ea7c72"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"testesteste\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{oauth-url}}/users/ab36e7b8-86e0-472b-8ebd-8fb585ea7c72",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"ab36e7b8-86e0-472b-8ebd-8fb585ea7c72"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159113",
+							"host": [
+								"{{oauth-url}}"
+							],
+							"path": [
+								"users",
+								"9e534bc9-a16f-4b1b-b224-cc161c159113"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159113",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"9e534bc9-a16f-4b1b-b224-cc161c159113"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Usuário não localizado",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159113",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"9e534bc9-a16f-4b1b-b224-cc161c159113"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 23 Sep 2024 20:48:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error_code\": \"404\",\n    \"error_description\": \"Erro ao deletar usuário com Keycloak - {\\\"error\\\":\\\"User not found\\\",\\\"error_description\\\":\\\"For more on this error consult the server log at the debug level.\\\"}\",\n    \"error_source\": \"OAuthAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.oauth.client.KeycloakClient.lambda$handleHttpError$9(KeycloakClient.java:177)\",\n        \"org.springframework.web.client.StatusHandler.handle(StatusHandler.java:146)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.applyStatusHandlers(DefaultRestClient.java:696)\",\n        \"org.springframework.web.client.DefaultRestClient.readWithMessageConverters(DefaultRestClient.java:200)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.readBody(DefaultRestClient.java:683)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntityInternal(DefaultRestClient.java:653)\",\n        \"org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.toEntity(DefaultRestClient.java:642)\",\n        \"org.pucrs.br.oauth.client.KeycloakClient.disableUser(KeycloakClient.java:168)\",\n        \"org.pucrs.br.oauth.service.UserServiceImpl.deleteUser(UserServiceImpl.java:70)\",\n        \"org.pucrs.br.oauth.controller.UserController.deleteUser(UserController.java:102)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:936)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:596)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)\",\n        \"org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)\",\n        \"org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)\",\n        \"org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)\",\n        \"org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:145)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)\",\n        \"org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)\",\n        \"org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)\",\n        \"org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)\",\n        \"org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)\",\n        \"org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)\",\n        \"org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)\",\n        \"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)\",\n        \"org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+						},
+						{
+							"name": "Não autorizado",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159113",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"9e534bc9-a16f-4b1b-b224-cc161c159113"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Não permitido",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/users/9e534bc9-a16f-4b1b-b224-cc161c159113",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"users",
+										"9e534bc9-a16f-4b1b-b224-cc161c159113"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "Health check",
@@ -271,7 +2071,30 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Saudável",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{oauth-url}}/health",
+									"host": [
+										"{{oauth-url}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				}
 			]
 		}
