@@ -98,7 +98,6 @@ services:
       timeout: 10s
       retries: 10
     restart: always
- 
   oauth:
     container_name: oauth
     build:

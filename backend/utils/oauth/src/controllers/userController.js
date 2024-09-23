@@ -1,10 +1,18 @@
 // backend/api/controllers/usersController.js
 const keycloakService = require('../services/keycloakService');
 
+exports.health = async (req, res) => {
+  try {
+    return res.status(200).json('OK');
+  } catch (error) {
+    return res.status(error.response.status).json(error.response.data);
+  }
+};
+
 exports.login = async (req, res) => {
   try {
-    const {username, password, grant_type } = req.body;
-    const response = await keycloakService.login(username, password, grant_type);
+    const {username, password } = req.body;
+    const response = await keycloakService.login(username, password);
     return res.status(200).json(response.data);
   } catch (error) {
     return res.status(error.response.status).json(error.response.data);
@@ -24,7 +32,7 @@ exports.createUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const { access_token } = req.headers;
+    const access_token = req.headers.authorization.split(' ')[1];
     const response = await keycloakService.getAllUsers(access_token);
     return res.status(200).json(response.data);
   } catch (error) {
@@ -34,7 +42,7 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const { access_token } = req.headers;
+    const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const response = await keycloakService.getUserById(access_token, id);
     return res.status(200).json(response.data);
@@ -45,7 +53,7 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const { access_token } = req.headers;
+    const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const user = req.body;
     const response = await keycloakService.updateUser(access_token, id, user);
@@ -57,7 +65,7 @@ exports.updateUser = async (req, res) => {
 
 exports.updateUserPassword = async (req, res) => {
   try {
-    const { access_token } = req.headers;
+    const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const { password } = req.body;
     const response = await keycloakService.updateUserPassword(access_token, id, password);
@@ -69,7 +77,7 @@ exports.updateUserPassword = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const { access_token } = req.headers;
+    const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     await keycloakService.deleteUser(access_token, id);
     return res.status(204).send();
