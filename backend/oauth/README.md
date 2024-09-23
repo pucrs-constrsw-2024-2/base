@@ -24,7 +24,7 @@ A documentação da API pode ser acessada através do Swagger, que fornece uma i
 - **URL do Swagger**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 Além disso, também foi criada uma collection e um ambiente do Postman para validação de requisições da API. Importe os arquivos do seguinte path:
-- **Collection do Postman**: [collection](2024-2-constrsw.postman_collection.json) e [environment](constrsw.postman_environment.json)
+- **Collection do Postman**: [collection](../../2024-2-constrsw.postman_collection.json) e [environment](../../constrsw.postman_environment.json)
 
 ## Instruções para Execução
 
