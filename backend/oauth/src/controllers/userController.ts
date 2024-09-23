@@ -87,6 +87,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 }
 
+<<<<<<< HEAD
 export const updateUser = async (req: Request, res: Response) => {
    const token = req.headers.authorization?.split(' ')[1]
    const userId = req.params.id
@@ -129,3 +130,36 @@ headers: {
 
 }
 }
+=======
+
+export const deleteUser = async (req: Request, res: Response) => {
+  const token = req.headers.authorization?.split(' ')[1]
+  const userId = req.params.id
+
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.KEYCLOAK_URL}/admin/realms/${process.env.KEYCLOAK_REALM}/users/${userId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      return res.status(response.status).json(errorData)
+    }
+
+    res.status(204).json({ message: 'User deleted successfully' })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+}
+>>>>>>> origin/grupo6
