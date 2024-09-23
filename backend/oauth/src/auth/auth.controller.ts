@@ -24,13 +24,12 @@ export class AuthController {
   @ApiResponse({
     status: 400,
     description: 'Erro na estrutura da chamada (headers, request body, etc).',
-    
   })
   @ApiResponse({
     status: 401,
     description: 'username e/ou password inválidos.',
   })
-  async login(@Body() body: LoginDto): Promise<{accessToken: string}> {
+  async login(@Body() body: LoginDto): Promise<{ accessToken: string }> {
     const token = await this.authService.login(body.username, body.password);
 
     return token;

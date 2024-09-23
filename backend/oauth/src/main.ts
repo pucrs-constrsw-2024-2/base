@@ -14,6 +14,10 @@ async function bootstrap() {
       type: 'http',
       scheme: 'basic',
     })
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+    })
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

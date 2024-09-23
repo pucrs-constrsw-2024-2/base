@@ -5,17 +5,21 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [AuthModule, KeycloakConnectModule.register({
-    authServerUrl: 'http://localhost:8090',
-    realm: 'constrsw',
-    clientId: 'oauth',
-    secret: '04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z',
-  }), UserModule],
+  imports: [
+    AuthModule,
+    KeycloakConnectModule.register({
+      authServerUrl: 'http://localhost:8090',
+      realm: 'constrsw',
+      clientId: 'oauth',
+      secret: '04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z',
+    }),
+    UserModule,
+  ],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: AuthGuard
-    } 
-  ]
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

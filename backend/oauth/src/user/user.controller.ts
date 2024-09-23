@@ -1,16 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Param,
+  Post,
+} from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthenticatedUser } from 'nest-keycloak-connect';
+import { change_password_dto } from 'src/auth/dtos/change-password.dto';
+import { LoggedUser } from 'src/entities/logged-user';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
 
   @Get()
   findAll() {
@@ -22,9 +27,26 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Post(':id')
+  @ApiOperation({
+    summary: 'Altera a senha do usuário logado.',
+    description: 'Altera a senha do usuário logado.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Senha alterada com sucesso.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro na estrutura da chamada (headers, request body, etc).',
+  })
+  async change_password(
+    @Body() body: change_password_dto,
+    @Param('id') id: string,
+    @AuthenticatedUser() user: LoggedUser,
+    @Headers('authorization') headers: string,
+  ): Promise<void> {
+    await this.userService.changePassword(id, body.password, headers);
   }
 
   @Delete(':id')
