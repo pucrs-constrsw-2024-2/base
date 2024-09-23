@@ -154,7 +154,7 @@ public class KeycloakClient {
         return response.getStatusCode() == HttpStatus.NOT_FOUND ? null : response.getBody();
     }
 
-    public boolean deleteUser(UUID id, String accessToken) {
+    public boolean disableUser(UUID id, String accessToken) {
         Map<String, Object> disableUserRequestBody = Map.of("enabled", false);
 
         ResponseEntity<Void> response = keycloakRestClient.put()

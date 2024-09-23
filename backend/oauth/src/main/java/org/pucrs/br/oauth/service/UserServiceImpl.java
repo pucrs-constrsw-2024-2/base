@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.pucrs.br.oauth.client.KeycloakClient;
 import org.pucrs.br.oauth.dto.request.UserRequest;
 import org.pucrs.br.oauth.dto.response.UserResponse;
+import org.pucrs.br.oauth.exception.HttpException;
 import org.pucrs.br.oauth.exception.InvalidEmailException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,12 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse register(UserRequest userRequest, Jwt bearerToken) {
-
-        Pattern pattern = Pattern.compile(VALID_EMAIL_REGEX);
-        if (!pattern.matcher(userRequest.getUsername()).matches()) {
-            throw new InvalidEmailException(userRequest.getUsername());
-        }
-
+        validateEmail(userRequest.getUsername());
         var createdUserLocation = keycloakClient.createUser(userRequest, bearerToken.getTokenValue());
         return UserResponse.builder()
                 .id(createdUserLocation)
@@ -44,39 +39,44 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> getAllUsers(Jwt accessToken, Boolean isEnabled) {
         List<UserResponse> users = keycloakClient.getAllUsers(accessToken.getTokenValue(), isEnabled);
         return users.stream()
-        .map(user -> UserResponse.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .enabled(user.isEnabled())
-                .build())
-        .collect(Collectors.toList());
+                .map(user -> UserResponse.builder()
+                        .id(user.getId())
+                        .username(user.getUsername())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .enabled(user.isEnabled())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override
     public UserResponse getUserById(UUID id, String accessToken) {
-        UserResponse user = keycloakClient.getUserById(id, accessToken);
-        return user;
+        return keycloakClient.getUserById(id, accessToken);
     }
 
     @Override
     public UserResponse updateUser(UUID id, UserRequest userRequest, String accessToken) {
-        UserResponse updatedUser = keycloakClient.updateUser(id, userRequest, accessToken);
-        return updatedUser;
+        validateEmail(userRequest.getUsername());
+        return keycloakClient.updateUser(id, userRequest, accessToken);
     }
 
     @Override
     public UserResponse updateUserPassword(UUID id, String updatePassword, String accessToken) {
-        UserResponse updatedUser = keycloakClient.updateUserPassword(id, updatePassword, accessToken);
-        return updatedUser;
+        return keycloakClient.updateUserPassword(id, updatePassword, accessToken);
     }
 
     @Override
     public void deleteUser(UUID id, String accessToken) {
-        boolean isDeleted = keycloakClient.deleteUser(id, accessToken);    
+        boolean isDeleted = keycloakClient.disableUser(id, accessToken);
         if (!isDeleted) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
+            throw new HttpException("Erro ao deletar usuário", HttpStatus.NOT_FOUND.value(), "Usuário não encontrado");
+        }
+    }
+
+    private void validateEmail(String requestEmail) {
+        Pattern pattern = Pattern.compile(VALID_EMAIL_REGEX);
+        if (!pattern.matcher(requestEmail).matches()) {
+            throw new InvalidEmailException(requestEmail);
         }
     }
 }

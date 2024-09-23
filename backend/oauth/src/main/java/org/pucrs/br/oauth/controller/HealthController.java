@@ -1,5 +1,6 @@
 package org.pucrs.br.oauth.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ public class HealthController {
     @GetMapping("")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Verificação de saúde do serviço")
     public void healthCheck() {
     }
 }

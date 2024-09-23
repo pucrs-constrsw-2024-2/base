@@ -1,5 +1,7 @@
 package org.pucrs.br.oauth.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,7 @@ public class UserController {
     @PostMapping
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Criação de um usuário")
     public UserResponse createUser(@Valid @RequestBody UserRequest userRequest, @AuthenticationPrincipal Jwt jwt) {
         log.info("POST /users - Iniciando criacao de usuario com parametros: {}", userRequest.toString());
         UserResponse response = userService.register(userRequest, jwt);
@@ -47,7 +50,9 @@ public class UserController {
     @GetMapping
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
-    public List<UserResponse> getAllUsers(@AuthenticationPrincipal Jwt jwt, @RequestParam(required = false) Boolean enabled) {
+    @Operation(summary = "Recuperação dos dados de todos os usuários cadastrados")
+    public List<UserResponse> getAllUsers(@RequestParam(required = false) @Schema(description = "Filtra usuários de acordo com seu estado - habilitado ou desabilitado") Boolean enabled,
+                                          @AuthenticationPrincipal Jwt jwt) {
         log.info("GET /users - Iniciando recuperação de todos os usuários");
         List<UserResponse> response = userService.getAllUsers(jwt, enabled);
         log.info("GET /users - Usuarios {} recuperados com sucesso", response);
@@ -57,6 +62,7 @@ public class UserController {
     @GetMapping("/{id}")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Recuperação de um usuário")
     public UserResponse getUserById(@PathVariable UUID id, @AuthenticationPrincipal Jwt jwt) {
         log.info("GET /users/{} - Iniciando recuperação de usuário", id);
         UserResponse user = userService.getUserById(id, jwt.getTokenValue());
@@ -67,6 +73,7 @@ public class UserController {
     @PutMapping("/{id}")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Atualização de um usuário")
     public UserResponse updateUser(@PathVariable UUID id, @Valid @RequestBody UserRequest userRequest, @AuthenticationPrincipal Jwt jwt) {
         log.info("PUT /users/{} - Iniciando atualização do usuário", id);
         UserResponse updatedUser = userService.updateUser(id, userRequest, jwt.getTokenValue());
@@ -77,17 +84,19 @@ public class UserController {
     @PatchMapping("/{id}")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Atualização da senha de um usuário")
     public UserResponse updateUserPassword(@PathVariable UUID id, @Valid @RequestBody PasswordRequest passwordRequest,
                                            @AuthenticationPrincipal Jwt jwt) {
-        log.info("PATCH /users/{}/password - Iniciando atualização da senha do usuário", id);
+        log.info("PATCH /users/{} - Iniciando atualização da senha do usuário", id);
         UserResponse updatedUser = userService.updateUserPassword(id, passwordRequest.getPassword(), jwt.getTokenValue());
-        log.info("PATCH /users/{}/password - Senha do usuário atualizada com sucesso", id);
+        log.info("PATCH /users/{} - Senha do usuário atualizada com sucesso", id);
         return updatedUser;
     }
 
     @DeleteMapping("/{id}")
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Exclusão lógica de um usuário")
     public void deleteUser(@PathVariable UUID id, @AuthenticationPrincipal Jwt jwt) {
         log.info("DELETE /users/{} - Iniciando exclusão do usuário", id);
         userService.deleteUser(id, jwt.getTokenValue());

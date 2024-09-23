@@ -1,5 +1,6 @@
 package org.pucrs.br.oauth.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class AuthController {
     @PostMapping
     @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Autenticação de usuário")
     public AuthResponse authenticate(@Valid @ModelAttribute LoginRequest loginRequest) {
         log.info("POST /login - Iniciando login de usuario {}", loginRequest.getUsername());
         var token = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());

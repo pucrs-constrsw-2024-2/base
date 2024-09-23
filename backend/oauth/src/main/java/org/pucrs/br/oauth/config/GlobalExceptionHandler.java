@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidEmailException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(InvalidEmailException exception) {
+    public ResponseEntity<ErrorResponse> handleInvalidEmailException(InvalidEmailException exception) {
         var errorResponse = ErrorResponse.builder()
                 .errorCode(HttpStatus.BAD_REQUEST.toString())
                 .errorDescription(exception.getMessage())
