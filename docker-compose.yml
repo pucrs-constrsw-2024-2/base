@@ -98,6 +98,24 @@ services:
       timeout: 10s
       retries: 10
     restart: always
+  oauth-api:
+      ports:
+        - 8080:8081
+      build:
+        context: ./backend/oauth/oauth
+        dockerfile: Dockerfile
+      environment:
+      - spring.application.name=oauth
+      - server.port=8081
+      - keycloak.auth-server-url"=http://keycloak:8080
+      - keycloak.realm=constrsw 
+      - keycloak.clientid=oauth
+      - keycloak.credentials.secret=04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
+      networks:
+        - constrsw
+      container_name: oauth-api
+      depends_on:
+        - keycloak
 #  # OAuth
 #   oauth:
 #     container_name: oauth
