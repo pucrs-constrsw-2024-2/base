@@ -33,10 +33,16 @@ Para executar a aplicação, utilize o Docker Compose. Siga as instruções abai
 1. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
 2. Clone este repositório em sua máquina local.
 3. Navegue até o diretório do projeto.
-4. Execute o seguinte comando:
+4. Crie os três volumes do docker
+```bash
+docker volume create constrsw-keycloak-data
+docker volume create constrsw-postgresql-data
+docker volume create constrsw-mongodb-data
+```
+6. Execute o seguinte comando:
 
    ```bash
    docker-compose up
    ```
 
-5. A aplicação estará disponível em `http://localhost:8080`.
+7. A aplicação estará disponível em `http://localhost:8080`.
