@@ -4,8 +4,12 @@ import {
   Delete,
   Get,
   Headers,
+  HttpException,
+  HttpStatus,
+  Logger,
   Param,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticatedUser } from 'nest-keycloak-connect';
@@ -18,13 +22,50 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll(
+    @Headers('Authorization') headers: string,
+    @Query('enabled') enabled?: boolean,
+  ): Promise<any> {
+    Logger.log(`Authorization Header: ${headers}`, 'UserController');
+    if (!headers) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    const accessToken = headers.split(' ')[1];
+    if (!accessToken) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    try {
+      // O método findAll do service retorna os usuários
+      return await this.userService.findAll(accessToken, enabled);
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.status || HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async findOne(
+    @Param('id') id: string,
+    @Headers('authorization') headers: string,
+  ): Promise<any> {
+    console.log('Authorization Header:', headers);
+    if (!headers) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
+
+    try {
+      // O método findOne do service retorna um usuário
+      return await this.userService.findOne(id, headers);
+    } catch (error) {
+      throw new HttpException(
+        error.message,
+        error.status || HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   @Post(':id')
