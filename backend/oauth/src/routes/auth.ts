@@ -1,44 +1,65 @@
-import { Router, Request, Response } from 'express';
-import axios from 'axios';
+import axios from "axios";
+import { Router, Request, Response } from "express";
+import * as dotenv from "dotenv";
 
+dotenv.config();
+
+const KEYCLOAK_URL = `${process.env.KEYCLOAK_EXTERNAL_HOST}:${process.env.KEYCLOAK_EXTERNAL_PORT}`;
+const REALM = process.env.KEYCLOAK_REALM;
+const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
+const clientId = process.env.KEYCLOAK_CLIENT_ID;
 const router = Router();
 
-const KEYCLOAK_URL = `${process.env.OAUTH_INTERNAL_PROTOCOL}://${process.env.KEYCLOAK_INTERNAL_HOST}:${process.env.KEYCLOAK_INTERNAL_PORT}`;
-const REALM = process.env.KEYCLOAK_REALM;
-const CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID;
-const CLIENT_SECRET = process.env.KEYCLOAK_CLIENT_SECRET;
-const GRANT_TYPE = process.env.KEYCLOAK_GRANT_TYPE || 'password';
-
-router.post('/', async (req: Request, res: Response) => {
+// Endpoint para obter o token de acesso
+router.post("/", async (req: Request, res: Response) => {
   const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ message: "Usuário e senha são obrigatórios." });
+  }
+
+  if (!clientId || !clientSecret) {
+    return res
+      .status(500)
+      .json({ message: "Credenciais do cliente não configuradas." });
+  }
 
   try {
     const response = await axios.post(
-      `${KEYCLOAK_URL}/auth/realms/${REALM}/protocol/openid-connect/token`,
+      `http://${KEYCLOAK_URL}/realms/${REALM}/protocol/openid-connect/token`,
       new URLSearchParams({
-        client_id: CLIENT_ID!,
-        client_secret: CLIENT_SECRET!,
-        grant_type: GRANT_TYPE,
-        username,
-        password,
-      }).toString(),
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+        client_id: clientId,
+        client_secret: clientSecret,
+        username: username,
+        password: password,
+        grant_type: "password",
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
     );
 
-    const { access_token, refresh_token, expires_in, refresh_expires_in } = response.data;
-
-    return res.status(201).json({
-      token_type: 'Bearer',
-      access_token,
-      expires_in,
-      refresh_token,
-      refresh_expires_in,
-    });
+    return res.status(201).json(response.data);
   } catch (error: any) {
-    if (error.response?.status === 401) {
-      return res.status(401).json({ error: 'Unauthorized' });
+    console.error("Erro ao obter token do Keycloak:", error);
+
+    if (error.response && error.response.status === 401) {
+      return res
+        .status(401)
+        .json({ message: "Usuário ou senha inválidos." });
     }
-    return res.status(400).json({ error: 'Bad Request' });
+
+    if (error.response && error.response.status === 400) {
+      return res
+        .status(400)
+        .json({ message: "Erro na estrutura da chamada." });
+    }
+
+    return res.status(500).json({ message: "Erro ao obter token." });
   }
 });
 
