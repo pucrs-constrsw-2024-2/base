@@ -31,8 +31,11 @@ export class UserController {
     status: 400,
     description: 'Erro ao criar usuário.',
   })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  create(
+    @Body() createUserDto: CreateUserDto,
+    @Headers('authorization') headers: string,
+  ) {
+    return this.userService.create(createUserDto, headers);
   }
 
   @Get()

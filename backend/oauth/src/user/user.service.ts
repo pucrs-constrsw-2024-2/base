@@ -1,35 +1,43 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { catchError, firstValueFrom } from 'rxjs';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AxiosError } from 'axios';
+import { catchError, firstValueFrom } from 'rxjs';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly httpService: HttpService) {}
-  create(createUserDto: CreateUserDto) {
-    this.httpService
-      .post(
-        '/realms/constrsw/users',
-        {
-          username: createUserDto.username,
-          email: createUserDto.email,
-          firstName: createUserDto.firstName,
-          lastName: createUserDto.lastName,
-          enabled: true,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+  async create(
+    createUserDto: CreateUserDto,
+    authentication_header: string,
+  ): Promise<CreateUserDto> {
+    try {
+      await firstValueFrom(
+        this.httpService.post(
+          '/admin/realms/constrsw/users',
+          {
+            username: createUserDto.username,
+            email: createUserDto.email,
+            firstName: createUserDto.firstName,
+            lastName: createUserDto.lastName,
+            enabled: true,
           },
-          withCredentials: true,
-        },
-      )
-      .pipe(
-        catchError((error: AxiosError) => {
-          throw error.response.data;
-        }),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: authentication_header,
+            },
+            withCredentials: true,
+          },
+        ),
       );
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
+    return createUserDto;
   }
 
   findAll() {
