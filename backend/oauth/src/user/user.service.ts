@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 
@@ -7,12 +7,42 @@ import { catchError, firstValueFrom } from 'rxjs';
 export class UserService {
   constructor(private readonly httpService: HttpService) {}
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(authentication_header: string) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.get('/admin/realms/constrsw/users', {
+          headers: {
+            Authorization: authentication_header,
+          },
+          withCredentials: true,
+        }),
+      );
+      return data;
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number, authentication_header: string) {
+    try {
+      const { data } = await firstValueFrom(
+        this.httpService.get(`/admin/realms/constrsw/users/${id}`, {
+          headers: {
+            Authorization: authentication_header,
+          },
+          withCredentials: true,
+        }),
+      );
+      return data;
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 
   remove(id: number) {

@@ -18,13 +18,37 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  @ApiOperation({
+    summary: 'Busca todos os usuários.',
+    description: 'Busca todos os usuários.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuários encontrados com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuários não encontrados.',
+  })
+  findAll(@Headers('authorization') headers: string) {
+    return this.userService.findAll(headers);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @ApiOperation({
+    summary: 'Busca um usuário pelo ID.',
+    description: 'Busca um usuário pelo ID.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário encontrado com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado.',
+  })
+  findOne(@Param('id') id: number, @Headers('authorization') headers: string) {
+    return this.userService.findOne(id, headers);
   }
 
   @Post(':id')
