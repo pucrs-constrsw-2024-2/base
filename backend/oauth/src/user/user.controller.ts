@@ -6,6 +6,7 @@ import {
   Headers,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticatedUser } from 'nest-keycloak-connect';
@@ -46,6 +47,27 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
+  }
+
+  @Put(':id')
+  @ApiOperation({
+    summary: 'Atualiza um usuário.',
+    description: 'Atualiza um usuário.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário atualizado com sucesso.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao atualizar usuário.',
+  })
+  update(
+    @Param('id') id: number,
+    @Body() body: any,
+    @Headers('authorization') headers: string,
+  ) {
+    return this.userService.update(id, body, headers);
   }
 
   @Post(':id')
