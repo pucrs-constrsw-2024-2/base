@@ -166,7 +166,7 @@ exports.updateUser = async (req, res) => {
     if(user.email) {
       if (!emailRegex.test(user.email)) {
         return handleError(
-          { response: { status: 400 } }, // Simula erro 400
+          { response: { status: 400 } },
           res,
           "OAuthAPI",
           "Invalid email address format."
@@ -177,7 +177,7 @@ exports.updateUser = async (req, res) => {
     else if (user.username) {
       if (!emailRegex.test(user.username)) {
         return handleError(
-          { response: { status: 400 } }, // Simula erro 400
+          { response: { status: 400 } },
           res,
           "OAuthAPI",
           "Invalid email address format."
