@@ -14,6 +14,7 @@ import { change_password_dto } from 'src/auth/dtos/change-password.dto';
 import { LoggedUser } from 'src/entities/logged-user';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -64,7 +65,7 @@ export class UserController {
   })
   update(
     @Param('id') id: number,
-    @Body() body: any,
+    @Body() body: UpdateUserDto,
     @Headers('authorization') headers: string,
   ) {
     return this.userService.update(id, body, headers);
