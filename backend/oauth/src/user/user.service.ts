@@ -3,6 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
+import type { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -50,6 +51,38 @@ export class UserService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    authentication_header: string,
+  ) {
+    try {
+      await firstValueFrom(
+        this.httpService.put(
+          `/admin/realms/constrsw/users/${id}`,
+          {
+            username: updateUserDto.username,
+            email: updateUserDto.email,
+            firstName: updateUserDto.firstName,
+            lastName: updateUserDto.lastName,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: authentication_header,
+            },
+            withCredentials: true,
+          },
+        ),
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 
   async changePassword(
