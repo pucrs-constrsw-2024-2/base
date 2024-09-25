@@ -117,7 +117,19 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @ApiOperation({
+    summary: 'Remove um usuário.',
+    description: 'Remove um usuário.',
+  })
+  @ApiResponse({
+    status: 204,
+    description: 'Usuário removido com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado.',
+  })
+  remove(@Param('id') id: number, @Headers('authorization') headers: string) {
+    return this.userService.remove(id, headers);
   }
 }

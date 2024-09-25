@@ -79,8 +79,22 @@ export class UserService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number, authentication_header: string) {
+    try {
+      await firstValueFrom(
+        this.httpService.delete(`/admin/realms/constrsw/users/${id}`, {
+          headers: {
+            Authorization: authentication_header,
+          },
+          withCredentials: true,
+        }),
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 
   async update(
