@@ -83,6 +83,7 @@ export class UserService {
         error.response.status,
       );
     }
+    return updateUserDto;
   }
 
   async changePassword(
