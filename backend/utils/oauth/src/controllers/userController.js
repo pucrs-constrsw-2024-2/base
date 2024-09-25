@@ -230,7 +230,10 @@ exports.deleteUser = async (req, res) => {
   try {
     const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
-    await keycloakService.deleteUser(access_token, id);
+    const user = {
+      enabled: false
+    };
+    await keycloakService.deleteUser(access_token, id, user);
     return res.status(204).send();
   } catch (error) {
     let customDescription;

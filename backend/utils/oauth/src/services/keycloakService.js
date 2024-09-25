@@ -73,9 +73,9 @@ exports.updateUserPassword = (access_token, id, password) => {
   });
 };
 
-exports.deleteUser = (access_token, id) => {
+exports.deleteUser = (access_token, id, user) => {
   const url = `${KEYCLOAK_BASE_URL}/admin/realms/${REALM}/users/${id}`;
-  return axios.delete(url, {
+  return axios.put(url, user, {
     headers: {
       Authorization: `Bearer ${access_token}`
     }
