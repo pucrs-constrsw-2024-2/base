@@ -11,65 +11,6 @@ volumes:
   constrsw-mongodb-data:
     external: true
 services:
-  # # PostgreSQL
-  # postgresql:
-  #   container_name: postgresql
-  #   build:
-  #     context: ./backend/utils/postgresql/
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - POSTGRES_DB_USER=${POSTGRESQL_USERNAME}
-  #       - POSTGRES_DB_PASSWORD=${POSTGRESQL_PASSWORD}
-  #   image: constrsw/postgresql
-  #   environment:
-  #     - POSTGRES_HOST_AUTH_METHOD=trust
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #     - POSTGRES_USER=${POSTGRESQL_USERNAME}
-  #     - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
-  #   volumes:
-  #     # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
-  #     - constrsw-postgresql-data:/var/lib/postgresql/data
-  #   networks:
-  #     - constrsw
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-  #     start_period: 10s
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 10
-  #   restart: always
-  #   # Exemplo de script PostgreSQL para criar um database em um Dockerfile:
-  #   # RUN psql --host=postgresql:5432 --username=${POSTGRES_USER} --password ??? \
-  #   #     --command="CREATE DATABASE ${POSTGRES_DB_NAME} \
-  #   #                 OWNER ${POSTGRES_USER} \
-  #   #                 TEMPLATE template0 \
-  #   #                 ENCODING 'LATIN1' \
-  #   #                 LC_COLLATE 'C' \
-  #   #                 LC_CTYPE 'C' \
-  #   #                 TABLESPACE pg_default \
-  #   #                 CONNECTION LIMIT -1;"
-  #   # RUN psql --host=postgresql:5432 --username=${POSTGRES_USER} \
-  #   #     --command="GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB_NAME} TO ${POSTGRES_USER};"
-  # # MongoDB
-  # mongodb:
-  #   container_name: mongodb
-  #   build:
-  #     context: ./backend/utils/mongodb/
-  #     dockerfile: Dockerfile
-  #   image: constrsw/mongodb
-  #   volumes:
-  #     # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
-  #     - constrsw-mongodb-data:/data/mongodb
-  #   networks:
-  #     - constrsw
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "mongosh --quiet mongodb/test --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'" ]
-  #     start_period: 10s
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 10
-  #   restart: always
-  # Keycloak
   keycloak:
     container_name: keycloak
     build:
@@ -105,24 +46,21 @@ services:
       context: ./backend/oauth/
       dockerfile: Dockerfile
     image: constrsw/oauth
-    command: npm run dev
+    command: node dist/src/index.js
+    ports:
+      - 3000:3000
     environment:
-      - NODE_ENV=development
-      - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
-      - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
-      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-      - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
+      - NODE_ENV=production
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_REALM=constrsw
+      - KEYCLOAK_CLIENT_SECRET=04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
     networks:
       - constrsw
     depends_on:
       keycloak:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
+      test: [ "CMD-SHELL", "curl -f http://localhost:3000/health" ]
       start_period: 10s
       interval: 10s
       timeout: 10s
