@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { catchError, firstValueFrom } from 'rxjs';
 
@@ -15,8 +15,22 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number, authentication_header: string) {
+    try {
+      await firstValueFrom(
+        this.httpService.delete(`/admin/realms/constrsw/users/${id}`, {
+          headers: {
+            Authorization: authentication_header,
+          },
+          withCredentials: true,
+        }),
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 
   async changePassword(
