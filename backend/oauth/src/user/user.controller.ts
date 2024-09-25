@@ -4,12 +4,8 @@ import {
   Delete,
   Get,
   Headers,
-  HttpException,
-  HttpStatus,
-  Logger,
   Param,
   Post,
-  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticatedUser } from 'nest-keycloak-connect';
@@ -22,50 +18,37 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  async findAll(
-    @Headers('Authorization') headers: string,
-    @Query('enabled') enabled?: boolean,
-  ): Promise<any> {
-    Logger.log(`Authorization Header: ${headers}`, 'UserController');
-    if (!headers) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-
-    const accessToken = headers.split(' ')[1];
-    if (!accessToken) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-
-    try {
-      // O método findAll do service retorna os usuários
-      return await this.userService.findAll(accessToken, enabled);
-    } catch (error) {
-      throw new HttpException(
-        error.message,
-        error.status || HttpStatus.BAD_REQUEST,
-      );
-    }
+  @ApiOperation({
+    summary: 'Busca todos os usuários.',
+    description: 'Busca todos os usuários.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuários encontrados com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuários não encontrados.',
+  })
+  findAll(@Headers('authorization') headers: string) {
+    return this.userService.findAll(headers);
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-    @Headers('authorization') headers: string,
-  ): Promise<any> {
-    console.log('Authorization Header:', headers);
-    if (!headers) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-
-    try {
-      // O método findOne do service retorna um usuário
-      return await this.userService.findOne(id, headers);
-    } catch (error) {
-      throw new HttpException(
-        error.message,
-        error.status || HttpStatus.BAD_REQUEST,
-      );
-    }
+  @ApiOperation({
+    summary: 'Busca um usuário pelo ID.',
+    description: 'Busca um usuário pelo ID.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário encontrado com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado.',
+  })
+  findOne(@Param('id') id: number, @Headers('authorization') headers: string) {
+    return this.userService.findOne(id, headers);
   }
 
   @Post(':id')
