@@ -243,7 +243,7 @@ router.get('/:id', async (req: Request, res: Response) => {
  * /{id}:
  *   put:
  *     summary: Atualizar um usuário
- *     description: Atualiza as informações de um usuário existente.
+ *     description: Atualiza as informações de um usuário existente. Apenas os campos fornecidos no corpo da requisição serão atualizados.
  *     parameters:
  *       - in: path
  *         name: id
@@ -264,13 +264,18 @@ router.get('/:id', async (req: Request, res: Response) => {
  *               senha:
  *                 type: string
  *                 example: "newpassword"
+ *               firstName:
+ *                 type: string
+ *                 example: "John"
+ *               lastName:
+ *                 type: string
+ *                 example: "Doe"
+ *             additionalProperties: true
  *     responses:
  *       200:
  *         description: Usuário atualizado com sucesso.
  *       401:
  *         description: Token de autenticação é obrigatório.
- *       400:
- *         description: Email e senha são obrigatórios.
  *       403:
  *         description: Access token não concede permissão para acessar esse endpoint ou objeto.
  *       404:
@@ -280,30 +285,32 @@ router.get('/:id', async (req: Request, res: Response) => {
  */
 router.put('/:id', async (req: Request, res: Response) => {
   const id = req.params.id;
-  const { email, senha } = req.body;
+  const { email, senha, firstName, lastName } = req.body;
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Token de autenticação é obrigatório.' });
   }
 
-  if (!email || !senha) {
-    return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+  // Cria um objeto com os dados a serem atualizados
+  const updateData: any = {};
+  if (email) updateData.email = email;
+  if (firstName) updateData.firstName = firstName;
+  if (lastName) updateData.lastName = lastName;
+  if (senha) {
+    updateData.credentials = [
+      {
+        type: 'password',
+        value: senha,
+        temporary: false,
+      },
+    ];
   }
 
   try {
     await axios.put(
       `http://${KEYCLOAK_URL}/admin/realms/${REALM}/users/${id}`,
-      {
-        email: email,
-        credentials: [
-          {
-            type: 'password',
-            value: senha,
-            temporary: false
-          }
-        ]
-      },
+      updateData,
       {
         headers: {
           Authorization: `${authHeader}`,
@@ -330,6 +337,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Erro ao atualizar usuário.' });
   }
 });
+
 
 /**
  * @swagger
