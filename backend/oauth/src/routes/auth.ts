@@ -34,7 +34,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const KEYCLOAK_URL = `${process.env.KEYCLOAK_EXTERNAL_HOST}:${process.env.KEYCLOAK_EXTERNAL_PORT}`;
+const KEYCLOAK_URL = `${process.env.KEYCLOAK_INTERNAL_HOST}:${process.env.KEYCLOAK_INTERNAL_PORT}`;
 const REALM = process.env.KEYCLOAK_REALM;
 const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
 const clientId = process.env.KEYCLOAK_CLIENT_ID;

@@ -4,10 +4,12 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const KEYCLOAK_URL = `${process.env.KEYCLOAK_EXTERNAL_HOST}:${process.env.KEYCLOAK_EXTERNAL_PORT}`;
+const KEYCLOAK_URL = `${process.env.KEYCLOAK_INTERNAL_HOST}:${process.env.KEYCLOAK_INTERNAL_PORT}`;
 const REALM = process.env.KEYCLOAK_REALM;
 const router = Router();
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+console.log('KEYCLOAK_URL:', KEYCLOAK_URL);
 
 /**
  * @swagger
