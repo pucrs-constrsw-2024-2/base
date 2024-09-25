@@ -162,7 +162,19 @@ exports.updateUser = async (req, res) => {
     const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const user = req.body;
-    if (user.username) {
+
+    if(user.email) {
+      if (!emailRegex.test(user.email)) {
+        return handleError(
+          { response: { status: 400 } }, // Simula erro 400
+          res,
+          "OAuthAPI",
+          "Invalid email address format."
+        );
+      }
+      user.username = user.email;
+    }
+    else if (user.username) {
       if (!emailRegex.test(user.username)) {
         return handleError(
           { response: { status: 400 } }, // Simula erro 400
