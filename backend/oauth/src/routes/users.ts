@@ -9,8 +9,6 @@ const REALM = process.env.KEYCLOAK_REALM;
 const router = Router();
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-console.log('KEYCLOAK_URL:', KEYCLOAK_URL);
-
 /**
  * @swagger
  * /:
