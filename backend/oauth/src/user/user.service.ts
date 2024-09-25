@@ -1,7 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable } from '@nestjs/common';
-import { AxiosError } from 'axios';
-import { catchError, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { CreateUserDto } from './dto/create-user.dto';
 import type { UpdateUserDto } from './dto/update-user.dto';
 
@@ -135,9 +134,9 @@ export class UserService {
     password: string,
     authentication_header: string,
   ): Promise<void> {
-    const teste = await firstValueFrom(
-      this.httpService
-        .put(
+    try {
+      await firstValueFrom(
+        this.httpService.put(
           `/admin/realms/constrsw/users/${id}/reset-password`,
           {
             type: 'password',
@@ -150,14 +149,13 @@ export class UserService {
             },
             withCredentials: true,
           },
-        )
-        .pipe(
-          catchError((error: AxiosError) => {
-            console.log(error);
-            throw Error(error.code);
-          }),
         ),
-    );
-    console.log({ teste });
+      );
+    } catch (error) {
+      throw new HttpException(
+        error.response.data.errorMessage,
+        error.response.status,
+      );
+    }
   }
 }
