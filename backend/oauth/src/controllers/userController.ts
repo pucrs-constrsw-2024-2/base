@@ -20,6 +20,11 @@ export const getUser = async (req: Request, res: Response) => {
       },
     )
     const data = await response.json()
+
+    if (!response.ok) {
+      return res.status(response.status).json(data)
+    }
+
     res.json(data)
   } catch (error) {
     console.error('Error:', error)

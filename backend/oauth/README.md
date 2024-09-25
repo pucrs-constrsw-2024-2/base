@@ -3,6 +3,33 @@
 ## Grupo 6
 
 - Marcus Quirino
+- Ricardo Zabir
+- Eduarda Bertiz
+- Conrado Crestani
+
+## estrutura do projeto
+
+```
+backend/
+└── oauth/
+    ├── .env
+    ├── README.md
+    ├── Dockerfile
+    ├── package.json
+    ├── requests/
+    │   ├── getUsers.http
+    │   └── login.http
+    ├── src/
+    │   ├── index.ts
+    │   ├── schemas/
+    │   │   └── userSchema.ts
+    │   ├── controllers/
+    │   │   └── userController.ts
+    │   ├── middlewares/
+    │   │   └── validateRequest.ts
+    │   └── routes/
+    │       └── user.ts
+```
 
 ## pre requisitos
 
@@ -19,6 +46,8 @@
 - npm run dev
 
 ## teste
+
+todos os endpoints podem ser acessados em /requests
 
 para testar uma rota primeiro precisa bater na rota de login para obter o token.
 
