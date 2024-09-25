@@ -12,6 +12,15 @@ A API é construída sobre uma arquitetura RESTful, onde os recursos são acess�
 - **Express**: Framework para construção de APIs REST.
 - **Keycloak**: Sistema de gerenciamento de identidade e acesso (IAM) para autenticação e autorização.
 
+## Instruções de execução
+
+Na pasta raiz do projeto, utilizar o comando:
+
+```
+docker compose -f "docker-compose.yml" up -d --build
+```
+Após executado, os endpoints serão acessiveis em http://localhost:8001, e podem ser utilizados pelo Swagger e Postman
+
 ## Documentação
 
 A documentação da API pode ser acessada através do [Swagger](http://localhost:8001/api-docs).
