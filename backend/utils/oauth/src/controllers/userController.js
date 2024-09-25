@@ -1,5 +1,6 @@
 // backend/api/controllers/usersController.js
 const keycloakService = require('../services/keycloakService');
+const emailRegex = /([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])/;
 
 exports.health = async (req, res) => {
   try {
@@ -12,10 +13,26 @@ exports.health = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const {username, password } = req.body;
+    if (!username || !password) {
+      return handleError(
+        { response: { status: 400 } },
+        res,
+        "OAuthAPI",
+        "Username and password are required."
+      );
+    }
     const response = await keycloakService.login(username, password);
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+      let customDescription;
+
+      if (error.response?.status === 401) {
+        customDescription = "Invalid username or password";
+      } else if (error.response?.status === 400) {
+        customDescription = "Bad request. Check the request body or headers.";
+      }
+
+      return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
 
@@ -28,19 +45,33 @@ exports.createUser = async (req, res) => {
     const requiredFields = ['username', 'firstName', 'lastName', 'credentials'];
     for (const field of requiredFields) {
       if (!user[field]) {
-        return res.status(400).json({ message: `Field ${field} is required` });
+        return handleError(
+          { response: { status: 400 } },
+          res,
+          "OAuthAPI",
+          `Field ${field} is required.`
+        );
       }
     }
 
     // Verifica se o campo credentials tem a senha
     if (!user.credentials[0] || !user.credentials[0].value) {
-      return res.status(400).json({ message: "Password is required in credentials" });
+      return handleError(
+        { response: { status: 400 } },
+        res,
+        "OAuthAPI",
+        "Password is required in credentials."
+      );
     }
 
     // Validação do e-mail
-    const emailRegex = /([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])/;
     if (!emailRegex.test(user.username)) {
-      return res.status(400).json({ message: "Invalid email address format" });
+      return handleError(
+        { response: { status: 400 } },
+        res,
+        "OAuthAPI",
+        "Invalid email address format."
+      );
     }
 
     // email = username
@@ -49,7 +80,7 @@ exports.createUser = async (req, res) => {
     user.credentials.type = 'password';
     user.credentials.temporary = false;
 
-    // chama o keycloak
+    // chama o Keycloak
     const response = await keycloakService.createUser(access_token, user);
 
     // pega o ID do usuário
@@ -68,21 +99,20 @@ exports.createUser = async (req, res) => {
     return res.status(201).json(createdUser);
 
   } catch (error) {
-    if (error.response) {
-      const statusCode = error.response.status;
-      if (statusCode === 401) {
-        return res.status(401).json({ message: "Invalid access token" });
-      } else if (statusCode === 403) {
-        return res.status(403).json({ message: "Forbidden: insufficient permissions" });
-      } else if (statusCode === 409) {
-        return res.status(409).json({ message: "Username already exists" });
-      } else {
-        return res.status(statusCode).json(error.response.data);
-      }
+    let customDescription;
+
+    if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions.";
+    } else if (error.response?.status === 409) {
+      customDescription = "Username already exists.";
     }
-    return res.status(500).json({ message: "Internal server error" });
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
+
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -90,7 +120,17 @@ exports.getAllUsers = async (req, res) => {
     const response = await keycloakService.getAllUsers(access_token);
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+    let customDescription;
+
+    if (error.response?.status === 400) {
+      customDescription = "Bad request. Check the request structure (headers, body, etc.).";
+    } else if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions to access this endpoint or object.";
+    }
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
 
@@ -101,7 +141,19 @@ exports.getUserById = async (req, res) => {
     const response = await keycloakService.getUserById(access_token, id);
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+    let customDescription;
+
+    if (error.response?.status === 400) {
+      customDescription = "Bad request. Check the request structure (headers, body, etc.).";
+    } else if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions to access this endpoint or object.";
+    } else if (error.response?.status === 404) {
+      customDescription = `User with ID ${req.params.id} not found.`;
+    }
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
 
@@ -110,10 +162,33 @@ exports.updateUser = async (req, res) => {
     const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const user = req.body;
+    if (user.username) {
+      if (!emailRegex.test(user.username)) {
+        return handleError(
+          { response: { status: 400 } }, // Simula erro 400
+          res,
+          "OAuthAPI",
+          "Invalid email address format."
+        );
+      }
+      user.email = user.username;
+    }
     const response = await keycloakService.updateUser(access_token, id, user);
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+    let customDescription;
+
+    if (error.response?.status === 400) {
+      customDescription = "Bad request. Check the request structure (headers, body, etc.).";
+    } else if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions to access this endpoint or object.";
+    } else if (error.response?.status === 404) {
+      customDescription = `User with ID ${id} not found.`;
+    }
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
 
@@ -122,10 +197,32 @@ exports.updateUserPassword = async (req, res) => {
     const access_token = req.headers.authorization.split(' ')[1];
     const { id } = req.params;
     const { password } = req.body;
+
+    if (!password) {
+      return handleError(
+        { response: { status: 400 } },
+        res,
+        "OAuthAPI",
+        "Password is required."
+      );
+    }
+
     const response = await keycloakService.updateUserPassword(access_token, id, password);
     return res.status(200).json(response.data);
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+    let customDescription;
+
+    if (error.response?.status === 400) {
+      customDescription = "Bad request. Check the request structure (headers, body, etc.).";
+    } else if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions to access this endpoint or object.";
+    } else if (error.response?.status === 404) {
+      customDescription = `User with ID ${id} not found.`;
+    }
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
 
@@ -136,6 +233,33 @@ exports.deleteUser = async (req, res) => {
     await keycloakService.deleteUser(access_token, id);
     return res.status(204).send();
   } catch (error) {
-    return res.status(error.response.status).json(error.response.data);
+    let customDescription;
+
+    if (error.response?.status === 400) {
+      customDescription = "Bad request. Check the request structure (headers, body, etc.).";
+    } else if (error.response?.status === 401) {
+      customDescription = "Invalid access token.";
+    } else if (error.response?.status === 403) {
+      customDescription = "Forbidden: insufficient permissions to access this endpoint or object.";
+    } else if (error.response?.status === 404) {
+      customDescription = `User with ID ${id} not found.`;
+    }
+
+    return handleError(error, res, "OAuthAPI", customDescription);
   }
 };
+
+function handleError(error, res, errorSource, customDescription) {
+  const errorCode = error.response?.status || 500;
+
+  const errorStack = error.stack ? error.stack.split("\n").map(line => line.trim()) : [];
+
+  const errorResponse = {
+    error_code: `OA-${errorCode}`,
+    error_description: customDescription || "An unexpected error occurred.",
+    error_source: errorSource,
+    error_stack: errorStack
+  };
+
+  return res.status(errorCode).json(errorResponse);
+}
