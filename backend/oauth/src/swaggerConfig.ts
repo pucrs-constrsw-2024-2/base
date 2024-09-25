@@ -1,22 +1,30 @@
-import swaggerJsdoc from "swagger-jsdoc";
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
-const swaggerOptions: swaggerJsdoc.Options = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
     info: {
-      title: "Minha API",
-      version: "1.0.0",
-      description: "Documentação da API usando Swagger",
+      title: 'API Example',
+      version: '1.0.0',
     },
-    servers: [
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
       {
-        url: "http://localhost:3000",
+        bearerAuth: [],
       },
     ],
   },
-  apis: ["./src/routes/*.ts"],
+  apis: ['./src/routes/*.ts'], // Ajuste o caminho para os seus arquivos
 };
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
-
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 export default swaggerDocs;

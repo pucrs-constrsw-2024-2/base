@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 
 /**
  * @swagger
- * /:
+ * /login:
  *   post:
  *     summary: Obter token de acesso
  *     description: Recupera um token de acesso do Keycloak utilizando nome de usuário e senha.

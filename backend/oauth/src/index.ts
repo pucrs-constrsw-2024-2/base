@@ -4,6 +4,7 @@ import userRoutes from "./routes/users";
 import bodyParser from "body-parser";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swaggerConfig";
+import healthRoutes from "./routes/health";
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/login", authRoutes);
 app.use("/users", userRoutes);
+app.use("/health", healthRoutes)
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
