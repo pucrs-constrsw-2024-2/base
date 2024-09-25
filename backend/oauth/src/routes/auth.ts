@@ -2,6 +2,36 @@ import axios from "axios";
 import { Router, Request, Response } from "express";
 import * as dotenv from "dotenv";
 
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Obter token de acesso
+ *     description: Recupera um token de acesso do Keycloak utilizando nome de usuário e senha.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "yourpassword"
+ *     responses:
+ *       201:
+ *         description: Token de acesso criado com sucesso.
+ *       400:
+ *         description: Erro na estrutura da chamada.
+ *       401:
+ *         description: Usuário ou senha inválidos.
+ *       500:
+ *         description: Erro ao obter token.
+ */
+
 dotenv.config();
 
 const KEYCLOAK_URL = `${process.env.KEYCLOAK_EXTERNAL_HOST}:${process.env.KEYCLOAK_EXTERNAL_PORT}`;
@@ -10,7 +40,6 @@ const clientSecret = process.env.KEYCLOAK_CLIENT_SECRET;
 const clientId = process.env.KEYCLOAK_CLIENT_ID;
 const router = Router();
 
-// Endpoint para obter o token de acesso
 router.post("/", async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
