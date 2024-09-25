@@ -375,6 +375,100 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     summary: Atualizar senha de um usuário
+ *     description: Atualiza a senha de um usuário existente pelo ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "12345"
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "Bearer your_token_here"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               senha:
+ *                 type: string
+ *                 example: "newpassword"
+ *     responses:
+ *       200:
+ *         description: Senha atualizada com sucesso.
+ *       400:
+ *         description: Senha é obrigatória.
+ *       401:
+ *         description: Token de autenticação é obrigatório.
+ *       403:
+ *         description: Access token não concede permissão para acessar esse endpoint ou objeto.
+ *       404:
+ *         description: Usuário não encontrado.
+ *       500:
+ *         description: Erro ao atualizar senha.
+ */
+router.patch('/:id', async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const { senha } = req.body;
+  const authHeader = req.headers.authorization;
+
+  // Verifica se o token de autenticação está presente
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'Token de autenticação é obrigatório.' });
+  }
+
+  // Verifica se a senha foi fornecida
+  if (!senha) {
+      return res.status(400).json({ message: 'Senha é obrigatória.' });
+  }
+
+  try {
+      await axios.put(
+          `http://${KEYCLOAK_URL}/admin/realms/${REALM}/users/${id}/reset-password`,
+          {
+              type: 'password',
+              value: senha,
+              temporary: false
+          },
+          {
+              headers: {
+                  Authorization: authHeader,
+              },
+          }
+      );
+
+      return res.status(200).json({ message: 'Senha atualizada com sucesso.' });
+  } catch (error: any) {
+      console.error('Erro ao atualizar senha no Keycloak:', error);
+
+      // Mapeia os erros de acordo com os códigos de status
+      if (error.response) {
+          switch (error.response.status) {
+              case 401:
+                  return res.status(401).json({ message: 'Access token inválido.' });
+              case 403:
+                  return res.status(403).json({ message: 'Access token não concede permissão para acessar esse endpoint ou objeto.' });
+              case 404:
+                  return res.status(404).json({ message: 'Usuário não encontrado.' });
+              default:
+                  break;
+          }
+      }
+
+      res.status(500).json({ message: 'Erro ao atualizar senha.' });
+  }
+});
 
 /**
  * @swagger
