@@ -10,4 +10,4 @@ A arquitetura para este serviço segue os princípios da Arquitetura Hexagonal (
 ## Documentação
 
 Para mais informações sobre a API, acesse a documentação Swagger em:
-[Documentação Swagger](https://swagger.io/docs/)
+[Documentação Swagger](http:localhost:8080/swagger-ui.html)

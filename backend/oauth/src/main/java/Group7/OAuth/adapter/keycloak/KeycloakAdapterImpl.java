@@ -64,17 +64,17 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     }
 
     @Override
-    public KeycloakUser createUser(String authorizationHeader, KeycloakUserRegistration userRegistration) {
+    public KeycloakUser createUser(String token, KeycloakUserRegistration userRegistration) {
         ResponseEntity<Void> response = webClient.post()
-                    .uri(uriBuilder -> uriBuilder
-                            .path("/admin/realms/{realm}/users")
-                            .build(realm))
-                    .header("Authorization", authorizationHeader)
-                    .header("Content-Type", "application/json")
-                    .body(BodyInserters.fromValue(userRegistration))
-                    .retrieve()
-                    .toBodilessEntity()
-                    .block();
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users")
+                        .build(realm))
+                .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .body(BodyInserters.fromValue(userRegistration))
+                .retrieve()
+                .toBodilessEntity()
+                .block();
 
         assert response != null;
         return new KeycloakUser(getUserId(getHeaderValue(response.getHeaders())), userRegistration.username(), userRegistration.firstName(), userRegistration.lastName(), userRegistration.enabled());
@@ -95,21 +95,21 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     @Override
     public KeycloakUser getUserById(String token, UUID id) {
         return webClient.get()
-        .uri(uriBuilder -> uriBuilder
-                .path("/admin/realms/{realm}/users/" + id)
-                .build(realm))
-        .header("Authorization", token)
-        .retrieve()
-        .bodyToMono(KeycloakUser.class)
-        .block();
-        }
+                .uri(uriBuilder -> uriBuilder
+                        .path("/admin/realms/{realm}/users/" + id)
+                        .build(realm))
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .bodyToMono(KeycloakUser.class)
+                .block();
+    }
 
     public Collection<KeycloakUser> getUsers(String token) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users")
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(KeycloakUser.class)
                 .collectList()
@@ -122,7 +122,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + id)
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .body(BodyInserters.fromValue(keycloakUserRegistration))
                 .retrieve()
@@ -139,7 +139,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + userId + "/reset-password")
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .header("Content-Type", "application/json")
                 .body(BodyInserters.fromValue(keycloackCredential))
                 .retrieve()
@@ -153,7 +153,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + id)
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .toBodilessEntity()
                 .block();
@@ -165,7 +165,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/groups")
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(GroupDTO.class)
                 .collectList()
@@ -178,7 +178,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + userId + "/groups/" + group)
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .toBodilessEntity()
                 .block();
@@ -190,7 +190,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + userId + "/groups/" + group)
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .toBodilessEntity()
                 .block();
@@ -202,7 +202,7 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + userId + "/groups")
                         .build(realm))
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(GroupDTO.class)
                 .collectList()

@@ -28,6 +28,7 @@ public class SecurityConfig {
         return (web) -> web.ignoring()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
                         AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
+                        AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/health"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/auth/login"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/auth/refresh-token"));
     }
