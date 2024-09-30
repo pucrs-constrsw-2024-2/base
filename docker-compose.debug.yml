@@ -375,16 +375,16 @@ services:
 #       timeout: 10s
 #       retries: 5  # # Frontend
 # ------------------------- T3 -----------------------------------
-# frontend:
-#   container_name: frontend
-#   build:
-#     context: ./frontend/
-#     dockerfile: Dockerfile
-#   ports:
-#     - 80:80
-#   networks:
-#     - constrsw
-#   # environment:
-#   depends_on:
-#     bff:
-#       condition: service_started
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - constrsw
+    # environment:
+    # depends_on:
+    #   bff:
+    #     condition: service_started
