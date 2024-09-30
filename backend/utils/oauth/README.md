@@ -12,6 +12,28 @@ A API é construída sobre uma arquitetura RESTful, onde os recursos são acess�
 - **Express**: Framework para construção de APIs REST.
 - **Keycloak**: Sistema de gerenciamento de identidade e acesso (IAM) para autenticação e autorização.
 
+## Hierarquia de pastas
+
+```plaintext
+oauth
+├── node_modules                  # Contém as dependências do projeto.
+├── src                           # Diretório principal para o código-fonte da aplicação.
+│   ├── controllers               # Contém os controladores que gerenciam a lógica de negócio.
+│   │   └── userController.js     # Controlador para gerenciar as operações relacionadas a usuários.
+│   ├── routes                    # Contém as definições das rotas da API.
+│   │   └── users.js              # Rotas para operações relacionadas a usuários.
+│   └── services                  # Contém serviços que encapsulam a lógica de integração com APIs externas.
+│       └── keycloakService.js    # Serviço para interagir com a API do Keycloak.
+├── app.js                        # Arquivo principal que configura o servidor e as rotas.
+├── Dockerfile                    # Instruções para construir a imagem Docker da aplicação.
+├── package-lock.json             # Registro das versões exatas das dependências instaladas.
+├── package.json                  # Arquivo de configuração do projeto que lista as dependências e scripts.
+├── README.md                     # Documentação do projeto.
+└── swagger.yaml                  # Especificação da API para integração com o Swagger.
+```
+
+
+
 ## Instruções de execução
 
 Na pasta raiz do projeto, utilizar o comando:
