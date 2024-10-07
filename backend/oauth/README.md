@@ -22,7 +22,6 @@ A arquitetura para este serviço segue os princípios da Arquitetura Hexagonal (
 
 3. **Client**: 
    - Encapsula a comunicação com o Keycloak, gerenciando as requisições de autenticação e autorização. Essa camada facilita a integração com o Keycloak e oferece uma interface simplificada para os serviços e controladores.
-## Documentação
 
 ## Documentação da API
 
