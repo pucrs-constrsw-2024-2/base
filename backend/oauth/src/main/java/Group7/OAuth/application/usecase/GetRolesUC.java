@@ -1,18 +1,19 @@
 package Group7.OAuth.application.usecase;
 
 import Group7.OAuth.adapter.keycloak.KeycloakAdapter;
+import Group7.OAuth.application.dtos.RoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @Component
-public class AddUserGroupUC {
+public class GetRolesUC {
 
     private final KeycloakAdapter keycloakAdapter;
 
-    public void run(String token, UUID userId, String group) {
-        keycloakAdapter.addUserGroup(token, userId, group);
+    public Collection<RoleDTO> run(String token) {
+        return keycloakAdapter.getRoles(token);
     }
 }

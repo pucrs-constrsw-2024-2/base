@@ -1,6 +1,6 @@
 package Group7.OAuth.adapter.keycloak;
 
-import Group7.OAuth.application.dtos.GroupDTO;
+import Group7.OAuth.application.dtos.RoleDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -160,25 +160,27 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     }
 
     @Override
-    public Collection<GroupDTO> getGroups(String token) {
+    public Collection<RoleDTO> getRoles(String token) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/admin/realms/{realm}/groups")
+                        .path("/admin/realms/{realm}/roles")
                         .build(realm))
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
-                .bodyToFlux(GroupDTO.class)
+                .bodyToFlux(RoleDTO.class)
                 .collectList()
                 .block();
     }
 
     @Override
-    public void addUserGroup(String token, UUID userId, String group) {
-        webClient.put()
+    public void addRoleToUser(String token, UUID userId, KeycloakRole role) {
+        webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/admin/realms/{realm}/users/" + userId + "/groups/" + group)
+                        .path("/admin/realms/{realm}/users/" + userId + "/role-mappings/realm")
                         .build(realm))
                 .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .body(BodyInserters.fromValue(role))
                 .retrieve()
                 .toBodilessEntity()
                 .block();
@@ -197,14 +199,14 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
     }
 
     @Override
-    public Collection<GroupDTO> getUserGroups(String token, UUID userId) {
+    public Collection<RoleDTO> getUserGroups(String token, UUID userId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + userId + "/groups")
                         .build(realm))
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
-                .bodyToFlux(GroupDTO.class)
+                .bodyToFlux(RoleDTO.class)
                 .collectList()
                 .block();
     }

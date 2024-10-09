@@ -1,17 +1,13 @@
 package Group7.OAuth.adapter.controllers;
 
 import Group7.OAuth.adapter.provider.AuthProvider;
-import Group7.OAuth.application.dtos.GroupDTO;
-import Group7.OAuth.application.usecase.AddUserGroupUC;
+import Group7.OAuth.application.dtos.RoleDTO;
+import Group7.OAuth.application.usecase.AddRoleToUserUC;
 import Group7.OAuth.application.usecase.DeleteUserGroupUC;
-import Group7.OAuth.application.usecase.GetGroupsUC;
+import Group7.OAuth.application.usecase.GetRolesUC;
 import Group7.OAuth.application.usecase.GetUserGroupsUC;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -19,25 +15,24 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/groups")
-public class GroupsController {
-
+@RequestMapping("/roles")
+public class RolesController {
     private final AuthProvider authProvider;
-    private final GetGroupsUC getGroupsUC;
+    private final GetRolesUC getRolesUC;
     private final GetUserGroupsUC getUserGroupsUC;
-    private final AddUserGroupUC addUserGroupUC;
+    private final AddRoleToUserUC addRoleToUserUC;
     private final DeleteUserGroupUC deleteUserGroupUC;
 
     @GetMapping
-    public ResponseEntity<Collection<GroupDTO>> getGroups() {
+    public ResponseEntity<Collection<RoleDTO>> getRoles() {
         String token = authProvider.getAuthenticatedUserToken();
-        return ResponseEntity.ok(getGroupsUC.run(token));
+        return ResponseEntity.ok(getRolesUC.run(token));
     }
 
-    @PutMapping(path = "/users/{id}")
-    public ResponseEntity<Void> addUserGroup(@PathVariable UUID id, @RequestBody String group){
+    @PostMapping(path = "/{role}/users/{userId}")
+    public ResponseEntity<Void> addRoleToUser(@PathVariable UUID role, @PathVariable UUID userId) {
         String token = authProvider.getAuthenticatedUserToken();
-        addUserGroupUC.run(token, id, group);
+        addRoleToUserUC.run(token, userId, role);
         return ResponseEntity.ok().build();
     }
 
@@ -50,7 +45,7 @@ public class GroupsController {
 
     //get user groups
     @GetMapping(path = "/users/{id}")
-    public ResponseEntity<Collection<GroupDTO>> getUserGroups(@PathVariable UUID id){
+    public ResponseEntity<Collection<RoleDTO>> getUserGroups(@PathVariable UUID id){
         String token = authProvider.getAuthenticatedUserToken();
         return ResponseEntity.ok(getUserGroupsUC.run(token, id));
     }
