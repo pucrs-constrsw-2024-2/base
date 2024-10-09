@@ -1,13 +1,14 @@
 package Group7.OAuth.adapter.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -16,12 +17,24 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class SecurityConfig {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String issuerUri;
+    private static final String REALM_ACCESS_CLAIM = "realm_access";
+    private static final String ROLES_CLAIM = "roles";
+
+    private static final String[] ENDPOINTS_WITHOUT_AUTH = {
+            "/login/**",
+            "/health",
+            "/swagger-ui/**",
+            "/v3/api-docs/**"
+    };
+
+    private static final String[] ENDPOINTS_ADMIN_ONLY = {
+            "/users/**"
+    };
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizerHml() {
@@ -47,22 +60,35 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
+    public SecurityFilterChain securityFilterChain(AuthenticationConverter authenticationConverter,
+                                                   HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(ENDPOINTS_WITHOUT_AUTH).permitAll()
+                        .requestMatchers(ENDPOINTS_ADMIN_ONLY).hasAuthority("ADMIN")
+                        .anyRequest().authenticated())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .anyRequest()
-                                .authenticated()
-
-                )
-                .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(jwt -> {
-                }))
+                .sessionManagement(sessionConfigurer -> sessionConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(resourceServer -> resourceServer.jwt(jwtResourceServer ->
+                        jwtResourceServer.jwtAuthenticationConverter(authenticationConverter)))
                 .build();
     }
 
     @Bean
-    public JwtDecoder jwtDecoder() {
-        return JwtDecoders.fromIssuerLocation(issuerUri);
+    @SuppressWarnings("unchecked")
+    public AuthoritiesConverter authoritiesConverter() {
+        return jwt -> {
+            var realmAccess = (Map<String, Object>) jwt.getClaims().getOrDefault(REALM_ACCESS_CLAIM, Map.of());
+            var roles = (List<String>) realmAccess.getOrDefault(ROLES_CLAIM, List.of());
+
+            return roles.stream()
+                    .map(SimpleGrantedAuthority::new)
+                    .toList();
+        };
+    }
+
+    @Bean
+    public AuthenticationConverter authenticationConverter(AuthoritiesConverter authoritiesConverter) {
+        return jwt -> new JwtAuthenticationToken(jwt, authoritiesConverter.convert(jwt),
+                jwt.getClaimAsString(StandardClaimNames.PREFERRED_USERNAME));
     }
 }
