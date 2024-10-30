@@ -535,6 +535,36 @@
       ],
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "id": "2db9407c-baa2-4c50-bb01-b90ac89e1d71",
+      "username": "admin@pucrs.br",
+      "firstName": "",
+      "lastName": "",
+      "email": "admin@pucrs.br",
+      "emailVerified": false,
+      "createdTimestamp": 1681778238443,
+      "enabled": true,
+      "totp": false,
+      "credentials": [ {
+        "id": "ee6cc40c-26ec-48db-bda9-0d2641a5c337",
+        "type": "password",
+        "userLabel": "My password",
+        "createdDate": 1712617297306,
+        "secretData": "{\"value\":\"NvMi/NUud9Uh/FbK/i4WK6rN8XbYKixeH7u3b38HP7m9WReHxIjVoHt0Xtig33Y5pD1C4Lfpmj7SyZc+LesmVA==\",\"salt\":\"81A3rCS9Z6EcGsKlvyquvg==\",\"additionalParameters\":{}}",
+        "credentialData": "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+      } ],
+      "disableableCredentialTypes": [ ],
+      "requiredActions": [ ],
+      "realmRoles": [ "default-roles-construcao-sw" ],
+      "clientRoles": {
+        "realm-management": [ "impersonation", "manage-events", "manage-identity-providers", "realm-admin", "manage-clients", "view-clients", "manage-users", "query-realms", "manage-realm", "query-users", "manage-authorization", "query-groups", "view-identity-providers", "view-authorization", "query-clients", "view-events", "view-realm", "view-users", "create-client" ],
+        "broker": [ "read-token" ],
+        "oauth": [ "uma_protection" ],
+        "account": [ "view-groups", "manage-account-links", "view-profile", "view-consent", "manage-consent", "view-applications", "manage-account", "delete-account" ]
+      },
+      "notBefore": 0,
+      "groups": [ ]
     }
   ],
   "scopeMappings": [
@@ -748,7 +778,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "wsNXUxaupU9X6jCncsn3rOEy6PDt7oJO",
       "redirectUris": [
         ""
       ],
