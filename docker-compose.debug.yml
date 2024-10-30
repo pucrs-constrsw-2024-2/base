@@ -231,30 +231,30 @@ services:
 #       interval: 10s
 #       timeout: 10s
 #       retries: 5
-#   # Grupo 5: courses
-#   courses:
-#     container_name: courses
-#     build:
-#       context: ./backend/courses/
-#       dockerfile: Dockerfile
-#     environment:
-#       - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
-#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-#       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-#       - POSTGRESQL_DB=postgres
-#     networks:
-#       - constrsw
-#     depends_on:
-#       postgresql:
-#         condition: service_healthy
-#     healthcheck:
-#       test: [ "CMD-SHELL", "curl -f http://${COURSES_INTERNAL_HOST}:${COURSES_INTERNAL_PORT}/health" ]
-#       start_period: 10s
-#       interval: 5s
-#       timeout: 10s
-#       retries: 5
+  # Grupo 5: courses
+  courses:
+    container_name: courses
+    build:
+      context: ./backend/courses/
+      dockerfile: Dockerfile
+    environment:
+      - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DB=postgres
+    networks:
+      - constrsw
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://${COURSES_INTERNAL_HOST}:${COURSES_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 5s
+      timeout: 10s
+      retries: 5
 #   # Grupo 6: reservations
 #   reservations:
 #     container_name: reservations
