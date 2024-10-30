@@ -104,35 +104,35 @@ services:
       timeout: 10s
       retries: 10
     restart: always
-  oauth:
-    container_name: oauth
-    build:
-      context: ./backend/oauth
-      dockerfile: Dockerfile
-    image: constrsw/oauth
-    environment:
-      - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
-      - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
-      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-      - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
-    networks:
-      - constrsw
-    depends_on:
-      keycloak:
-        condition: service_healthy
-    ports:
-      - ${OAUTH_INTERNAL_PORT}:${OAUTH_INTERNAL_PORT}
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 10s
-      timeout: 10s
-      retries: 20
-    restart: always
+  # oauth:
+  #   container_name: oauth
+  #   build:
+  #     context: ./backend/oauth
+  #     dockerfile: Dockerfile
+  #   image: constrsw/oauth
+  #   environment:
+  #     - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
+  #     - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
+  #     - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+  #     - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+  #     - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
+  #     - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
+  #     - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+  #     - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
+  #   networks:
+  #     - constrsw
+  #   depends_on:
+  #     keycloak:
+  #       condition: service_healthy
+  #   ports:
+  #     - ${OAUTH_INTERNAL_PORT}:${OAUTH_INTERNAL_PORT}
+  #   healthcheck:
+  #     test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
+  #     start_period: 10s
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 20
+  #   restart: always
 # ------------------------- T2 -----------------------------------
 #   # Grupo 1: classes
 #  classes:
@@ -256,28 +256,32 @@ services:
 #       timeout: 10s
 #       retries: 5
 #   # Grupo 6: reservations
-#   reservations:
-#     container_name: reservations
-#     build:
-#       context: ./backend/reservations/
-#       dockerfile: Dockerfile
-#     environment:
-#       - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
-#       - MONGODB_INTERNAL_HOST=${MONGODB_INTERNAL_HOST}
-#       - MONGODB_INTERNAL_PORT=${MONGODB_INTERNAL_PORT}
-#       - MONGODB_USERNAME=${MONGODB_USERNAME}
-#       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-#     networks:
-#       - constrsw
-#     depends_on:
-#       mongodb:
-#         condition: service_healthy
-#     healthcheck:
-#       test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/reservations/health" ]
-#       start_period: 10s
-#       interval: 5s
-#       timeout: 10s
-#       retries: 5
+  reservations:
+    container_name: reservations
+    build:
+      context: ./backend/reservations/
+      dockerfile: Dockerfile
+    environment:
+      - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
+      - DATABASE_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - DATABASE_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - DATABASE_USER=${POSTGRESQL_USERNAME}
+      - DATABASE_PASSWORD=${POSTGRESQL_PASSWORD}
+      - DATABASE_NAME=${POSTGRESQL_DB}
+      - DATABASE_URL=postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/${POSTGRESQL_DB}
+    networks:
+      - constrsw
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 3000:3000
 #   # Grupo 7: students
 #   professors:
 #     container_name: students
@@ -383,15 +387,15 @@ services:
 #       timeout: 10s
 #       retries: 5  # # Frontend
 # ------------------------- T3 -----------------------------------
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
-    networks:
-      - constrsw
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 80:80
+  #   networks:
+  #     - constrsw
     # environment:
     # depends_on:
     #   bff:
