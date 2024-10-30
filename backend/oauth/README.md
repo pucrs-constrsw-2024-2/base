@@ -1,44 +1,55 @@
-# OAuth
+# Documentação do Projeto OAuth
 
-# API com Express.js e Swagger
+## Descrição
 
-Esta aplicação é uma REST API construída com Express.js e documentada utilizando Swagger. A seguir, estão descritas a arquitetura da aplicação, a URL da documentação Swagger e as instruções para executar o projeto localmente.
+Este projeto é uma API para gerenciamento de usuário desenvolvido em uma arquitetura em camadas. Utilizamos um padrão dividido em três camadas principais: **Service**, **Controller** e **Client**. O sistema foi projetado para se integrar com o Keycloak para autenticação e autorização.
 
-## Arquitetura de Software
+## Arquitetura
 
-A API segue uma arquitetura de rotas separadas para autenticação e gerenciamento de usuários:
+A arquitetura para este serviço segue os princípios da Arquitetura Hexagonal (Ports and Adapters), onde a lógica central de negócios (localizada na camada `application`) é desacoplada de sistemas externos por meio de interfaces bem definidas (ports) e implementações (adapters).
 
-- **Express.js** é o framework usado para criar a API.
-- **Swagger** é utilizado para documentar as rotas e as respostas da API.
-- **Body-parser** é empregado para processar as requisições com `JSON`.
+- **Camada Application**: Contém os casos de uso que gerenciam as funcionalidades principais e os Data Transfer Objects (DTOs) para manipular o fluxo de dados.
+  
+- **Camada Adapter**: Responsável por interagir com frameworks e serviços externos, como as controllers REST para lidar com requisições HTTP e as integrações com o Keycloak para autenticação. Essa separação garante flexibilidade, permitindo que a lógica central permaneça independente de tecnologias externas, facilitando a testabilidade e a adaptabilidade.
 
-### Estrutura de Arquivos
+### Camadas do Sistema
 
-- **`/routes/auth`**: Rota de autenticação (login).
-- **`/routes/users`**: Rota para gerenciar usuários (criar, editar, etc.).
-- **`/swaggerConfig`**: Configuração da documentação Swagger.
+1. **Controller**: 
+   - Responsável por gerenciar as requisições HTTP e interagir com os serviços. Os controladores processam as entradas, chamam os serviços apropriados e retornam as respostas ao cliente.
 
-## Documentação Swagger
+2. **Service**: 
+   - Contém a lógica de negócio da aplicação. Os serviços realizam operações complexas e interagem com as camadas de dados, se necessário. Essa camada é responsável por implementar regras de negócio e manipular dados.
 
-A documentação da API gerada pelo Swagger pode ser acessada através da seguinte URL quando o servidor está em execução:
+3. **Client**: 
+   - Encapsula a comunicação com o Keycloak, gerenciando as requisições de autenticação e autorização. Essa camada facilita a integração com o Keycloak e oferece uma interface simplificada para os serviços e controladores.
 
-http://localhost:3000/api-docs
+## Documentação da API
 
+A documentação da API pode ser acessada através do Swagger, que fornece uma interface visual para explorar e testar os endpoints da aplicação.
 
-Essa documentação detalha todas as rotas disponíveis, suas respectivas requisições e respostas, incluindo exemplos de uso.
+- **URL do Swagger**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+Além disso, também foi criada uma collection e um ambiente do Postman para validação de requisições da API. Importe os arquivos do seguinte path:
+- **Collection do Postman**: [collection](../../2024-2-constrsw.postman_collection.json) e [environment](../../constrsw.postman_environment.json)
 
 ## Instruções para Execução
 
-### Pré-requisitos
+Para executar a aplicação, utilize o Docker Compose. Siga as instruções abaixo:
 
-- **Docker**
+1. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
+2. Clone este repositório em sua máquina local.
+3. Navegue até o diretório do projeto.
+4. Crie os três volumes do docker
+  ```bash
+  docker volume create constrsw-keycloak-data
+  docker volume create constrsw-postgresql-data
+  docker volume create constrsw-mongodb-data
+  ```
+6. Execute o seguinte comando:
 
-### Passos para executar o projeto
+   ```bash
+   docker-compose up
+   ```
 
-1. Suba o conteiner Docker:
-   docker compose up
-2. Acesse a documentação Swagger em:
-   http://localhost:3000/api-docs
-3. Acesse a aplicação no navegador em:
-   http://localhost:3000
+7. A aplicação estará disponível em `http://localhost:8080`.
 

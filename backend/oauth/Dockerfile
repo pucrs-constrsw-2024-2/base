@@ -1,20 +1,31 @@
-# Escolhe a imagem base com Node.js na versão 16.20.2
-FROM node:16.20.2-alpine
+FROM maven:3.9.4-amazoncorretto-21 AS build
 
 # Define o diretório de trabalho dentro do contêiner
-WORKDIR /app
+WORKDIR /oauth
 
-# Copia o arquivo de dependências
-COPY package*.json ./
+# Copia o arquivo pom.xml para o diretório de trabalho
+COPY pom.xml .
 
-# Instala as dependências
-RUN npm install
+# Baixa as dependências do Maven (isto é separado para aproveitar o cache de dependências)
+RUN mvn dependency:go-offline
 
-# Copia o restante da aplicação
-COPY . .
+# Copia todo o código-fonte para o diretório de trabalho
+COPY src ./src
 
-# Expõe a porta em que a aplicação será executada
-EXPOSE 3000
+# Compila o projeto usando Maven
+RUN mvn package -DskipTests
 
-# Define o comando para rodar a aplicação
-CMD ["npm", "start"]
+# Segunda etapa para criar a imagem final do Docker
+FROM amazoncorretto:21-alpine-jdk
+
+# Define o diretório de trabalho como /app
+WORKDIR /oauth
+
+# Copia o arquivo JAR construído na primeira etapa
+COPY --from=build /oauth/target/*.jar app.jar
+
+# Expose the port that the application will run on
+EXPOSE 8080
+
+# Specify the command to run your service
+CMD ["java", "-jar", "app.jar"]
