@@ -11,33 +11,33 @@ volumes:
   constrsw-mongodb-data:
     external: true
 services:
-  # # PostgreSQL
-  # postgresql:
-  #   container_name: postgresql
-  #   build:
-  #     context: ./backend/utils/postgresql/
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - POSTGRES_DB_USER=${POSTGRESQL_USERNAME}
-  #       - POSTGRES_DB_PASSWORD=${POSTGRESQL_PASSWORD}
-  #   image: constrsw/postgresql
-  #   environment:
-  #     - POSTGRES_HOST_AUTH_METHOD=trust
-  #     - PGDATA=/var/lib/postgresql/data/pgdata
-  #     - POSTGRES_USER=${POSTGRESQL_USERNAME}
-  #     - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
-  #   volumes:
-  #     # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
-  #     - constrsw-postgresql-data:/var/lib/postgresql/data
-  #   networks:
-  #     - constrsw
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-  #     start_period: 10s
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 10
-  #   restart: always
+  # PostgreSQL
+  postgresql:
+    container_name: postgresql
+    build:
+      context: ./backend/utils/postgresql/
+      dockerfile: Dockerfile
+      args:
+        - POSTGRES_DB_USER=${POSTGRESQL_USERNAME}
+        - POSTGRES_DB_PASSWORD=${POSTGRESQL_PASSWORD}
+    image: constrsw/postgresql
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=${POSTGRESQL_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
+    volumes:
+      # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
+      - constrsw-postgresql-data:/var/lib/postgresql/data
+    networks:
+      - constrsw
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    restart: always
   #   # Exemplo de script PostgreSQL para criar um database em um Dockerfile:
   #   # RUN psql --host=postgresql:5432 --username=${POSTGRES_USER} --password ??? \
   #   #     --command="CREATE DATABASE ${POSTGRES_DB_NAME} \
@@ -50,13 +50,19 @@ services:
   #   #                 CONNECTION LIMIT -1;"
   #   # RUN psql --host=postgresql:5432 --username=${POSTGRES_USER} \
   #   #     --command="GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB_NAME} TO ${POSTGRES_USER};"
-  # # MongoDB
+  # MongoDB
   # mongodb:
   #   container_name: mongodb
   #   build:
   #     context: ./backend/utils/mongodb/
   #     dockerfile: Dockerfile
   #   image: constrsw/mongodb
+  #   ports:
+  #     - ${MONGODB_INTERNAL_PORT}:${MONGODB_INTERNAL_PORT}
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+  #     - MONGO_INITDB_DATABASE=${MONGODB_DB}
   #   volumes:
   #     # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
   #     - constrsw-mongodb-data:/data/mongodb
@@ -295,30 +301,32 @@ services:
 #       interval: 5s
 #       timeout: 10s
 #       retries: 5
-#   # Grupo 8: professors
-#   professors:
-#     container_name: professors
-#     build:
-#       context: ./backend/professors
-#       dockerfile: Dockerfile
-#     environment:
-#       - PROFESSORS_INTERNAL_PORT=${PROFESSORS_INTERNAL_PORT}
-#       - DATABASE_HOST=${POSTGRESQL_INTERNAL_HOST}
-#       - DATABASE_PORT=${POSTGRESQL_INTERNAL_PORT}
-#       - DATABASE_USER=${POSTGRESQL_USERNAME}
-#       - DATABASE_PASSWORD=${POSTGRESQL_PASSWORD}
-#       - DATABASE_NAME=${POSTGRESQL_DB}
-#     depends_on:
-#       postgresql:
-#         condition: service_healthy
-#     networks:
-#       - constrsw
-#     healthcheck:
-#       test: [ "CMD-SHELL", "curl -f http://${PROFESSORS_INTERNAL_HOST}:${PROFESSORS_INTERNAL_PORT}/health" ]
-#       start_period: 10s
-#       interval: 5s
-#       timeout: 10s
-#       retries: 5
+  # Grupo 8: professors
+  professors:
+    container_name: professors
+    build:
+      context: ./backend/professors
+      dockerfile: Dockerfile
+    environment:
+      - PROFESSORS_INTERNAL_PORT=${PROFESSORS_INTERNAL_PORT}
+      - DATABASE_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - DATABASE_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - DATABASE_USER=${POSTGRESQL_USERNAME}
+      - DATABASE_PASSWORD=${POSTGRESQL_PASSWORD}
+      - DATABASE_NAME=professors
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    networks:
+      - constrsw
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://${PROFESSORS_INTERNAL_HOST}:${PROFESSORS_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 5s
+      timeout: 10s
+      retries: 5
 #   # BFF
 #   bff:
 #     container_name: ${BFF_NAME}
