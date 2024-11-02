@@ -560,7 +560,7 @@
       "clientRoles": {
         "realm-management": [ "impersonation", "manage-events", "manage-identity-providers", "realm-admin", "manage-clients", "view-clients", "manage-users", "query-realms", "manage-realm", "query-users", "manage-authorization", "query-groups", "view-identity-providers", "view-authorization", "query-clients", "view-events", "view-realm", "view-users", "create-client" ],
         "broker": [ "read-token" ],
-        "oauth": [ "uma_protection" ],
+        "oauth": [ "administrator", "uma_protection" ],
         "account": [ "view-groups", "manage-account-links", "view-profile", "view-consent", "manage-consent", "view-applications", "manage-account", "delete-account" ]
       },
       "notBefore": 0,
