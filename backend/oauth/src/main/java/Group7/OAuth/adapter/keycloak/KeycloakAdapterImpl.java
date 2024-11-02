@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -149,11 +150,15 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
 
     @Override
     public void deleteUser(String token, UUID id) {
-        webClient.delete()
+        Map<String, Object> disableUserRequestBody = Map.of("enabled", false);
+        webClient.put()
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/{realm}/users/" + id)
                         .build(realm))
-                .header("Authorization", "Bearer " + token)
+                .headers(headers -> {
+                    headers.setBearerAuth(token);
+                })
+                .body(BodyInserters.fromValue(disableUserRequestBody))
                 .retrieve()
                 .toBodilessEntity()
                 .block();
