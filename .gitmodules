@@ -22,3 +22,6 @@
 [submodule "backend/professors"]
 	path = backend/professors
 	url = https://github.com/pucrs-constrsw-2024-2/grupo8.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/pucrs-constrsw-2024-2/frontend
