@@ -1,12 +1,14 @@
 package Group7.OAuth.adapter.handler;
 
 import Group7.OAuth.application.dtos.ErrorDTO;
+import Group7.OAuth.application.exception.InvalidEmailException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
@@ -48,6 +50,21 @@ public class GlobalExceptionHandler {
                         "OAuth",
                         List.of(e.getResponseBodyAsString())
                 ));
+    }
+
+    @ExceptionHandler(InvalidEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorDTO> handleInvalidEmailException(InvalidEmailException exception) {
+        var errorDTO = new ErrorDTO(
+                String.valueOf(HttpStatus.BAD_REQUEST.value()),
+                exception.getMessage(),
+                "OAuth",
+                List.of(exception.getMessage())
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errorDTO);
     }
 
     private String handleStatusCode(HttpStatusCode status) {
