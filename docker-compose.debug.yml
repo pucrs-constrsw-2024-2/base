@@ -246,6 +246,8 @@ services:
       - POSTGRESQL_DB=postgres
     networks:
       - constrsw
+    ports:
+      - ${COURSES_INTERNAL_PORT}:${COURSES_INTERNAL_PORT}
     depends_on:
       postgresql:
         condition: service_healthy
@@ -383,15 +385,15 @@ services:
 #       timeout: 10s
 #       retries: 5  # # Frontend
 # ------------------------- T3 -----------------------------------
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-    ports:
-      - 80:80
-    networks:
-      - constrsw
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 80:80
+  #   networks:
+  #     - constrsw
     # environment:
     # depends_on:
     #   bff:
