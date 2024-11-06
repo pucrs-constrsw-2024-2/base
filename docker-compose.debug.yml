@@ -152,6 +152,8 @@ services:
       - POSTGRES_DB=rooms
     networks:
       - constrsw
+    ports:
+      - 2222:3000
     depends_on:
       postgresql:
         condition: service_healthy
