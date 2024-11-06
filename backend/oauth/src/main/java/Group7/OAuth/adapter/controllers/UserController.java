@@ -45,7 +45,7 @@ public class UserController {
     @Operation(summary = "Criação de um usuário")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserRequestDTO userRequestDTO,
                                               @AuthenticationPrincipal Jwt jwt) {
-        UserDTO userDTO = createUserUC.run(jwt.toString(), userRequestDTO);
+        UserDTO userDTO = createUserUC.run(jwt.getTokenValue(), userRequestDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
