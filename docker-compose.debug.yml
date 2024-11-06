@@ -37,6 +37,8 @@ services:
       timeout: 10s
       retries: 10
     restart: always
+    # psql postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_USERNAME}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}
+    # psql -h ${POSTGRESQL_INTERNAL_HOST} -p ${POSTGRESQL_INTERNAL_PORT} -U ${POSTGRESQL_USERNAME} -P ${POSTGRESQL_PASSWORD} -d database
   # MongoDB
   mongodb:
     container_name: mongodb
@@ -101,15 +103,11 @@ services:
       - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
       - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
       - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-      - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
     networks:
       - constrsw
     depends_on:
       keycloak:
         condition: service_healthy
-    ports:
-      - ${OAUTH_INTERNAL_PORT}:${OAUTH_INTERNAL_PORT}
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
       start_period: 10s
@@ -124,16 +122,20 @@ services:
       context: ./backend/classes/
       dockerfile: Dockerfile
     environment:
-      - CLASSES_INTERNAL_PORT=${CLASSES_INTERNAL_PORT}
       - MONGODB_INTERNAL_HOST=${MONGODB_INTERNAL_HOST}
       - MONGODB_INTERNAL_PORT=${MONGODB_INTERNAL_PORT}
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-      - MONGODB_DB=classes
+      - MONGODB_DATABASE_NAME=classes
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
     depends_on:
       mongodb:
+        condition: service_healthy
+      oauth:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${CLASSES_INTERNAL_HOST}:${CLASSES_INTERNAL_PORT}/health" ]
@@ -148,12 +150,20 @@ services:
       context: ./backend/rooms/
       dockerfile: Dockerfile
     environment:
-      - ROOMS_INTERNAL_PORT=${ROOMS_INTERNAL_PORT}
-      - POSTGRES_DB=rooms
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=rooms
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
-      - constrsw
+      - constrsw    
     depends_on:
       postgresql:
+        condition: service_healthy
+      oauth:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${ROOMS_INTERNAL_HOST}:${ROOMS_INTERNAL_PORT}/health" ]
@@ -168,15 +178,23 @@ services:
       context: ./backend/lessons/
       dockerfile: Dockerfile
     environment:
-      - LESSONS_INTERNAL_PORT=${LESSONS_INTERNAL_PORT}
-      - POSTGRES_DB=lessons
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=lessons
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
     depends_on:
       postgresql:
         condition: service_healthy
+      oauth:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${LESSONS_INTERNAL_HOST}:${LESSONS_INTERNAL_PORT}/lessons/health" ]
+      test: [ "CMD-SHELL", "curl -f http://${LESSONS_INTERNAL_HOST}:${LESSONS_INTERNAL_PORT}/health" ]
       start_period: 10s
       interval: 5s
       timeout: 10s
@@ -188,12 +206,20 @@ services:
       context: ./backend/resources/
       dockerfile: Dockerfile
     environment:
-      - RESOURCES_INTERNAL_PORT=${RESOURCES_INTERNAL_PORT}
-      - POSTGRES_DB=resources
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=resources
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
     depends_on:
       mongodb:
+        condition: service_healthy
+      oauth:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${RESOURCES_INTERNAL_HOST}:${RESOURCES_INTERNAL_PORT}/health" ]
@@ -208,12 +234,20 @@ services:
       context: ./backend/courses/
       dockerfile: Dockerfile
     environment:
-      - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
-      - POSTGRES_DB=courses
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=courses
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
     depends_on:
       postgresql:
+        condition: service_healthy
+      oauth:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${COURSES_INTERNAL_HOST}:${COURSES_INTERNAL_PORT}/health" ]
@@ -228,15 +262,23 @@ services:
       context: ./backend/reservations/
       dockerfile: Dockerfile
     environment:
-      - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
-      - POSTGRES_DB=reservations
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=reservations
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
     depends_on:
       mongodb:
         condition: service_healthy
+      oauth:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/reservations/health" ]
+      test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/health" ]
       start_period: 10s
       interval: 5s
       timeout: 10s
@@ -248,13 +290,21 @@ services:
       context: ./backend/students
       dockerfile: Dockerfile
     environment:
-      - STUDENTS_INTERNAL_PORT=${STUDENTS_INTERNAL_PORT}
-      - POSTGRES_DB=students
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=students
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+    networks:
+      - constrsw
     depends_on:
       postgresql:
         condition: service_healthy
-    networks:
-      - constrsw
+      oauth:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${STUDENTS_INTERNAL_HOST}:${STUDENTS_INTERNAL_PORT}/health" ]
       start_period: 10s
@@ -268,13 +318,21 @@ services:
       context: ./backend/professors
       dockerfile: Dockerfile
     environment:
-      - PROFESSORS_INTERNAL_PORT=${PROFESSORS_INTERNAL_PORT}
-      - POSTGRES_DB=professors
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE_NAME=professors
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+    networks:
+      - constrsw
     depends_on:
       postgresql:
         condition: service_healthy
-    networks:
-      - constrsw
+      oauth:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://${PROFESSORS_INTERNAL_HOST}:${PROFESSORS_INTERNAL_PORT}/health" ]
       start_period: 10s
