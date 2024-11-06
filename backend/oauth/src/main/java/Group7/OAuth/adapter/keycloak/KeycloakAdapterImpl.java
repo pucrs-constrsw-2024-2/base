@@ -1,14 +1,18 @@
 package Group7.OAuth.adapter.keycloak;
 
 import Group7.OAuth.application.dtos.GroupDTO;
+import Group7.OAuth.application.dtos.PermissionDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -214,4 +218,22 @@ public class KeycloakAdapterImpl implements KeycloakAdapter {
                 .block();
     }
 
+    @Override
+    public Collection<PermissionDTO> getUserPermissions(String token) {
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.put("grant_type", List.of("urn:ietf:params:oauth:grant-type:uma-ticket"));
+        formData.put("audience", List.of(clientId));
+        formData.put("response_mode", List.of("permissions"));
+
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/realms/{realm}/protocol/openid-connect/token")
+                        .build(realm))
+                .header("Authorization", "Bearer " + token)
+                .bodyValue(formData)
+                .retrieve()
+                .bodyToFlux(PermissionDTO.class)
+                .collectList()
+                .block();
+    }
 }
