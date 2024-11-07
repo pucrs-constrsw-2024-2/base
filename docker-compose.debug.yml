@@ -88,35 +88,35 @@ services:
       timeout: 10s
       retries: 10
     restart: always
-  # oauth:
-  #   container_name: oauth
-  #   build:
-  #     context: ./backend/oauth
-  #     dockerfile: Dockerfile
-  #   image: constrsw/oauth
-  #   environment:
-  #     - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
-  #     - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
-  #     - KEYCLOAK_REALM=${KEYCLOAK_REALM}
-  #     - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
-  #     - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-  #     - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
-  #     - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-  #     - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
-  #   networks:
-  #     - constrsw
-  #   depends_on:
-  #     keycloak:
-  #       condition: service_healthy
-  #   ports:
-  #     - ${OAUTH_INTERNAL_PORT}:${OAUTH_INTERNAL_PORT}
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
-  #     start_period: 10s
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 20
-  #   restart: always
+  oauth:
+    container_name: oauth
+    build:
+      context: ./backend/oauth
+      dockerfile: Dockerfile
+    image: constrsw/oauth
+    environment:
+      - KEYCLOAK_INTERNAL_HOST=${KEYCLOAK_INTERNAL_HOST}
+      - KEYCLOAK_INTERNAL_PORT=${KEYCLOAK_INTERNAL_PORT}
+      - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+      - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
+      - KEYCLOAK_GRANT_TYPE=${KEYCLOAK_GRANT_TYPE}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - OAUTH_INTERNAL_DEBUG_PORT=${OAUTH_INTERNAL_DEBUG_PORT}
+    networks:
+      - constrsw
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    ports:
+      - ${OAUTH_INTERNAL_PORT}:${OAUTH_INTERNAL_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://${OAUTH_INTERNAL_HOST}:${OAUTH_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 10s
+      retries: 20
+    restart: always
   # # Grupo 1: classes
   # classes:
   #   container_name: classes
@@ -215,6 +215,9 @@ services:
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DATABASE_NAME=${POSTGRESQL_DATABASE_NAME}
+      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
     ports:
       - ${COURSES_INTERNAL_PORT}:${COURSES_INTERNAL_PORT}
     networks:
