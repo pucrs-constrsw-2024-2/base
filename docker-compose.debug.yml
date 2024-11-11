@@ -40,27 +40,27 @@ services:
       retries: 10
     restart: always
   # MongoDB
-  mongodb:
-    container_name: mongodb
-    build:
-      context: ./backend/utils/mongodb/
-      dockerfile: Dockerfile
-    image: constrsw/mongodb
-    environment:
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-    volumes:
-      # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
-      - constrsw-mongodb-data:/data/mongodb
-    networks:
-      - constrsw
-    healthcheck:
-      test: [ "CMD-SHELL", "mongosh --quiet mongodb/test --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'" ]
-      start_period: 10s
-      interval: 10s
-      timeout: 10s
-      retries: 10
-    restart: always
+    # mongodb:
+    # container_name: mongodb
+    # build:
+    #   context: ./backend/utils/mongodb/
+    #   dockerfile: Dockerfile
+    # image: constrsw/mongodb
+    # environment:
+    #   - MONGODB_USERNAME=${MONGODB_USERNAME}
+    #   - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    # volumes:
+    #   # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
+    #   - constrsw-mongodb-data:/data/mongodb
+    # networks:
+    #   - constrsw
+    # healthcheck:
+    #   test: [ "CMD-SHELL", "mongosh --quiet mongodb/test --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'" ]
+    #   start_period: 10s
+    #   interval: 10s
+    #   timeout: 10s
+    #   retries: 10
+    # restart: always
   # Keycloak
   keycloak:
     container_name: keycloak
