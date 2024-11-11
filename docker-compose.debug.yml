@@ -389,26 +389,28 @@ services:
       oauth:
         condition: service_healthy
       classes:
-        condition: service_started
-      courses:
+        condition: service_healthy
+      rooms:
         condition: service_healthy
       lessons:
         condition: service_healthy
-      professors:
-        condition: service_started
-      reservations:
-        condition: service_healthy
       resources:
         condition: service_healthy
-      rooms:
+      courses:
+        condition: service_healthy
+      reservations:
+        condition: service_healthy
+      students:
+        condition: service_healthy
+      professors:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:8085/health" ]
       start_period: 10s
       interval: 5s
       timeout: 10s
-      retries: 5  # # Frontend
-# ------------------------- T3 -----------------------------------
+      retries: 5
+# Frontend
   frontend:
     container_name: frontend
     build:
@@ -420,6 +422,6 @@ services:
     networks:
       - constrsw
     # environment:
-    # depends_on:
-    #   bff:
-    #     condition: service_started
+    depends_on:
+      bff:
+        condition: service_healthy
