@@ -22,12 +22,14 @@ services:
         - POSTGRESQL_DATA=${POSTGRESQL_DATA}
     image: constrsw/postgresql
     environment:
-      - POSTGRES_USER=${POSTGRESQL_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRES_DB=${POSTGRESQL_DATABASE_NAME}
+      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+      - POSTGRESQL_INTERNAL_PORT=5432
+      - POSTGRESQL_USER=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DB=${POSTGRESQL_DATABASE_NAME}
     volumes:
       # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
-      - constrsw-postgresql-data:/var/lib/postgresql/data
+      - constrsw-postgresql-data:${POSTGRESQL_DATA}
     networks:
       - constrsw
     healthcheck:
@@ -121,6 +123,7 @@ services:
     build:
       context: ./backend/classes/
       dockerfile: Dockerfile
+    image: constrsw/classes
     environment:
       - MONGODB_INTERNAL_HOST=${MONGODB_INTERNAL_HOST}
       - MONGODB_INTERNAL_PORT=${MONGODB_INTERNAL_PORT}
@@ -149,6 +152,7 @@ services:
     build:
       context: ./backend/rooms/
       dockerfile: Dockerfile
+    image: constrsw/rooms
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -177,6 +181,7 @@ services:
     build:
       context: ./backend/lessons/
       dockerfile: Dockerfile
+    image: constrsw/lessons
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -205,6 +210,7 @@ services:
     build:
       context: ./backend/resources/
       dockerfile: Dockerfile
+    image: constrsw/resources
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -233,6 +239,7 @@ services:
     build:
       context: ./backend/courses/
       dockerfile: Dockerfile
+    image: constrsw/courses
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -261,6 +268,7 @@ services:
     build:
       context: ./backend/reservations/
       dockerfile: Dockerfile
+    image: constrsw/reservations
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -289,6 +297,7 @@ services:
     build:
       context: ./backend/students
       dockerfile: Dockerfile
+    image: constrsw/students
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -317,6 +326,7 @@ services:
     build:
       context: ./backend/professors
       dockerfile: Dockerfile
+    image: constrsw/professors
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
@@ -345,6 +355,7 @@ services:
 #     build:
 #       context: ./backend/bff/
 #       dockerfile: Dockerfile
+#     image: constrsw/oauth
 #     environment:
 #       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
 #       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
@@ -401,6 +412,7 @@ services:
     build:
       context: ./frontend/
       dockerfile: Dockerfile
+    image: constrsw/frontend
     ports:
       - 80:3000
     networks:
