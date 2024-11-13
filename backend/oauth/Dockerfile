@@ -18,6 +18,11 @@ RUN mvn package -DskipTests
 # Segunda etapa para criar a imagem final do Docker
 FROM amazoncorretto:21-alpine-jdk
 
+# Install curl for healthchecking
+RUN apk add --update \
+    curl \
+    && rm -rf /var/cache/apk/*
+
 # Define o diretório de trabalho como /app
 WORKDIR /oauth
 
