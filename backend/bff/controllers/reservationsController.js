@@ -2,12 +2,6 @@ const axios = require('axios');
 
 const apiBaseUrl = `${process.env.RESERVATIONS_INTERNAL_PROTOCOL}://${process.env.RESERVATIONS_INTERNAL_HOST}:${process.env.RESERVATIONS_INTERNAL_PORT}` || "http://reservations:8080";
 
-router.get('/', );
-router.get('/:id', );
-router.put('/:id', );
-router.patch('/:id', );
-router.delete('/:id', );
-
 const createReservation = async (req, res) => {
     try {
         const response = await axios.post(`${apiBaseUrl}`, req.body);
