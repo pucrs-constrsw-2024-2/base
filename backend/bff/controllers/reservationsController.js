@@ -62,29 +62,42 @@ const deleteReservationById = async (req, res) => {
     }
 };
 
-// const getReservationsBySimpleQuery = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getReservationsBySimpleQuery = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
 
-// const getReservationsByComplexQuery = async (req, res) => {
-//   try {
-//       const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-//       res.status(response.status).send(response.data);
-//   } catch (error) {
-//       res.status(error.response.status).send(error.response.data);
-//   }
-// };
+const getReservationsByComplexQuery = async (req, res) => {
+  try {
+      const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
+      res.status(response.status).send(response.data);
+  } catch (error) {
+      res.status(error.response.status).send(error.response.data);
+  }
+};
 
-// const getReservationsHealth = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/health`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getReservationsHealth = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/health`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
+
+module.exports = {
+    createReservation,
+    getAllReservations,
+    getReservationById,
+    getReservationsBySimpleQuery,
+    getReservationsByComplexQuery,
+    fullReservationUpdate,
+    partialReservationUpdate,
+    deleteReservationById,
+    getReservationsHealth
+  };
+  

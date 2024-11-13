@@ -56,29 +56,42 @@ const deleteResourceById = async (req, res) => {
     }
 };
 
-// const getResourcesBySimpleQuery = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getResourcesBySimpleQuery = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
 
-// const getResorcesByComplexQuery = async (req, res) => {
-//   try {
-//       const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-//       res.status(response.status).send(response.data);
-//   } catch (error) {
-//       res.status(error.response.status).send(error.response.data);
-//   }
-// };
+const getResorcesByComplexQuery = async (req, res) => {
+  try {
+      const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
+      res.status(response.status).send(response.data);
+  } catch (error) {
+      res.status(error.response.status).send(error.response.data);
+  }
+};
 
-// const getResourcesHealth = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/health`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getResourcesHealth = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/health`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
+
+module.exports = {
+    createResource,
+    getAllResources,
+    getResourceById,
+    getResourcesBySimpleQuery,
+    getResourcesByComplexQuery,
+    fullResourceUpdate,
+    partialResourceUpdate,
+    deleteResourceById,
+    getResourcesHealth
+  };
+  

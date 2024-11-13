@@ -56,29 +56,42 @@ const deleteLessonById = async (req, res) => {
     }
 };
 
-// const getLessonsBySimpleQuery = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getLessonsBySimpleQuery = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
 
-// const getLessonsByComplexQuery = async (req, res) => {
-//     try {
-//       const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-//       res.status(response.status).send(response.data);
-//   } catch (error) {
-//       res.status(error.response.status).send(error.response.data);
-//   }
-// };
+const getLessonsByComplexQuery = async (req, res) => {
+    try {
+      const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
+      res.status(response.status).send(response.data);
+  } catch (error) {
+      res.status(error.response.status).send(error.response.data);
+  }
+};
 
-// const getLessonsHealth = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/health`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getLessonsHealth = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/health`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
+
+module.exports = {
+    createLesson,
+    getAllLessons,
+    getLessonById,
+    getLessonsBySimpleQuery,
+    getLessonsByComplexQuery,
+    fullLessonUpdate,
+    partialLessonUpdate,
+    deleteLessonById,
+    getLessonsHealth
+  };
+  
