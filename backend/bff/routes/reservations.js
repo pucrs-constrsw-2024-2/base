@@ -1,5 +1,5 @@
 const express = require('express');
-const { createReservation, deleteReservationById, fullReservationUpdate, getAllReservations, getReservationById, partialReservationUpdate} = require('../controllers/ReservationsController');
+const { createReservation, deleteReservationById, fullReservationUpdate, getAllReservations, getReservationById, partialReservationUpdate} = require('../controllers/reservationsController');
 const router = express.Router();
 
 router.post('/', createReservation);
