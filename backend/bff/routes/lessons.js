@@ -1,12 +1,13 @@
 const express = require('express');
-const { createLesson, getAllLessons, getLessonById, fullLessonUpdate, partialLessonUpdate, deleteLessonById } = require('../controllers/lessonsController');
 const router = express.Router();
+const { createLesson, getAllLessons, getLessons, putLesson, patchLesson, deleteLesson, getHealth } = require('../controllers/lessonsController');
 
 router.post('/', createLesson);
 router.get('/', getAllLessons);
-router.get('/:id', getLessonById);
-router.put('/:id', fullLessonUpdate);
-router.patch('/:id', partialLessonUpdate);
-router.delete('/:id', deleteLessonById);
+router.get('/:id', getLessons);
+router.put('/:id', putLesson);
+router.patch('/:id', patchLesson);
+router.delete('/:id', deleteLesson);
+router.get('/health', getHealth);
 
 module.exports = router;

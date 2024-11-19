@@ -20,16 +20,20 @@ const getAllResources = async (req, res) => {
     }
 };
 
-const getResourceById = async (req, res) => {
+const getResources = async (req, res) => {
     try {
-        const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        if (!req.query) {
+            const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        } else {
+            const response = await axios.get(`${apiBaseUrl}?${req.query}`);
+        }
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
     }
 };
 
-const fullResourceUpdate = async (req, res) => {
+const putResource = async (req, res) => {
     try {
         const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -38,7 +42,7 @@ const fullResourceUpdate = async (req, res) => {
     }
 };
 
-const partialResourceUpdate = async (req, res) => {
+const patchResource = async (req, res) => {
     try {
         const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -47,7 +51,7 @@ const partialResourceUpdate = async (req, res) => {
     }
 };
 
-const deleteResourceById = async (req, res) => {
+const deleteResource = async (req, res) => {
     try {
         const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`);
         res.status(response.status).send(response.data);
@@ -56,25 +60,7 @@ const deleteResourceById = async (req, res) => {
     }
 };
 
-const getResourcesBySimpleQuery = async (req, res) => {
-    try {
-        const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-        res.status(response.status).send(response.data);
-    } catch (error) {
-        res.status(error.response.status).send(error.response.data);
-    }
-};
-
-const getResorcesByComplexQuery = async (req, res) => {
-  try {
-      const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-      res.status(response.status).send(response.data);
-  } catch (error) {
-      res.status(error.response.status).send(error.response.data);
-  }
-};
-
-const getResourcesHealth = async (req, res) => {
+const getHealth = async (req, res) => {
     try {
         const response = await axios.get(`${apiBaseUrl}/health`);
         res.status(response.status).send(response.data);
@@ -86,12 +72,9 @@ const getResourcesHealth = async (req, res) => {
 module.exports = {
     createResource,
     getAllResources,
-    getResourceById,
-    getResourcesBySimpleQuery,
-    getResourcesByComplexQuery,
-    fullResourceUpdate,
-    partialResourceUpdate,
-    deleteResourceById,
-    getResourcesHealth
-  };
-  
+    getResources,
+    putResource,
+    patchResource,
+    deleteResource,
+    getHealth
+};
