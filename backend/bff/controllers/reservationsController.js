@@ -20,16 +20,20 @@ const getAllReservations = async (req, res) => {
     }
 };
 
-const getReservationById = async (req, res) => {
+const getReservations = async (req, res) => {
     try {
-        const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        if (!req.query) {
+            const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        } else {
+            const response = await axios.get(`${apiBaseUrl}?${req.query}`);
+        }
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
     }
 };
 
-const fullReservationUpdate = async (req, res) => {
+const putReservation = async (req, res) => {
     try {
         const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -38,7 +42,7 @@ const fullReservationUpdate = async (req, res) => {
     }
 };
 
-const partialReservationUpdate = async (req, res) => {
+const patchReservation = async (req, res) => {
     try {
         const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -47,7 +51,7 @@ const partialReservationUpdate = async (req, res) => {
     }
 };
 
-const deleteReservationById = async (req, res) => {
+const deleteReservation = async (req, res) => {
     try {
         const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`);
         res.status(response.status).send(response.data);
@@ -56,25 +60,7 @@ const deleteReservationById = async (req, res) => {
     }
 };
 
-const getReservationsBySimpleQuery = async (req, res) => {
-    try {
-        const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-        res.status(response.status).send(response.data);
-    } catch (error) {
-        res.status(error.response.status).send(error.response.data);
-    }
-};
-
-const getReservationsByComplexQuery = async (req, res) => {
-  try {
-      const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-      res.status(response.status).send(response.data);
-  } catch (error) {
-      res.status(error.response.status).send(error.response.data);
-  }
-};
-
-const getReservationsHealth = async (req, res) => {
+const getHealth = async (req, res) => {
     try {
         const response = await axios.get(`${apiBaseUrl}/health`);
         res.status(response.status).send(response.data);
@@ -86,12 +72,9 @@ const getReservationsHealth = async (req, res) => {
 module.exports = {
     createReservation,
     getAllReservations,
-    getReservationById,
-    getReservationsBySimpleQuery,
-    getReservationsByComplexQuery,
-    fullReservationUpdate,
-    partialReservationUpdate,
-    deleteReservationById,
-    getReservationsHealth
-  };
-  
+    getReservations,
+    putReservation,
+    patchReservation,
+    deleteReservation,
+    getHealth
+};

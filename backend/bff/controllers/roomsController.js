@@ -135,6 +135,15 @@ const deleteFeatureById = async (req, res) => {
   }
 };
 
+const getHealth = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/health`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
+
 module.exports = {
   createRoom,
   getAllRooms,
@@ -148,4 +157,5 @@ module.exports = {
   fullFeatureUpdate,
   partialFeatureUpdate,
   deleteFeatureById,
+  getHealth
 };

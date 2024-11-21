@@ -47,6 +47,4 @@ app.use('/reservations', checkLoggedIn, reservationsRoutes);
 app.use('/students', checkLoggedIn, studentsRoutes);
 app.use('/professors', checkLoggedIn, professorsRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.listen(port);

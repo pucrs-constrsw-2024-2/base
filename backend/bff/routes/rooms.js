@@ -12,6 +12,7 @@ const {
   fullFeatureUpdate,
   partialFeatureUpdate,
   deleteFeatureById,
+  getHealth
 } = require("../controllers/roomsController");
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.get('/:id', getRoomById);
 router.put('/:id', fullRoomUpdate);
 router.patch('/:id', partialRoomUpdate);
 router.delete('/:id', deleteRoomById);
+router.get('/health', getHealth);
 
 router.post("/:id/features", createFeature);
 router.get("/:id/features", getAllFeatures);
