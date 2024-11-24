@@ -1,15 +1,15 @@
 networks:
-  constrsw:
+    constrsw:
 volumes:
-  # No terminal, criar o volume externo: docker volume create constrsw-keycloak-data
-  constrsw-keycloak-data:
-    external: true
-  # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
-  constrsw-postgresql-data:
-    external: true
-  # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
-  constrsw-mongodb-data:
-    external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-keycloak-data
+    constrsw-keycloak-data:
+        external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
+    constrsw-postgresql-data:
+        external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
+    constrsw-mongodb-data:
+        external: true
 services:
   # PostgreSQL
   postgresql:

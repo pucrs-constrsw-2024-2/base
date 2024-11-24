@@ -1,6 +1,8 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const apiBaseUrl = `${process.env.RESOURCES_INTERNAL_PROTOCOL}://${process.env.RESOURCES_INTERNAL_HOST}:${process.env.RESOURCES_INTERNAL_PORT}` || "http://resources:8080";
+const apiBaseUrl =
+    `${process.env.RESOURCES_INTERNAL_PROTOCOL}://${process.env.RESOURCES_INTERNAL_HOST}:${process.env.RESOURCES_INTERNAL_PORT}` ||
+    "http://resources:8080";
 
 const createResource = async (req, res) => {
     try {
