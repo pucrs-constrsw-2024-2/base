@@ -20,7 +20,7 @@ async function checkLoggedIn(req, res, next) {
 
     try {
         var resource = req.baseUrl.replace("/", "");
-        const response = await axios.get(middlewareUrl, {
+        await axios.get(middlewareUrl, {
             headers: {
                 authorization,
                 resource,
@@ -28,16 +28,17 @@ async function checkLoggedIn(req, res, next) {
             }
         });
 
-        if (response.status === 200) {
-            return next();
-        } else if (response.status === 403) {
-            res.status(403).send("Forbidden resource");
-        } else {
-            res.status(401).send("Not authenticated");
-        }
+        return next();
     } catch (error) {
-        console.error("Error verifying authentication:", error);
-        res.status(500).send("Internal server error");
+        var errorStatusCode = error.response && error.response.status ? error.response.status : 0;
+        if (errorStatusCode === 403) {
+            res.status(403).send("Forbidden resource");
+        } else if (errorStatusCode === 401) {
+            res.status(401).send("Not authenticated");
+        } else {
+            console.error("Error verifying authentication:", error);
+            res.status(500).send("Internal server error");
+        }
     }
 }
 
