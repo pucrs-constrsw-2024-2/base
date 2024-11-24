@@ -11,20 +11,20 @@ const middlewareUrl =
   * @param {import("express").NextFunction} next
 **/
 async function checkLoggedIn(req, res, next) {
-    const { Authorization, Resource } = req.headers;
+    const { authorization } = req.headers;
 
-    if (!Authorization || !Resource) {
+    if (!authorization) {
         res.status(400).send("Bad request");
         return;
     }
 
     try {
-        console.log(middlewareUrl);
+        var resource = req.baseUrl.replace("/", "");
         const response = await axios.get(middlewareUrl, {
             headers: {
-                Authorization,
-                Resource,
-                Method: req.method
+                authorization,
+                resource,
+                method: req.method
             }
         });
 
