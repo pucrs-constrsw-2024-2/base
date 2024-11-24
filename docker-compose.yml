@@ -463,8 +463,8 @@ services:
             dockerfile: Dockerfile
         image: constrsw/mongodb
         environment:
-            - MONGODB_USERNAME=${MONGODB_USERNAME}
-            - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+            - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
         volumes:
             # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
             - constrsw-mongodb-data:/data/mongodb

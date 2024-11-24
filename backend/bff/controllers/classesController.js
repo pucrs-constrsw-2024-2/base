@@ -5,7 +5,12 @@ const apiBaseUrl = `${process.env.CLASSES_INTERNAL_PROTOCOL}://${process.env.CLA
 const getClasses = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.get(`${apiBaseUrl}`, {
+        var requestUrl = `${apiBaseUrl}`;
+        if (req.query) {
+            const query = Object.entries(req.query).map(([key, value]) => `${key}=${value}`).join('&');
+            requestUrl += `?${query}`;
+        }
+        const response = await axios.get(requestUrl, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -29,9 +34,8 @@ const getClassById = async (req, res) => {
 const createClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.post(`${apiBaseUrl}`, {
-            headers: { authorization },
-            body: req.body
+        const response = await axios.post(`${apiBaseUrl}`, req.body, {
+            headers: { authorization }
         });
         res.status(response.status).send(response.data);
     } catch (error) {
@@ -42,9 +46,8 @@ const createClass = async (req, res) => {
 const putClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, {
-            headers: { authorization },
-            body: req.body
+        const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body, {
+            headers: { authorization }
         });
         res.status(response.status).send(response.data);
     } catch (error) {
@@ -55,9 +58,8 @@ const putClass = async (req, res) => {
 const patchClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, {
-            headers: { authorization },
-            body: req.body
+        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body, {
+            headers: { authorization }
         });
         res.status(response.status).send(response.data);
     } catch (error) {
@@ -77,12 +79,11 @@ const deleteClass = async (req, res) => {
     }
 }
 
-
 module.exports = {
     createClass,
     getClassById,
     getClasses,
     putClass,
     patchClass,
-    deleteClass,
+    deleteClass
 }
