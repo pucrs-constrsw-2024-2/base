@@ -1630,18 +1630,81 @@
 									}
 								},
 								"url": {
-									"raw": "{{bff-url}}/classes/3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7/grades",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"PARTICIPACAO\",\r\n    \"date\": \"21/03/2025\",\r\n    \"weight\": 0.1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "115"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"73-87/MgeQCedQXXdUghf7Ms1g0pmU\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:38:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"3838f546-1c5b-476f-9f65-bff37613c34e\",\n    \"type\": \"PARTICIPACAO\",\n    \"date\": \"21/03/2025\",\n    \"weight\": 0.1,\n    \"enabled\": true\n}"
+								}
+							]
 						},
 						{
 							"name": "Get grade by ID",
@@ -1659,19 +1722,74 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{bff-url}}/classes/3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7/grades/a97c1b6e-7f51-419a-af22-59e0bee6dc7d",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades",
-										"a97c1b6e-7f51-419a-af22-59e0bee6dc7d"
+										"3d86c676-fe37-459b-a769-27dac03760b2"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades",
+												"3d86c676-fe37-459b-a769-27dac03760b2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "109"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6d-0go/yVyjjRorz4PJxQRPvmTNdyc\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:36:05 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.25,\n    \"enabled\": true\n}"
+								}
+							]
 						},
 						{
 							"name": "Get all grades",
@@ -1689,18 +1807,72 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{bff-url}}/classes/9bb90eba-df6d-435a-a1cc-8e927e436c33/grades",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"9bb90eba-df6d-435a-a1cc-8e927e436c33",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "111"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6f-6LgGrFD+UCGMMqyfnR4xBwu4Tnc\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:33:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n        \"type\": \"PROVA\",\n        \"date\": \"06/12/2024\",\n        \"weight\": 0.25,\n        \"enabled\": true\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Delete grade by ID",
@@ -1718,19 +1890,66 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{bff-url}}/classes/3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7/grades/a97c1b6e-7f51-419a-af22-59e0bee6dc7d",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades",
-										"a97c1b6e-7f51-419a-af22-59e0bee6dc7d"
+										"3d86c676-fe37-459b-a769-27dac03760b2"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades",
+												"3d86c676-fe37-459b-a769-27dac03760b2"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:36:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
 						},
 						{
 							"name": "Update grade by ID",
@@ -1749,7 +1968,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"type\": \"PARTICIPACAO\",\r\n    \"date\": \"21/04/2025\",\r\n    \"weight\": 0.1\r\n}",
+									"raw": "{\r\n    \"type\": \"PROVA\",\r\n    \"date\": \"06/12/2024\",\r\n    \"weight\": 0.1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1757,19 +1976,83 @@
 									}
 								},
 								"url": {
-									"raw": "{{bff-url}}/classes/3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7/grades/a97c1b6e-7f51-419a-af22-59e0bee6dc7d",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades",
-										"a97c1b6e-7f51-419a-af22-59e0bee6dc7d"
+										"3d86c676-fe37-459b-a769-27dac03760b2"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"PROVA\",\r\n    \"date\": \"06/12/2024\",\r\n    \"weight\": 0.1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades",
+												"3d86c676-fe37-459b-a769-27dac03760b2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "109"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6d-pIn0uQXgiTBssipJtKZJtN4dgUs\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:37:04 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.1,\n    \"enabled\": false\n}"
+								}
+							]
 						},
 						{
 							"name": "Update selected grade fields by ID",
@@ -1796,19 +2079,83 @@
 									}
 								},
 								"url": {
-									"raw": "{{bff-url}}/classes/3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7/grades/a97c1b6e-7f51-419a-af22-59e0bee6dc7d",
+									"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
 									"host": [
 										"{{bff-url}}"
 									],
 									"path": [
 										"classes",
-										"3ace78a1-6cd0-4ac5-8b0d-2da1dd87ffa7",
+										"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
 										"grades",
-										"a97c1b6e-7f51-419a-af22-59e0bee6dc7d"
+										"3d86c676-fe37-459b-a769-27dac03760b2"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"weight\": 0.15\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+												"grades",
+												"3d86c676-fe37-459b-a769-27dac03760b2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "110"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"6e-ARA1aPTJ+gXTdJ3Q2ILJEqvImls\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 21:37:33 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.15,\n    \"enabled\": false\n}"
+								}
+							]
 						}
 					]
 				},

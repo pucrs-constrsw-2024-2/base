@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { createClass, deleteClass, getClasses, getClassById, putClass, patchClass } = require('../controllers/classesController');
-const { createGrade, getGrades, putGrade, patchGrade, deleteGrade } = require('../controllers/gradesController');
+const { createGrade, getGrades, getGradeById, putGrade, patchGrade, deleteGrade } = require('../controllers/gradesController');
 
 router.post('/', createClass);
 router.get('/', getClasses);
@@ -12,7 +12,7 @@ router.delete('/:id', deleteClass);
 
 router.post('/:classId/grades', createGrade);
 router.get('/:classId/grades', getGrades);
-router.get('/:classId/grades/:gradeId', getGrades);
+router.get('/:classId/grades/:gradeId', getGradeById);
 router.put('/:classId/grades/:gradeId', putGrade);
 router.patch('/:classId/grades/:gradeId', patchGrade);
 router.delete('/:classId/grades/:gradeId', deleteGrade);
