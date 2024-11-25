@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const { createResource, getAllResources, getResources, putResource, patchResource, deleteResource, getHealth } = require('../controllers/resourcesController');
 
