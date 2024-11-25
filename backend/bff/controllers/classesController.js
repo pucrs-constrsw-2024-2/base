@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-const apiBaseUrl = `${process.env.CLASSES_INTERNAL_PROTOCOL}://${process.env.CLASSES_INTERNAL_HOST}:${process.env.CLASSES_INTERNAL_PORT}/classes` || "http://classes:8080/classes";
+const apiBaseUrl = `${process.env.CLASSES_INTERNAL_PROTOCOL}://${process.env.CLASSES_INTERNAL_HOST}:${process.env.CLASSES_INTERNAL_PORT}` || "http://classes:8080";
 
 const getClasses = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        var requestUrl = `${apiBaseUrl}`;
+        var requestUrl = `${apiBaseUrl}/classes`;
         if (req.query) {
             const query = Object.entries(req.query).map(([key, value]) => `${key}=${value}`).join('&');
             requestUrl += `?${query}`;
@@ -22,7 +22,7 @@ const getClasses = async (req, res) => {
 const getClassById = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.get(`${apiBaseUrl}/${req.params.id}`, {
+        const response = await axios.get(`${apiBaseUrl}/classes/${req.params.id}`, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -34,7 +34,7 @@ const getClassById = async (req, res) => {
 const createClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.post(`${apiBaseUrl}`, req.body, {
+        const response = await axios.post(`${apiBaseUrl}/classes`, req.body, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -46,7 +46,7 @@ const createClass = async (req, res) => {
 const putClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body, {
+        const response = await axios.put(`${apiBaseUrl}/classes/${req.params.id}`, req.body, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -58,7 +58,7 @@ const putClass = async (req, res) => {
 const patchClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body, {
+        const response = await axios.patch(`${apiBaseUrl}/classes/${req.params.id}`, req.body, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -70,7 +70,7 @@ const patchClass = async (req, res) => {
 const deleteClass = async (req, res) => {
     try {
         const { authorization } = req.headers;
-        const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`, {
+        const response = await axios.delete(`${apiBaseUrl}/classes/${req.params.id}`, {
             headers: { authorization }
         });
         res.status(response.status).send(response.data);
@@ -79,11 +79,21 @@ const deleteClass = async (req, res) => {
     }
 }
 
+const getHealth = async (req, res) => {
+	try {
+		const response = await axios.get(`${apiBaseUrl}/health`);
+		res.status(response.status).send(response.data);
+	} catch (error) {
+		res.status(error.response.status).send(error.response.data);
+	}
+};
+
 module.exports = {
     createClass,
     getClassById,
     getClasses,
     putClass,
     patchClass,
-    deleteClass
+    deleteClass,
+    getHealth
 }

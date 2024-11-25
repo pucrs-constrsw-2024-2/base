@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createClass, deleteClass, getClasses, getClassById, putClass, patchClass } = require('../controllers/classesController');
+const { createClass, deleteClass, getClasses, getClassById, putClass, patchClass, getHealth } = require('../controllers/classesController');
 const { createGrade, getGrades, getGradeById, putGrade, patchGrade, deleteGrade } = require('../controllers/gradesController');
 
 router.post('/', createClass);
+router.get('/health', getHealth);
 router.get('/', getClasses);
 router.get('/:id', getClassById);
 router.put('/:id', putClass);
