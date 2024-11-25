@@ -9,6 +9,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE ${BFF_INTERNAL_PORT}
 
 CMD ["node", "app.js"]
