@@ -1,15 +1,15 @@
 networks:
-  constrsw:
+    constrsw:
 volumes:
-  # No terminal, criar o volume externo: docker volume create constrsw-keycloak-data
-  constrsw-keycloak-data:
-    external: true
-  # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
-  constrsw-postgresql-data:
-    external: true
-  # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
-  constrsw-mongodb-data:
-    external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-keycloak-data
+    constrsw-keycloak-data:
+        external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-postgresql-data
+    constrsw-postgresql-data:
+        external: true
+    # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
+    constrsw-mongodb-data:
+        external: true
 services:
   # PostgreSQL
   postgresql:
@@ -49,8 +49,8 @@ services:
       dockerfile: Dockerfile
     image: constrsw/mongodb
     environment:
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     volumes:
       # No terminal, criar o volume externo: docker volume create constrsw-mongodb-data
       - constrsw-mongodb-data:/data/mongodb
@@ -166,8 +166,6 @@ services:
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
-    ports:
-      - 2222:3000
     depends_on:
       postgresql:
         condition: service_healthy
@@ -286,7 +284,7 @@ services:
     networks:
       - constrsw
     depends_on:
-      mongodb:
+      postgresql:
         condition: service_healthy
       oauth:
         condition: service_healthy
@@ -367,10 +365,12 @@ services:
       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - BFF_INTERNAL_PORT=${BFF_INTERNAL_PORT}
       - BFF_INTERNAL_DEBUG_PORT=${BFF_INTERNAL_DEBUG_PORT}
+      - CLASSES_INTERNAL_PROTOCOL=${CLASSES_INTERNAL_PROTOCOL}
       - CLASSES_INTERNAL_HOST=${CLASSES_INTERNAL_HOST}
       - CLASSES_INTERNAL_PORT=${CLASSES_INTERNAL_PORT}
       - ROOMS_INTERNAL_HOST=${ROOMS_INTERNAL_HOST}
       - ROOMS_INTERNAL_PORT=${ROOMS_INTERNAL_PORT}
+      - ROOMS_INTERNAL_PROTOCOL=${ROOMS_INTERNAL_PROTOCOL}
       - LESSONS_INTERNAL_HOST=${LESSONS_INTERNAL_HOST}
       - LESSONS_INTERNAL_PORT=${LESSONS_INTERNAL_PORT}
       - RESOURCES_INTERNAL_HOST=${RESOURCES_INTERNAL_HOST}
@@ -408,7 +408,7 @@ services:
       # professors:
       #   condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost:8085/health" ]
+      test: [ "CMD-SHELL", "curl -f http://localhost:${BFF_INTERNAL_PORT}/health" ]
       start_period: 10s
       interval: 5s
       timeout: 10s
