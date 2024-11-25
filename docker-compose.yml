@@ -227,7 +227,7 @@ services:
     networks:
       - constrsw
     depends_on:
-      mongodb:
+      postgresql:
         condition: service_healthy
       oauth:
         condition: service_healthy
