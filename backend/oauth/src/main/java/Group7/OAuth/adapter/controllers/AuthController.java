@@ -2,7 +2,6 @@ package Group7.OAuth.adapter.controllers;
 
 import Group7.OAuth.application.dtos.JwtTokenDTO;
 import Group7.OAuth.application.dtos.LoginDTO;
-import Group7.OAuth.application.dtos.TokenValidateDTO;
 import Group7.OAuth.application.usecase.LoginUC;
 import Group7.OAuth.application.usecase.RefreshTokenUC;
 import Group7.OAuth.application.usecase.ValidateTokenUC;
@@ -15,6 +14,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +31,10 @@ public class AuthController {
 
     @GetMapping("/validate-token")
     @Operation(summary = "Validação de token de usuário")
-    public ResponseEntity<Void> isValidToken(@RequestBody TokenValidateDTO tokenValidateDTO,
+    public ResponseEntity<Void> isValidToken(@RequestHeader String resource,
+                                             @RequestHeader String method,
                                              @AuthenticationPrincipal Jwt jwt) {
-        validateTokenUC.run(jwt.getTokenValue(), tokenValidateDTO.resource(), tokenValidateDTO.method());
+        validateTokenUC.run(jwt.getTokenValue(), resource, method);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -46,7 +47,7 @@ public class AuthController {
 
     @PostMapping(path = "/refresh-token")
     @Operation(summary = "Refresh de token de usuário")
-    public ResponseEntity<JwtTokenDTO> refreshToken(@RequestBody String refreshToken){
+    public ResponseEntity<JwtTokenDTO> refreshToken(@RequestBody String refreshToken) {
         JwtTokenDTO jwtTokenDTO = refreshTokenUC.run(refreshToken);
         return new ResponseEntity<>(jwtTokenDTO, HttpStatus.CREATED);
     }

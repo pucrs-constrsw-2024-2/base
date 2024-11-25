@@ -2,12 +2,6 @@ const axios = require('axios');
 
 const apiBaseUrl = `${process.env.RESERVATIONS_INTERNAL_PROTOCOL}://${process.env.RESERVATIONS_INTERNAL_HOST}:${process.env.RESERVATIONS_INTERNAL_PORT}` || "http://reservations:8080";
 
-router.get('/', );
-router.get('/:id', );
-router.put('/:id', );
-router.patch('/:id', );
-router.delete('/:id', );
-
 const createReservation = async (req, res) => {
     try {
         const response = await axios.post(`${apiBaseUrl}`, req.body);
@@ -26,16 +20,20 @@ const getAllReservations = async (req, res) => {
     }
 };
 
-const getReservationById = async (req, res) => {
+const getReservations = async (req, res) => {
     try {
-        const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        if (!req.query) {
+            const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
+        } else {
+            const response = await axios.get(`${apiBaseUrl}?${req.query}`);
+        }
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
     }
 };
 
-const fullReservationUpdate = async (req, res) => {
+const putReservation = async (req, res) => {
     try {
         const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -44,7 +42,7 @@ const fullReservationUpdate = async (req, res) => {
     }
 };
 
-const partialReservationUpdate = async (req, res) => {
+const patchReservation = async (req, res) => {
     try {
         const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
@@ -53,7 +51,7 @@ const partialReservationUpdate = async (req, res) => {
     }
 };
 
-const deleteReservationById = async (req, res) => {
+const deleteReservation = async (req, res) => {
     try {
         const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`);
         res.status(response.status).send(response.data);
@@ -62,29 +60,21 @@ const deleteReservationById = async (req, res) => {
     }
 };
 
-// const getReservationsBySimpleQuery = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/simple/${req.query}`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+const getHealth = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/health`);
+        res.status(response.status).send(response.data);
+    } catch (error) {
+        res.status(error.response.status).send(error.response.data);
+    }
+};
 
-// const getReservationsByComplexQuery = async (req, res) => {
-//   try {
-//       const response = await axios.get(`${apiBaseUrl}/complex/${req.query}`);
-//       res.status(response.status).send(response.data);
-//   } catch (error) {
-//       res.status(error.response.status).send(error.response.data);
-//   }
-// };
-
-// const getReservationsHealth = async (req, res) => {
-//     try {
-//         const response = await axios.get(`${apiBaseUrl}/health`);
-//         res.status(response.status).send(response.data);
-//     } catch (error) {
-//         res.status(error.response.status).send(error.response.data);
-//     }
-// };
+module.exports = {
+    createReservation,
+    getAllReservations,
+    getReservations,
+    putReservation,
+    patchReservation,
+    deleteReservation,
+    getHealth
+};
