@@ -396,8 +396,8 @@ services:
         condition: service_healthy
       # classes:
       #   condition: service_healthy
-      # rooms:
-      #   condition: service_healthy
+      rooms:
+        condition: service_healthy
       # lessons:
       #   condition: service_healthy
       # resources:
