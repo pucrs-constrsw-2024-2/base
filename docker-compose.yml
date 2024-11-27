@@ -94,6 +94,8 @@ services:
     restart: always
   oauth:
     container_name: oauth
+    ports:
+      - 8081:8080
     build:
       context: ./backend/oauth
       dockerfile: Dockerfile
@@ -244,10 +246,11 @@ services:
     image: constrsw/courses
     environment:
       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+      - POSTGRESQL_INTERNAL_PORT=5432
+      - POSTGRESQL_USER=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DB=courses
+      - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
@@ -376,6 +379,7 @@ services:
       - RESOURCES_INTERNAL_PORT=${RESOURCES_INTERNAL_PORT}
       - COURSES_INTERNAL_HOST=${COURSES_INTERNAL_HOST}
       - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
+      - COURSES_INTERNAL_PROTOCOL=${COURSES_INTERNAL_PROTOCOL}
       - RESERVATIONS_INTERNAL_HOST=${RESERVATIONS_INTERNAL_HOST}
       - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
       - STUDENTS_INTERNAL_HOST=${STUDENTS_INTERNAL_HOST}
@@ -390,28 +394,28 @@ services:
     depends_on:
       oauth:
         condition: service_healthy
-    #   classes:
-    #     condition: service_healthy
-    #   courses:
-    #     condition: service_healthy
-    #   lessons:
-    #     condition: service_healthy
-    #   professors:
-    #     condition: service_healthy
-    #   reservations:
-    #     condition: service_healthy
-    #   resources:
-    #     condition: service_healthy
-    #   rooms:
-    #     condition: service_healthy
-    #   students:
-    #     condition: service_healthy
-    # healthcheck:
-    #   test: [ "CMD-SHELL", "curl -f http://localhost:${BFF_INTERNAL_PORT}/health" ]
-    #   start_period: 10s
-    #   interval: 5s
-    #   timeout: 10s
-    #   retries: 5
+      # classes:
+      #   condition: service_healthy
+      # rooms:
+      #   condition: service_healthy
+      # lessons:
+      #   condition: service_healthy
+      # resources:
+      #   condition: service_healthy
+      courses:
+        condition: service_healthy
+      # reservations:
+      #   condition: service_healthy
+      # students:
+      #   condition: service_healthy
+      # professors:
+      #   condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:${BFF_INTERNAL_PORT}/health" ]
+      start_period: 10s
+      interval: 5s
+      timeout: 10s
+      retries: 5
 # Frontend
   frontend:
     container_name: frontend

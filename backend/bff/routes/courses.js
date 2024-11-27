@@ -4,10 +4,10 @@ const { createCourse, getAllCourses, getCourses, putCourse, patchCourse, deleteC
 
 router.post('/', createCourse);
 router.get('/', getAllCourses);
+router.get('/health', getHealth);
 router.get('/:id', getCourses);
 router.put('/:id', putCourse);
 router.patch('/:id', patchCourse);
 router.delete('/:id', deleteCourse);
-router.get('/health', getHealth);
 
 module.exports = router;
