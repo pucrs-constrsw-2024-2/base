@@ -20,6 +20,7 @@ const getAllResources = async (req, res) => {
         const response = await axios.get(`${resourcesUrl}`);
         res.status(response.status).send(response.data);
     } catch (error) {
+        console.log({error})
         res.status(error.response.status).send(error.response.data);
     }
 };
