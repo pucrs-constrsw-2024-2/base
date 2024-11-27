@@ -75,7 +75,7 @@ const createMaintenance = async (req, res) => {
 
 const getAllMaintenance = async (req, res) => {
     try {
-        const response = await axios.get(`${resourcesUrl}`);
+        const response = await axios.get(`${maintenanceUrl}`);
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
@@ -85,9 +85,9 @@ const getAllMaintenance = async (req, res) => {
 const getMaintenance = async (req, res) => {
     try {
         if (!req.query) {
-            const response = await axios.get(`${resourcesUrl}/${req.params.id}`);
+            const response = await axios.get(`${maintenanceUrl}/${req.params.id}`);
         } else {
-            const response = await axios.get(`${resourcesUrl}?${req.query}`);
+            const response = await axios.get(`${maintenanceUrl}?${req.query}`);
         }
         res.status(response.status).send(response.data);
     } catch (error) {
@@ -97,7 +97,7 @@ const getMaintenance = async (req, res) => {
 
 const putMaintenance = async (req, res) => {
     try {
-        const response = await axios.put(`${resourcesUrl}/${req.params.id}`, req.body);
+        const response = await axios.put(`${maintenanceUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
@@ -106,7 +106,7 @@ const putMaintenance = async (req, res) => {
 
 const patchMaintenance = async (req, res) => {
     try {
-        const response = await axios.patch(`${resourcesUrl}/${req.params.id}`, req.body);
+        const response = await axios.patch(`${maintenanceUrl}/${req.params.id}`, req.body);
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
@@ -115,7 +115,7 @@ const patchMaintenance = async (req, res) => {
 
 const deleteMaintenance = async (req, res) => {
     try {
-        const response = await axios.delete(`${resourcesUrl}/${req.params.id}`);
+        const response = await axios.delete(`${maintenanceUrl}/${req.params.id}`);
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response.status).send(error.response.data);
