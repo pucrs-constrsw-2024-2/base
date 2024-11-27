@@ -388,28 +388,28 @@ services:
     depends_on:
       oauth:
         condition: service_healthy
-      classes:
-        condition: service_healthy
-      # courses:
-      #   condition: service_healthy
-      # lessons:
-      #   condition: service_healthy
-      # professors:
-      #   condition: service_healthy
-      # reservations:
-      #   condition: service_healthy
-      # resources:
-      #   condition: service_healthy
-      # rooms:
-      #   condition: service_healthy
-      # students:
-      #   condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost:${BFF_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 5
+    #   classes:
+    #     condition: service_healthy
+    #   courses:
+    #     condition: service_healthy
+    #   lessons:
+    #     condition: service_healthy
+    #   professors:
+    #     condition: service_healthy
+    #   reservations:
+    #     condition: service_healthy
+    #   resources:
+    #     condition: service_healthy
+    #   rooms:
+    #     condition: service_healthy
+    #   students:
+    #     condition: service_healthy
+    # healthcheck:
+    #   test: [ "CMD-SHELL", "curl -f http://localhost:${BFF_INTERNAL_PORT}/health" ]
+    #   start_period: 10s
+    #   interval: 5s
+    #   timeout: 10s
+    #   retries: 5
 # Frontend
   frontend:
     container_name: frontend
