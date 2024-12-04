@@ -17,13 +17,13 @@ const {
 
 const router = express.Router();
 
+router.get('/health', getHealth);
 router.post('/', createRoom);
 router.get('/', getAllRooms);
 router.get('/:id', getRoomById);
 router.put('/:id', fullRoomUpdate);
 router.patch('/:id', partialRoomUpdate);
 router.delete('/:id', deleteRoomById);
-router.get('/health', getHealth);
 router.post("/:id/features", createFeature);
 router.get("/:id/features", getAllFeatures);
 router.get("/:id/features/:featureId", getFeatureById);

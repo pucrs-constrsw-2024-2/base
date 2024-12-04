@@ -120,6 +120,7 @@ services:
       retries: 20
     restart: always
   # Grupo 1: classes
+  # Java/MongoDB
   classes:
     container_name: classes
     build:
@@ -132,11 +133,14 @@ services:
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - MONGODB_DATABASE_NAME=classes
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${CLASSES_INTERNAL_DEBUG_PORT}
     networks:
       - constrsw
+    ports:
+      - ${CLASSES_INTERNAL_DEBUG_PORT}:${CLASSES_INTERNAL_DEBUG_PORT}
     depends_on:
       mongodb:
         condition: service_healthy
@@ -149,6 +153,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 2: rooms
+  # Node/PostgreSQL
   rooms:
     container_name: rooms
     build:
@@ -178,6 +183,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 3: lessons
+# Java/PostgreSQL
   lessons:
     container_name: lessons
     build:
@@ -190,11 +196,14 @@ services:
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DB=lessons
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LESSONS_INTERNAL_DEBUG_PORT}
     networks:
       - constrsw
+    ports:
+      - ${LESSONS_INTERNAL_DEBUG_PORT}:${LESSONS_INTERNAL_DEBUG_PORT}
     depends_on:
       postgresql:
         condition: service_healthy
@@ -207,6 +216,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 4: resources
+  # Node/PostgreSQL
   resources:
     container_name: resources
     build:
@@ -236,6 +246,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 5: courses
+  # Node/PostgreSQL
   courses:
     container_name: courses
     build:
@@ -248,8 +259,8 @@ services:
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DB=courses
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
@@ -265,6 +276,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 6: reservations
+  # Node/PostgreSQL
   reservations:
     container_name: reservations
     build:
@@ -272,13 +284,14 @@ services:
       dockerfile: Dockerfile
     image: constrsw/reservations
     environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DB=reservations
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+      - DATABASE_URL=postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/${POSTGRESQL_DB}
+      - RESERVATIONS_INTERNAL_PROTOCOL=${RESERVATIONS_INTERNAL_PROTOCOL}
+      - RESERVATIONS_INTERNAL_HOST=${RESERVATIONS_INTERNAL_HOST}
+      - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
+      - RESERVATIONS_INTERNAL_DEBUG_PORT=${RESERVATIONS_INTERNAL_DEBUG_PORT}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
     networks:
       - constrsw
@@ -294,6 +307,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 7: students
+  # Java/PostgreSQL
   students:
     container_name: students
     build:
@@ -306,11 +320,14 @@ services:
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DB=students
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${STUDENTS_INTERNAL_DEBUG_PORT}
     networks:
       - constrsw
+    ports:
+      - ${STUDENTS_INTERNAL_DEBUG_PORT}:${STUDENTS_INTERNAL_DEBUG_PORT}
     depends_on:
       postgresql:
         condition: service_healthy
@@ -323,6 +340,7 @@ services:
       timeout: 10s
       retries: 5
   # Grupo 8: professors
+  # Node/PostgreSQL
   professors:
     container_name: professors
     build:
@@ -390,8 +408,8 @@ services:
     depends_on:
       oauth:
         condition: service_healthy
-    #   classes:
-    #     condition: service_healthy
+      classes:
+        condition: service_healthy
     #   courses:
     #     condition: service_healthy
     #   lessons:
