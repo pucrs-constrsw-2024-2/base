@@ -218,6 +218,7 @@ services:
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - DATABASE_URL="postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/resources"
       - POSTGRESQL_DB=resources
       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
@@ -398,10 +399,10 @@ services:
       #   condition: service_healthy
       # lessons:
       #   condition: service_healthy
-      # resources:
-      #   condition: service_healthy
-      courses:
+      resources:
         condition: service_healthy
+      # courses:
+      #   condition: service_healthy
       # reservations:
       #   condition: service_healthy
       # students:
