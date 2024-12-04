@@ -228,6 +228,7 @@ services:
       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - DATABASE_URL="postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/resources"
       - POSTGRESQL_DB=resources
       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
@@ -235,7 +236,7 @@ services:
     networks:
       - constrsw
     depends_on:
-      mongodb:
+      postgresql:
         condition: service_healthy
       oauth:
         condition: service_healthy
