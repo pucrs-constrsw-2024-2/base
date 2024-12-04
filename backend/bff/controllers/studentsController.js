@@ -4,59 +4,66 @@ const apiBaseUrl = `${process.env.STUDENTS_INTERNAL_PROTOCOL}://${process.env.ST
 
 const createStudent = async (req, res) => {
     try {
-        const response = await axios.post(`${apiBaseUrl}`, req.body);
+        const response = await axios.post(`${apiBaseUrl}`, req.body, { headers: req.headers });
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
 const getAllStudents = async (req, res) => {
     try {
-        const response = await axios.get(`${apiBaseUrl}`);
+        console.log('getAllStudents');
+        const queryParams = new URLSearchParams(req.query).toString();
+        console.log(queryParams);
+
+        const requestUrl = queryParams ? `${apiBaseUrl}/?${queryParams}` : `${apiBaseUrl}`;
+
+        console.log(requestUrl);
+
+        const response = await axios.get(requestUrl, { headers: req.headers });
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+        console.log('error');
+        console.log(error);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
 const getStudents = async (req, res) => {
     try {
-        if (!req.query) {
-            const response = await axios.get(`${apiBaseUrl}/${req.params.id}`);
-        } else {
-            const response = await axios.get(`${apiBaseUrl}?${req.query}`);
-        }
+        const response = await axios.get(`${apiBaseUrl}/${req.params.id}`, { headers: req.headers });
         res.status(response.status).send(response.data);
-    } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
 const putStudent = async (req, res) => {
     try {
-        const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body);
+        const response = await axios.put(`${apiBaseUrl}/${req.params.id}`, req.body, { headers: req.headers });
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
 const patchStudent = async (req, res) => {
     try {
-        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body);
+        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}`, req.body, { headers: req.headers });
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
 const deleteStudent = async (req, res) => {
     try {
-        const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`);
+        const response = await axios.delete(`${apiBaseUrl}/${req.params.id}`, { headers: req.headers });
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+            res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 }
 
@@ -65,9 +72,69 @@ const getHealth = async (req, res) => {
         const response = await axios.get(`${apiBaseUrl}/health`);
         res.status(response.status).send(response.data);
     } catch (error) {
-        res.status(error.response.status).send(error.response.data);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
     }
 };
+
+const createResult = async (req, res) => {
+    try {
+        const response = await axios.post(`${apiBaseUrl}/${req.params.id}/results`, req.body, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
+
+const getResults = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/${req.params.id}/results`, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
+
+const getResultById = async (req, res) => {
+    try {
+        const response = await axios.get(`${apiBaseUrl}/${req.params.id}/results/${req.params.resultId}`, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
+
+const putResult = async (req, res) => {
+    try {
+        const response = await axios.put(`${apiBaseUrl}/${req.params.id}/results/${req.params.resultId}`, req.body, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
+
+const patchResult = async (req, res) => {
+    try {
+        const response = await axios.patch(`${apiBaseUrl}/${req.params.id}/results/${req.params.resultId}`, req.body, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
+
+const deleteResult = async (req, res) => {
+    try {
+        const response = await axios.delete(`${apiBaseUrl}/${req.params.id}/results/${req.params.resultId}`, { headers: req.headers });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(error.response?.status || 500).send(error.response?.data || 'Internal Server Error');
+    }
+}
 
 module.exports = {
     createStudent,
@@ -76,5 +143,11 @@ module.exports = {
     putStudent,
     patchStudent,
     deleteStudent,
-    getHealth
+    getHealth,
+    createResult,
+    getResults,
+    getResultById,
+    putResult,
+    patchResult,
+    deleteResult
 }
