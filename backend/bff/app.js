@@ -45,4 +45,8 @@ app.use('/reservations', checkLoggedIn, reservationsRoutes);
 app.use('/students', checkLoggedIn, studentsRoutes);
 app.use('/professors', checkLoggedIn, professorsRoutes);
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+})
+
 app.listen(port);

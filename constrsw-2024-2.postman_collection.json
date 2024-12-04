@@ -4198,6 +4198,538 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Professors",
+			"item": [
+				{
+					"name": "Professors",
+					"item": [
+						{
+							"name": "Get Professor By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/1298531c-4ce0-4aa1-950d-a43cee496fa8",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"1298531c-4ce0-4aa1-950d-a43cee496fa8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Professors",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Professor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"gabriel\",\r\n    \"joinDate\": \"2020-09-15T14:25:53.000Z\",\r\n    \"cpf\": \"333444\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"gabriel@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Professor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/1298531c-4ce0-4aa1-950d-a43cee496fa8",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"1298531c-4ce0-4aa1-950d-a43cee496fa8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Professor By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"gabriel\",\r\n    \"joinDate\": \"2020-08-03T14:25:53.000Z\",\r\n    \"cpf\": \"111222333\",\r\n    \"gender\": \"M\",\r\n    \"email\": \"gabriel@exemplo.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors/28f8ee65-9eec-48af-ad73-d7e99fcf8bae",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"28f8ee65-9eec-48af-ad73-d7e99fcf8bae"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partial Update Professor By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"gabriel g\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors/28f8ee65-9eec-48af-ad73-d7e99fcf8bae",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"28f8ee65-9eec-48af-ad73-d7e99fcf8bae"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Simple Query",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors?cpf=111222333",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors"
+									],
+									"query": [
+										{
+											"key": "cpf",
+											"value": "111222333"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Complex Query",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors?cpf={neq}111&cpf={neq}123&email={like}@gmail",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors"
+									],
+									"query": [
+										{
+											"key": "cpf",
+											"value": "{neq}111"
+										},
+										{
+											"key": "cpf",
+											"value": "{neq}123"
+										},
+										{
+											"key": "email",
+											"value": "{like}@gmail"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Backgrounds",
+					"item": [
+						{
+							"name": "Get All Professor Backgrouds",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/d482bb70-22aa-47f6-bce6-a1cca6005633/backgrounds",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"d482bb70-22aa-47f6-bce6-a1cca6005633",
+										"backgrounds"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Professor Background by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/ab95ce9f-b0e1-459d-acda-bbefeef59aac/backgrounds/78b51685-d056-4951-af01-d7587f687526",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"ab95ce9f-b0e1-459d-acda-bbefeef59aac",
+										"backgrounds",
+										"78b51685-d056-4951-af01-d7587f687526"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Professor Background",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"degree\":\"PhD\",\r\n    \"course\":\"engineering\",\r\n    \"institution\":\"PUCRS\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors/ab95ce9f-b0e1-459d-acda-bbefeef59aac/backgrounds",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"ab95ce9f-b0e1-459d-acda-bbefeef59aac",
+										"backgrounds"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Professor Background",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/ab95ce9f-b0e1-459d-acda-bbefeef59aac/backgrounds/78b51685-d056-4951-af01-d7587f687526",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"ab95ce9f-b0e1-459d-acda-bbefeef59aac",
+										"backgrounds",
+										"78b51685-d056-4951-af01-d7587f687526"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Background By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"degree\":\"PhD\",\r\n    \"course\":\"Design\",\r\n    \"institution\":\"PUCRS\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors/ab95ce9f-b0e1-459d-acda-bbefeef59aac/backgrounds/bba3a0ab-b446-4c19-a549-50f1c3db01f8",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"ab95ce9f-b0e1-459d-acda-bbefeef59aac",
+										"backgrounds",
+										"bba3a0ab-b446-4c19-a549-50f1c3db01f8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partial Update Background By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"institution\":\"UFRGS\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/professors/ab95ce9f-b0e1-459d-acda-bbefeef59aac/backgrounds/bba3a0ab-b446-4c19-a549-50f1c3db01f8",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"ab95ce9f-b0e1-459d-acda-bbefeef59aac",
+										"backgrounds",
+										"bba3a0ab-b446-4c19-a549-50f1c3db01f8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Health check",
+					"item": [
+						{
+							"name": "Health check",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/professors/health",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"professors",
+										"health"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
