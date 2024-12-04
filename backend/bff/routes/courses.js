@@ -5,6 +5,7 @@ const { createCourse, getAllCourses, getCourses, putCourse, patchCourse, deleteC
 router.get('/health', getHealth);
 router.post('/', createCourse);
 router.get('/', getAllCourses);
+router.get('/health', getHealth);
 router.get('/:id', getCourses);
 router.put('/:id', putCourse);
 router.patch('/:id', patchCourse);
