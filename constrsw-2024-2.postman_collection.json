@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "24b0e1f2-3877-41f8-ac50-86e5e0259b4b",
+		"_postman_id": "32877930-6555-4a5a-82c1-72c2838c96dc",
 		"name": "constrsw-2024-2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27047034"
+		"_exporter_id": "40114601"
 	},
 	"item": [
 		{
@@ -2900,6 +2900,1302 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Students",
+					"item": [
+						{
+							"name": "Results",
+							"item": [
+								{
+									"name": "Create result",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"idCadeira\": \"3fa85f64-5717-4562-b3fc-2c963f66afa7\",\r\n  \"semestre\": \"2024/2\",\r\n  \"nota\": 9,\r\n  \"notaG1\": 9,\r\n  \"notaG2\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"type\": \"PARTICIPACAO\",\r\n    \"date\": \"21/03/2025\",\r\n    \"weight\": 0.1\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "115"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"73-87/MgeQCedQXXdUghf7Ms1g0pmU\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:38:10 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"id\": \"3838f546-1c5b-476f-9f65-bff37613c34e\",\n    \"type\": \"PARTICIPACAO\",\n    \"date\": \"21/03/2025\",\n    \"weight\": 0.1,\n    \"enabled\": true\n}"
+										}
+									]
+								},
+								{
+									"name": "Get result by id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results/127d1e61-0ad5-4232-8fc8-df502a981fd5",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results",
+												"127d1e61-0ad5-4232-8fc8-df502a981fd5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades",
+														"3d86c676-fe37-459b-a769-27dac03760b2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "109"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6d-0go/yVyjjRorz4PJxQRPvmTNdyc\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:36:05 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.25,\n    \"enabled\": true\n}"
+										}
+									]
+								},
+								{
+									"name": "Get all results",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results/127d1e61-0ad5-4232-8fc8-df502a981fd5",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results",
+												"127d1e61-0ad5-4232-8fc8-df502a981fd5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "111"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6f-6LgGrFD+UCGMMqyfnR4xBwu4Tnc\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:33:47 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "[\n    {\n        \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n        \"type\": \"PROVA\",\n        \"date\": \"06/12/2024\",\n        \"weight\": 0.25,\n        \"enabled\": true\n    }\n]"
+										}
+									]
+								},
+								{
+									"name": "Delete result",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results/127d1e61-0ad5-4232-8fc8-df502a981fd5",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results",
+												"127d1e61-0ad5-4232-8fc8-df502a981fd5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades",
+														"3d86c676-fe37-459b-a769-27dac03760b2"
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "plain",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:36:28 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "Update result",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"idCadeira\": \"3fa85f64-5717-4562-b3fc-2c963f66afa7\",\r\n  \"semestre\": \"2024/2\",\r\n  \"nota\": 7,\r\n  \"notaG1\": 6,\r\n  \"notaG2\": 8\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results/127d1e61-0ad5-4232-8fc8-df502a981fd5",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results",
+												"127d1e61-0ad5-4232-8fc8-df502a981fd5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"type\": \"PROVA\",\r\n    \"date\": \"06/12/2024\",\r\n    \"weight\": 0.1\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades",
+														"3d86c676-fe37-459b-a769-27dac03760b2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "109"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6d-pIn0uQXgiTBssipJtKZJtN4dgUs\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:37:04 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.1,\n    \"enabled\": false\n}"
+										}
+									]
+								},
+								{
+									"name": "Patch result",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"nota\": 7,\r\n  \"notaG1\": 6,\r\n  \"notaG2\": 8\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/students/f1582910-2627-4f09-9b01-10fb973b77d5/results/127d1e61-0ad5-4232-8fc8-df502a981fd5",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"students",
+												"f1582910-2627-4f09-9b01-10fb973b77d5",
+												"results",
+												"127d1e61-0ad5-4232-8fc8-df502a981fd5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Sucesso",
+											"originalRequest": {
+												"method": "PATCH",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"weight\": 0.15\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{bff-url}}/classes/f0a6b001-e1a3-4654-9d75-03d91394d0a2/grades/3d86c676-fe37-459b-a769-27dac03760b2",
+													"host": [
+														"{{bff-url}}"
+													],
+													"path": [
+														"classes",
+														"f0a6b001-e1a3-4654-9d75-03d91394d0a2",
+														"grades",
+														"3d86c676-fe37-459b-a769-27dac03760b2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "110"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6e-ARA1aPTJ+gXTdJ3Q2ILJEqvImls\""
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 24 Nov 2024 21:37:33 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"id\": \"3d86c676-fe37-459b-a769-27dac03760b2\",\n    \"type\": \"PROVA\",\n    \"date\": \"06/12/2024\",\n    \"weight\": 0.15,\n    \"enabled\": false\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Patch Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"joao2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/students/2162c49e-a351-4883-9461-e5011e22f5b2",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students",
+										"2162c49e-a351-4883-9461-e5011e22f5b2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"time\": \"6JK\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes/e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "485"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e5-RDOrQAVhPHHVD4mUoFSMujNDFEY\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:24:00 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7\",\n    \"number\": 610,\n    \"codcred\": \"46504-04\",\n    \"year\": 2025,\n    \"semester\": 1,\n    \"time\": \"6JK\",\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\n    \"enabled\": true,\n    \"createdAt\": \"2024-11-24T20:19:48.807\",\n    \"modifiedAt\": \"2024-11-24T20:24:00.8588207\",\n    \"grades\": [\n        {\n            \"id\": \"7f8d08c8-cb44-4a57-8e7e-32825f04c587\",\n            \"type\": \"PROVA\",\n            \"date\": \"06/12/2024\",\n            \"weight\": 0.25,\n            \"enabled\": true\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@email.com\",\r\n  \"curso\": \"Engenharia de Software\",\r\n  \"matricula\": \"21200999\",\r\n  \"dataMatricula\": \"2021-06-01\",\r\n  \"dataNascimento\": \"2000-01-01\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/students/2162c49e-a351-4883-9461-e5011e22f5b2",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students",
+										"2162c49e-a351-4883-9461-e5011e22f5b2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"number\": 610,\r\n    \"codcred\": \"46504-04\",\r\n    \"year\": 2025,\r\n    \"semester\": 1,\r\n    \"time\": \"6LMNP\",\r\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\r\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\r\n    \"enabled\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes/e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "487"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e7-nCzcURtGLge1gVCZuikac8fE2w4\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:22:40 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7\",\n    \"number\": 610,\n    \"codcred\": \"46504-04\",\n    \"year\": 2025,\n    \"semester\": 1,\n    \"time\": \"6LMNP\",\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\n    \"enabled\": true,\n    \"createdAt\": \"2024-11-24T20:19:48.807\",\n    \"modifiedAt\": \"2024-11-24T20:22:40.8696436\",\n    \"grades\": [\n        {\n            \"id\": \"7f8d08c8-cb44-4a57-8e7e-32825f04c587\",\n            \"type\": \"PROVA\",\n            \"date\": \"06/12/2024\",\n            \"weight\": 0.25,\n            \"enabled\": true\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/students/2162c49e-a351-4883-9461-e5011e22f5b2",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students",
+										"2162c49e-a351-4883-9461-e5011e22f5b2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/6e2b0500-81fe-40e5-948a-a1dd7dcffb3c",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"6e2b0500-81fe-40e5-948a-a1dd7dcffb3c"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:42:03 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Get all students",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/students?deletado=false",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "enabled",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "year",
+											"value": "2025",
+											"disabled": true
+										},
+										{
+											"key": "number",
+											"value": "610",
+											"disabled": true
+										},
+										{
+											"key": "codcred",
+											"value": "teste",
+											"disabled": true
+										},
+										{
+											"key": "professorId",
+											"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+											"disabled": true
+										},
+										{
+											"key": "courseId",
+											"value": "c5760f9e-326f-40e6-8877-a010fb2379cd",
+											"disabled": true
+										},
+										{
+											"key": "roomId",
+											"value": "580696a9-26b3-4a26-8cb7-317c818383b2",
+											"disabled": true
+										},
+										{
+											"key": "deletado",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes?enabled=true",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes"
+											],
+											"query": [
+												{
+													"key": "year",
+													"value": "2025",
+													"disabled": true
+												},
+												{
+													"key": "codcred",
+													"value": "teste",
+													"disabled": true
+												},
+												{
+													"key": "professorId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+													"disabled": true
+												},
+												{
+													"key": "courseId",
+													"value": "c5760f9e-326f-40e6-8877-a010fb2379cd",
+													"disabled": true
+												},
+												{
+													"key": "roomId",
+													"value": "580696a9-26b3-4a26-8cb7-317c818383b2",
+													"disabled": true
+												},
+												{
+													"key": "enabled",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "485"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e5-TrDJPeiKTHKGJtLzNavs6H+mPk0\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:22:49 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": \"e0af0bd5-79f5-4478-a09c-9fd47a2d7ba7\",\n        \"number\": 610,\n        \"codcred\": \"46504-04\",\n        \"year\": 2025,\n        \"semester\": 1,\n        \"time\": \"6LMNP\",\n        \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\n        \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\n        \"enabled\": true,\n        \"createdAt\": \"2024-11-24T20:19:48.807\",\n        \"modifiedAt\": \"2024-11-24T20:22:40.869\",\n        \"grades\": [\n            {\n                \"id\": \"7f8d08c8-cb44-4a57-8e7e-32825f04c587\",\n                \"type\": \"PROVA\",\n                \"date\": \"06/12/2024\",\n                \"weight\": 0.25,\n                \"enabled\": true\n            }\n        ]\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Get student by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/students/2162c49e-a351-4883-9461-e5011e22f5b2",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students",
+										"2162c49e-a351-4883-9461-e5011e22f5b2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Erro - turma não encontrada",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/84630d99-fac6-4d57-98e1-4160c91f5ccf",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"84630d99-fac6-4d57-98e1-4160c91f5ccf"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "4832"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"12e0-9gBN7+P0mGs4Jv+BKK1QZdVQdIQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:41:22 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error_code\": \"404\",\n    \"error_description\": \"Turma 84630d99-fac6-4d57-98e1-4160c91f5ccf nao encontrada\",\n    \"error_source\": \"ClassesAPI\",\n    \"error_stack\": [\n        \"org.pucrs.br.service.impl.ClassServiceImpl.findClassById(ClassServiceImpl.java:117)\",\n        \"org.pucrs.br.service.impl.ClassServiceImpl.getById(ClassServiceImpl.java:56)\",\n        \"org.pucrs.br.controller.ClassController.getClassById(ClassController.java:77)\",\n        \"java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\",\n        \"java.base/java.lang.reflect.Method.invoke(Method.java:580)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)\",\n        \"org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)\",\n        \"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)\",\n        \"org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)\",\n        \"org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)\",\n        \"org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)\",\n        \"org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)\",\n        \"org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)\",\n        \"jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\",\n        \"org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)\",\n        \"org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)\",\n        \"org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)\",\n        \"org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\",\n        \"org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)\",\n        \"org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)\",\n        \"org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\",\n        \"org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\",\n        \"org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)\",\n        \"org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)\",\n        \"org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\",\n        \"org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)\",\n        \"org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)\",\n        \"org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\",\n        \"org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\",\n        \"org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\",\n        \"java.base/java.lang.Thread.run(Thread.java:1583)\"\n    ]\n}"
+								},
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/6e2b0500-81fe-40e5-948a-a1dd7dcffb3c",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"6e2b0500-81fe-40e5-948a-a1dd7dcffb3c"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "489"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1e9-PYxRZomTYDBXMXopsuN7npUCq0M\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:41:50 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"6e2b0500-81fe-40e5-948a-a1dd7dcffb3c\",\n    \"number\": 610,\n    \"codcred\": \"46504-04\",\n    \"year\": 2024,\n    \"semester\": 2,\n    \"time\": \"2LMNP,4LMNP\",\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\n    \"enabled\": true,\n    \"createdAt\": \"2024-11-24T20:41:43.571\",\n    \"modifiedAt\": \"2024-11-24T20:41:43.571\",\n    \"grades\": [\n        {\n            \"id\": \"034bca1a-81ef-485c-81ab-f0d3862b61a7\",\n            \"type\": \"PROVA\",\n            \"date\": \"06/12/2024\",\n            \"weight\": 0.25,\n            \"enabled\": true\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Student",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"joao\",\r\n  \"email\": \"joao@email.com\",\r\n  \"curso\": \"Engenharia de Software\",\r\n  \"matricula\": \"21200999\",\r\n  \"dataMatricula\": \"2021-06-01\",\r\n  \"dataNascimento\": \"2000-01-01\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{bff-url}}/students",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"number\": 610,\r\n    \"codcred\": \"46504-04\",\r\n    \"year\": 2024,\r\n    \"semester\": 2,\r\n    \"time\": \"2LMNP,4LMNP\",\r\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\r\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\r\n    \"grades\": [\r\n        {\r\n            \"type\": \"PROVA\",\r\n            \"date\": \"06/12/2024\",\r\n            \"weight\": 0.25\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{bff-url}}/classes",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "497"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1f1-d3pWQVmZt7/csK6qbh67PKy/508\""
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 24 Nov 2024 20:44:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"1c2b6061-fc37-4286-8378-d2d367c0dae7\",\n    \"number\": 610,\n    \"codcred\": \"46504-04\",\n    \"year\": 2024,\n    \"semester\": 2,\n    \"time\": \"2LMNP,4LMNP\",\n    \"professorId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"courseId\": \"c5760f9e-326f-40e6-8877-a010fb2379cd\",\n    \"roomId\": \"580696a9-26b3-4a26-8cb7-317c818383b2\",\n    \"enabled\": true,\n    \"createdAt\": \"2024-11-24T20:44:44.3023673\",\n    \"modifiedAt\": \"2024-11-24T20:44:44.3023673\",\n    \"grades\": [\n        {\n            \"id\": \"83c522e9-35bb-4991-8ca7-1acaf0ee7abe\",\n            \"type\": \"PROVA\",\n            \"date\": \"06/12/2024\",\n            \"weight\": 0.25,\n            \"enabled\": true\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Health",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{bff-url}}/students/health",
+									"host": [
+										"{{bff-url}}"
+									],
+									"path": [
+										"students",
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sucesso",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{bff-url}}/classes/health",
+											"host": [
+												"{{bff-url}}"
+											],
+											"path": [
+												"classes",
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "html",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/html; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 25 Nov 2024 00:54:18 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -3434,6 +4730,28 @@
 					]
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
