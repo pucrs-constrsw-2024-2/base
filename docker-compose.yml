@@ -154,192 +154,192 @@ services:
       retries: 5
   # Grupo 2: rooms
   # Node/PostgreSQL
-  rooms:
-    container_name: rooms
-    build:
-      context: ./backend/rooms/
-      dockerfile: Dockerfile
-    image: constrsw/rooms
-    environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DB=rooms
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-    networks:
-      - constrsw
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${ROOMS_INTERNAL_HOST}:${ROOMS_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 5
-  # Grupo 3: lessons
-# Java/PostgreSQL
-  lessons:
-    container_name: lessons
-    build:
-      context: ./backend/lessons/
-      dockerfile: Dockerfile
-    image: constrsw/lessons
-    environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DB=lessons
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LESSONS_INTERNAL_DEBUG_PORT}
-    networks:
-      - constrsw
-    ports:
-      - ${LESSONS_INTERNAL_DEBUG_PORT}:${LESSONS_INTERNAL_DEBUG_PORT}
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${LESSONS_INTERNAL_HOST}:${LESSONS_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 5
-  # Grupo 4: resources
-  # Node/PostgreSQL
-  resources:
-    container_name: resources
-    build:
-      context: ./backend/resources/
-      dockerfile: Dockerfile
-    image: constrsw/resources
-    environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - DATABASE_URL="postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/resources"
-      - POSTGRESQL_DB=resources
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-    networks:
-      - constrsw
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${RESOURCES_INTERNAL_HOST}:${RESOURCES_INTERNAL_PORT}/health" ]
-      start_period: 120s
-      interval: 10s
-      timeout: 10s
-      retries: 5
-  # Grupo 5: courses
-  # Node/PostgreSQL
-  courses:
-    container_name: courses
-    build:
-      context: ./backend/courses/
-      dockerfile: Dockerfile
-    image: constrsw/courses
-    environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USER=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DB=courses
-      - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-    networks:
-      - constrsw
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${COURSES_INTERNAL_HOST}:${COURSES_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 5
-  # Grupo 6: reservations
-  # Node/PostgreSQL
-  reservations:
-    container_name: reservations
-    build:
-      context: ./backend/reservations/
-      dockerfile: Dockerfile
-    image: constrsw/reservations
-    environment:
-      - POSTGRESQL_DB=reservations
-      - DATABASE_URL=postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/${POSTGRESQL_DB}
-      - RESERVATIONS_INTERNAL_PROTOCOL=${RESERVATIONS_INTERNAL_PROTOCOL}
-      - RESERVATIONS_INTERNAL_HOST=${RESERVATIONS_INTERNAL_HOST}
-      - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
-      - RESERVATIONS_INTERNAL_DEBUG_PORT=${RESERVATIONS_INTERNAL_DEBUG_PORT}
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-    networks:
-      - constrsw
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/health" ]
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 5
-  # Grupo 7: students
-  # Java/PostgreSQL
-  students:
-    container_name: students
-    build:
-      context: ./backend/students
-      dockerfile: Dockerfile
-    image: constrsw/students
-    environment:
-      - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
-      - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DB=students
-      - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
-      - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
-      - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
-      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${STUDENTS_INTERNAL_DEBUG_PORT}
-    networks:
-      - constrsw
-    ports:
-      - ${STUDENTS_INTERNAL_DEBUG_PORT}:${STUDENTS_INTERNAL_DEBUG_PORT}
-    depends_on:
-      postgresql:
-        condition: service_healthy
-      oauth:
-        condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://${STUDENTS_INTERNAL_HOST}:${STUDENTS_INTERNAL_PORT}/health" ]
-      start_period: 30s
-      interval: 5s
-      timeout: 10s
-      retries: 5
+#   rooms:
+#     container_name: rooms
+#     build:
+#       context: ./backend/rooms/
+#       dockerfile: Dockerfile
+#     image: constrsw/rooms
+#     environment:
+#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+#       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#       - POSTGRESQL_DB=rooms
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+#     networks:
+#       - constrsw
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${ROOMS_INTERNAL_HOST}:${ROOMS_INTERNAL_PORT}/health" ]
+#       start_period: 10s
+#       interval: 5s
+#       timeout: 10s
+#       retries: 5
+#   # Grupo 3: lessons
+# # Java/PostgreSQL
+#   lessons:
+#     container_name: lessons
+#     build:
+#       context: ./backend/lessons/
+#       dockerfile: Dockerfile
+#     image: constrsw/lessons
+#     environment:
+#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+#       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#       - POSTGRESQL_DB=lessons
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+#       - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${LESSONS_INTERNAL_DEBUG_PORT}
+#     networks:
+#       - constrsw
+#     ports:
+#       - ${LESSONS_INTERNAL_DEBUG_PORT}:${LESSONS_INTERNAL_DEBUG_PORT}
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${LESSONS_INTERNAL_HOST}:${LESSONS_INTERNAL_PORT}/health" ]
+#       start_period: 10s
+#       interval: 5s
+#       timeout: 10s
+#       retries: 5
+#   # Grupo 4: resources
+#   # Node/PostgreSQL
+#   resources:
+#     container_name: resources
+#     build:
+#       context: ./backend/resources/
+#       dockerfile: Dockerfile
+#     image: constrsw/resources
+#     environment:
+#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+#       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#       - DATABASE_URL="postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/resources"
+#       - POSTGRESQL_DB=resources
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+#     networks:
+#       - constrsw
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${RESOURCES_INTERNAL_HOST}:${RESOURCES_INTERNAL_PORT}/health" ]
+#       start_period: 120s
+#       interval: 10s
+#       timeout: 10s
+#       retries: 5
+#   # Grupo 5: courses
+#   # Node/PostgreSQL
+#   courses:
+#     container_name: courses
+#     build:
+#       context: ./backend/courses/
+#       dockerfile: Dockerfile
+#     image: constrsw/courses
+#     environment:
+#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+#       - POSTGRESQL_USER=${POSTGRESQL_USERNAME}
+#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#       - POSTGRESQL_DB=courses
+#       - COURSES_INTERNAL_PORT=${COURSES_INTERNAL_PORT}
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#     networks:
+#       - constrsw
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${COURSES_INTERNAL_HOST}:${COURSES_INTERNAL_PORT}/health" ]
+#       start_period: 10s
+#       interval: 5s
+#       timeout: 10s
+#       retries: 5
+#   # Grupo 6: reservations
+#   # Node/PostgreSQL
+#   reservations:
+#     container_name: reservations
+#     build:
+#       context: ./backend/reservations/
+#       dockerfile: Dockerfile
+#     image: constrsw/reservations
+#     environment:
+#       - POSTGRESQL_DB=reservations
+#       - DATABASE_URL=postgresql://${POSTGRESQL_USERNAME}:${POSTGRESQL_PASSWORD}@${POSTGRESQL_INTERNAL_HOST}:${POSTGRESQL_INTERNAL_PORT}/${POSTGRESQL_DB}
+#       - RESERVATIONS_INTERNAL_PROTOCOL=${RESERVATIONS_INTERNAL_PROTOCOL}
+#       - RESERVATIONS_INTERNAL_HOST=${RESERVATIONS_INTERNAL_HOST}
+#       - RESERVATIONS_INTERNAL_PORT=${RESERVATIONS_INTERNAL_PORT}
+#       - RESERVATIONS_INTERNAL_DEBUG_PORT=${RESERVATIONS_INTERNAL_DEBUG_PORT}
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+#     networks:
+#       - constrsw
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${RESERVATIONS_INTERNAL_HOST}:${RESERVATIONS_INTERNAL_PORT}/health" ]
+#       start_period: 10s
+#       interval: 5s
+#       timeout: 10s
+#       retries: 5
+#   # Grupo 7: students
+#   # Java/PostgreSQL
+#   students:
+#     container_name: students
+#     build:
+#       context: ./backend/students
+#       dockerfile: Dockerfile
+#     image: constrsw/students
+#     environment:
+#       - POSTGRESQL_INTERNAL_HOST=${POSTGRESQL_INTERNAL_HOST}
+#       - POSTGRESQL_INTERNAL_PORT=${POSTGRESQL_INTERNAL_PORT}
+#       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
+#       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+#       - POSTGRESQL_DB=students
+#       - OAUTH_INTERNAL_PROTOCOL=${OAUTH_INTERNAL_PROTOCOL}
+#       - OAUTH_INTERNAL_HOST=${OAUTH_INTERNAL_HOST}
+#       - OAUTH_INTERNAL_PORT=${OAUTH_INTERNAL_PORT}
+#       - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${STUDENTS_INTERNAL_DEBUG_PORT}
+#     networks:
+#       - constrsw
+#     ports:
+#       - ${STUDENTS_INTERNAL_DEBUG_PORT}:${STUDENTS_INTERNAL_DEBUG_PORT}
+#     depends_on:
+#       postgresql:
+#         condition: service_healthy
+#       oauth:
+#         condition: service_healthy
+#     healthcheck:
+#       test: [ "CMD-SHELL", "curl -f http://${STUDENTS_INTERNAL_HOST}:${STUDENTS_INTERNAL_PORT}/health" ]
+#       start_period: 30s
+#       interval: 5s
+#       timeout: 10s
+#       retries: 5
   # Grupo 8: professors
   # Node/PostgreSQL
   professors:
@@ -413,18 +413,18 @@ services:
         condition: service_healthy
       classes:
         condition: service_healthy
-      rooms:
-        condition: service_healthy
-      lessons:
-        condition: service_healthy
-      resources:
-        condition: service_healthy
-      courses:
-        condition: service_healthy
-      reservations:
-        condition: service_healthy
-      students:
-        condition: service_healthy
+      # rooms:
+      #   condition: service_healthy
+      # lessons:
+      #   condition: service_healthy
+      # resources:
+      #   condition: service_healthy
+      # courses:
+      #   condition: service_healthy
+      # reservations:
+      #   condition: service_healthy
+      # students:
+      #   condition: service_healthy
       professors:
         condition: service_healthy
     healthcheck:
@@ -441,10 +441,9 @@ services:
       dockerfile: Dockerfile
     image: constrsw/frontend
     ports:
-      - 80:3000
-      - 5173:5173
+      - 80:5173
     networks:
       - constrsw
-    depends_on:
-      bff:
-        condition: service_healthy
+    # depends_on:
+    #   bff:
+    #     condition: service_healthy
