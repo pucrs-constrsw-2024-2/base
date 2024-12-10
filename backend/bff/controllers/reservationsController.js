@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const apiBaseUrl = `${process.env.RESERVATIONS_INTERNAL_PROTOCOL}://${process.env.RESERVATIONS_INTERNAL_HOST}:${process.env.RESERVATIONS_INTERNAL_PORT}/${}` || "http://reservations:8080";
+const apiBaseUrl = `${process.env.RESERVATIONS_INTERNAL_PROTOCOL}://${process.env.RESERVATIONS_INTERNAL_HOST}:${process.env.RESERVATIONS_INTERNAL_PORT}` || "http://reservations:8080";
 
 const createReservation = async (req, res) => {
     try {
